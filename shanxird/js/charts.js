@@ -131,8 +131,6 @@ $(document).ready(function () {
     clickMonth(id)
     //选择月份
     function clickMonth(id) {
-        //http://192.168.1.109:8002/exam/api/app/report/months?menuId=188235265091964928&year=2018
-        // var Monthurl = url() + "api/app/report/months?menuId="+id+"&year="+year;
         var Monthurl = url() + "api/app/report/months?menuId="+id+"&year="+localStorage.getItem('year');
         $.ajax({
             url: Monthurl,
@@ -968,6 +966,7 @@ $(document).ready(function () {
 				page:{layout:['prev', 'page', 'next','limit','count']},
                 cols:convertH,
 				done: function (res, curr, count) {
+                    //console.log(res)
 					$("[data-field='lowerHairPath']").css('display', 'none');
 					$(".layui-table-main tr").each(function (index, val) {
 						$($(".layui-table-fixed-l .layui-table-body tbody tr")[index]).height($(val).height());
@@ -996,10 +995,9 @@ $(document).ready(function () {
 				}
                 });
                 table.on('tool(layuiTableFilter)', function(obj){
-                    //console.log( obj.event );
-                    
+                //console.log( obj.event );    
                 layer.msg( obj.data[obj.event]  );
-                
+
                 });
             });
            $('#unit').text(`单位:(${unitText+unitName})`);//单位
@@ -1011,11 +1009,8 @@ $(document).ready(function () {
     tablePage()//表格数据
    
     function convertHeaders (headers, config) { //解析表格表头数据
-		
         if (!headers || !headers.length) return [];
-		
         const currHeader = headers.map(headerRow => {
-			
 			return headerRow.map(cur =>{
 				// 左锁定
 				const leftLock =  config && config.find(c => c.colIndex >= cur.index && c.type === 'LEFT_LOCK_COL');
@@ -1023,14 +1018,16 @@ $(document).ready(function () {
 				const rightLock =  false;
 				
 				const sizeWidth =  config && config.find(c => c.colIndex >= cur.index && c.type === 'RESIZE_COL');
-				
 				var resData = {
                     field: `a${cur.index}`.toString(),
                     event: `a${cur.index}`.toString(),
 				    title: cur.text,
                     width: parseInt(cur.width, 10) * 1.5,
-                    align: cur.textAlign || 'center',
-				    // align: 'center', //字体全部居中
+                    align: cur.textAlign || 'center',//字体对齐方向
+                    templet: function(d){
+                        let Style = `display:block;text-align:${d['a'+cur.index+'Style']}`
+                        return `<span style="${Style}">${d["a"+cur.index.toString()]}</span>`
+                    }
 				};
 				
 				if(cur.rowSpan && cur.rowSpan>1) resData.rowspan = cur.rowSpan;
@@ -1043,37 +1040,29 @@ $(document).ready(function () {
 					resData.fixed = 'right';
 				}
 				if(sizeWidth && sizeWidth.size) resData.width = sizeWidth.size*1.5;
-				
-				
 				return resData;
 			});
-			
         })
-		
-		
         return currHeader;
+        
     }
 	
     function convertData(data,config,convertTou){ //解析表格数据
-        
 		if (!data || !data.length) return [];
-		
         var convertList = [];
-        
 		data.forEach((item,index)=>{
             var convertObj={};
- 
             item.map((items,indexs)=>{
-              console.log(item)
+              //console.log(item)
                 if(!items.index) return;
                 const key = 'a' + items.index;
                 convertObj[key] = {};
                 convertObj[key] = items.text;
-                
+                convertObj[key+'Style'] = items.textAlign;
             })
             convertList.push(convertObj);
         })
-		
+        console.log(convertList,'表格数据');
         return convertList;
     }
 
