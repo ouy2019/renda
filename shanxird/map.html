@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="renderer" content="webkit">
+        <meta name="HandheldFriendly" content="True"> <!-- 用来 标示移动站点 -->
+        <meta name="x5-fullscreen" content="true" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+        <meta name="x5-orientation" content="portrait" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+        <meta name="x5-page-mode" content="app" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+        <meta name="full-screen" content="yes"> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+        <title>人大预算联网监督系统</title>
+        <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+        <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+        <meta HTTP-EQUIV="expires" CONTENT="0">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="css/commom.css?a=sa1dasdsa1f">
+        <script type="text/javascript" src="js/jq.js"></script>
+        <script type="text/javascript" src="js/common.js?a=21"></script>
+        <script type="text/javascript" src="js/jsBridge.js"></script>
+        <script type="text/javascript" src="js/echarts.js"></script>
+        <script src="js/echartsOptions.js"></script>
+        <style>
+            .title ,.hasOpen, .noOpen{
+                display:none;
+            }
+        </style>
+    </head>
+<body>
+    <div>
+        <div id="header" class="mapHeader">
+            <span class="back" onclick="back()"><img src="images/back.png" alt="" /></span><span id="title"></span><span
+                class="yearSelect Select"></span>
+        </div>
+        <div class="mapContent">
+            <div class="clickTmp"></div><p class="biaoti"></p>
+            <div style="width: 100%; height:70vh" id="mainMap">
+                
+            </div>
+            <div style="width: 100%; height:70vh;top: 1rem;position: fixed;display: none;top:1.2rem" id="cityMap"></div>
+        </div>
+        <div class="mark">
+            <div class="jianjie">
+                <p>省人大系统二期已初步建成，所有10个市级人大已完成</p>
+                <p>人大预算联网监督系统</p>
+                <p>全省共有72个区县已完成系统建设，点击地图可查看</p>
+                <p>各地市下辖区县系统建设情况</p>
+             </div>
+            <div class="title"><span class="box1"></span>
+                已建成
+            </div>
+            <div class="hasOpen">
+
+            </div>
+            <div class="title"><span class="box2"></span>
+                未建成
+            </div>
+            <div class="noOpen">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/map.js"></script>
+</html>

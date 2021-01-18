@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <meta name="HandheldFriendly" content="True"> <!-- 用来 标示移动站点 -->
+  <meta name="x5-fullscreen" content="true" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-orientation" content="portrait" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-page-mode" content="app" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="full-screen" content="yes"> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <title>人大系统</title>
+  <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+  <meta HTTP-EQUIV="expires" CONTENT="0">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./css/commom.css">
+  <link rel="stylesheet" type="text/css" href="./css/index.css?a=26s1">
+  <link rel="stylesheet" type="text/css" href="./css/zTreeStyle.css">
+  <link rel="stylesheet" type="text/css" href="./css/mescroll.css">
+  <link rel="stylesheet" href="./css/layui.css">
+  <link rel="stylesheet" href="./layer/theme/default/layer.css">
+  <script type="text/javascript" src="./js/jq.js"></script>
+  <script src="./layer/layer.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script>
+  <script type="text/javascript" src="route.js"></script>
+  <script type="text/javascript" src="./js/MD5.js"></script>
+  <script type="text/javascript" src="./js/mescroll.js"></script>
+  <script type="text/javascript" src="./js/jsBridge.js"></script>
+  <script type="text/javascript" src="./js/jquery.ztree.core.min.js"></script>
+  <style type="text/css">
+    div .layui-tab-content {
+      padding: 0;
+    }
+
+    .list-tabs li {
+      border-top: 1px solid #ededed;
+      margin-top: 15px;
+      background: url(images/biaoqian.png)no-repeat;
+      background-position: 5px 15px;
+      background-size: 25px;
+    }
+
+    .list-tabs li:first-child {
+      border: none;
+      margin-top: 10px;
+    }
+
+    ul.layui-tab-title {
+      border: none;
+      box-shadow: 0px 5px 7px rgba(0, 63, 164, 0.1);
+      overflow-x: scroll;
+    }
+    #header {
+        height: 1rem;
+        background: #e53935;
+        line-height: 1rem;
+        text-align: center;
+        color: #454545;
+        color: #fff;
+        font-size: 14px;
+        z-index: 99;
+      }
+    #header span#year {
+      position: absolute;
+      top: 0;
+      right: 30px;
+      text-align: center;
+      font-size: 20px;
+    }
+  
+    #app {
+      height: 100%;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    .layui-tab.layui-tab-brief {
+      margin-top: 50px;
+    }
+
+    .icon-title i {
+      float: right;
+    }
+
+    .icon-title,
+    .wenjian {
+      padding: 12px 5% 0 10%;
+      position: relative;
+    }
+
+    .wenjian i {
+      float: right;
+      width: 35px;
+      color: #a09e9e;
+      /* border: 1px solid; */
+      /* border-radius: 40%; */
+      background: url(images/beijing.png)no-repeat whitesmoke;
+      background-size: contain;
+      height: 18px;
+      line-height: 18px;
+      border-radius: 30%;
+      text-align: center;
+    }
+
+    .wenjian span {
+      color: #ff4900;
+    }
+
+    .display {
+      display: none !important;
+    }
+
+    .li {
+      width: 50% !important;
+      padding: 0 !important;
+    }
+
+    .lis {
+      width: 33.33% !important;
+      padding: 0 !important;
+    }
+
+    .icon-title p {
+      /* overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; */
+      width: 100%;
+      font-size: 15px;
+      line-height: 22px;
+    }
+
+    .icon-title .news {
+      width: 40px;
+      float: right;
+      background: url(images/new.png)no-repeat;
+      background-size: contain;
+      height: 20px;
+      position: absolute;
+      right: 10%;
+      top: 20px
+    }
+
+    .layui-tab-title li {
+      width: 40%;
+    }
+    .yushuan2{
+      /* display: none; */
+    }
+  </style> 
+
+</head>
+
+<body>
+  <div id="app">
+    <div id="header">
+      <span class="back"><img src="images/back.png" alt="" /></span>
+      <span class="title"></span>
+      <span id="year" class="timeStyle"></span>
+    </div>
+    <div class="layui-tab layui-tab-brief">
+      <ul class="layui-tab-title">
+
+  
+      </ul>
+      <div class="layui-tab-content">
+        <div class="layui-tab-item ">
+          <ul class="list-tabs yushuan1">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+   //查询子文档资料目录树 //api/documentation-categories/202061/children?deepLoad=true&showSelf=false
+   //分页查询文档资料 //api/documentation?categoryId=216517519081607168&page=0&size=30
+   var categoryObj = {};
+   function catalog(){
+       $.ajax({
+        url: url()+'api/documentation-categories/'+getQueryString('categoryId')+'/children?deepLoad=true&showSelf=false',
+        type: 'GET',
+        async: false,
+        accept: 'application/json;charset=UTF-8',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+        timeout: 100000,
+        dataType: "json",
+        success: function (msg){
+          console.log(msg)
+          var catalogData = '';
+          category(msg[0].id);//分页查询文档资料
+          if(msg.length){
+            for(var i=0; i<msg.length; i++){
+              categoryObj[msg[i].id]=null;
+              catalogData+='<li data-id="'+msg[i].id+'">'+msg[i].name+'</li>'
+            }
+
+            $('.layui-tab-title').append(catalogData);
+            $('.layui-tab-title li').eq(0).addClass('layui-this');
+           //tab选项卡
+            $('.layui-tab-title li').click(function(){
+              var id = $(this).attr('data-id');
+              $('.layui-tab-title li').removeClass('layui-this');
+                $(this).addClass('layui-this');
+                var index=$(this).index();
+                $(".list-tabs li").remove()
+                $(".layui-tab-content>.layui-tab-item").eq(index).show().siblings().hide();
+                if(categoryObj[id]){
+                  creatHtml(categoryObj[id])
+                }else{
+                  category(id);  //分页查询文档资料
+
+                }
+
+                 
+            })
+          }
+
+        }
+       })
+   }
+  // catalog();  //查询子文档资料目录树
+  function creatHtml(data){
+    var categoryData = '';
+    for (var j = 0; j < data.length - 1; j++) {
+        for (var i = 0; i < data.length - 1 - j; i++) {
+            if (data[i].showOrder > data[i + 1].showOrder) {
+                var temp = data[i];
+                data[i] = data[i + 1];
+                data[i + 1] = temp;
+            }
+        }
+    };
+    for(var i=0;i<data.length;i++){
+               categoryData+='<li data-title="'+data[i].title+'" data-name="'+data[i].files[0].name+'"><div class="icon-title"><p>'+data[i].title+'</p></div> </li>'
+             //<div class="wenjian"><p>该文件来源于 <span>《'+data[i].unit+'》</span> <i>'+ data[i].year+'</i></p></div>
+              }
+    $('.list-tabs').html(categoryData);
+    
+  }
+  
+    function category(){
+      $.ajax({
+        url: url()+'api/documentation?categoryId='+getQueryString('categoryId')+'&page=0&size=100',
+        type: 'GET',
+        async: false,
+        accept: 'application/json;charset=UTF-8',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+        timeout: 100000,
+        dataType: "json",
+        success: function (msg){
+          var data=msg.data;
+         // categoryObj[id] = data;
+          if(data.length){
+              creatHtml(data)
+              $('.list-tabs li').click(function(){
+               var title = $(this).attr('data-title');
+               var name = $(this).attr('data-name');
+               var title=title.slice(9);
+               console.log(name)
+               var link = url()+ "doc-html/" + name + ".html"+'?name='+name;
+               console.log(link)
+               loadPage(link,title)
+               
+               console.log(title)
+             //  var link = 'iframe.html'+'?documentname='+name;
+               //forward(htmlUrl(link)) 
+               //console.log(link)
+               
+               
+             })
+          }
+        }
+      })
+    }
+    category();//分页查询文档资料
+    //返回上一页
+    $('.back').click(function () {
+      back() 
+     
+    });
+    var Title=getQueryString('commentTitle')
+    $('.title').text(Title);
+  </script>
+</body>
+
+</html>

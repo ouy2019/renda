@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>部门执行</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/jq.js"></script>
+    <script type="text/javascript" src="js/common.js?a=21"></script>
+    <script type="text/javascript" src="js/jsBridge.js"></script>
+    <link rel="stylesheet" href="css/execution.css">
+    <script src="js/excution.js"></script>
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+</head>
+<body>
+    <div id="header">
+        <span class="back">
+                <img src="images/back.png" alt="">
+            </span><b id="title"></b>
+    </div>
+    <!-- <div class="curtain" style="z-index:9999">
+        <div class="loader">
+            loading...
+        </div>
+    </div> -->
+    <div class="tab_div">
+        <div class="tabMenu" id="tab" style="position:relative;top: 0px">
+            <ul id="tabUl">
+                <li class="active"><span>进度分析</span></li>
+                <li><span>国库支付查询</span></li>
+               
+            </ul>
+        </div>
+    </div>
+    <div>
+        <div class="page">
+            <div class="selectBox">
+
+                     
+                <select name="" id="selectYear">
+                        <!-- <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018" selected = "selected">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option> -->
+                    </select>
+        
+                <select name="" id="selectMonuth">
+                        <!-- <option value="1">1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option> -->
+                </select>
+            </div>
+            <div class="list"></div>
+        </div>
+        <div class="page">
+            <div class="tableMenu">
+             
+            </div>
+        </div>
+    </div>
+</body>
+</html>

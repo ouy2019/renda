@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes" />
+    <title>铭太人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=2dsa" />
+    <link rel="stylesheet" type="text/css" href="./css/mescroll.css">
+    <link rel="stylesheet" type="text/css" href="./css/trial.css">
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/mescroll.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript" src="./layer/layer.js"></script>
+</head>
+<style>
+    .mescroll{
+        top: 1rem
+    }
+   .tab_menu{
+       height: 1.2rem;
+   }
+    #tab_content ul li{
+    border-radius: 0.15rem;
+    background-color: #fff;
+    color: #333;
+    font-size: 0.3rem;
+    margin: 0.2rem auto;
+    }
+    #tab_content ul li a{
+        padding: 0.3rem 0.75rem;
+        line-height: 0.6rem;
+    display: inline-block;
+    align-items: center;
+    padding-left: 1.5rem!important;
+    }
+</style>
+<body style="background: #f7f9fb">
+   
+    <div id="header">
+        <span class="back" ><img src="images/back.png" alt=""/></span><span id="title"></span>
+        <span class="yearSelect Select"></span>
+    </div>
+  
+    <div id="menuContent" >
+        <div class="tab_menu">
+            <ul id="tabul">
+
+            </ul>
+        </div>
+        <div id="tab_content" style="height:100%">
+             
+        </div>
+    </div>
+
+</body>
+<script>
+    //返回上一页的操作
+$('.back').click(function () {
+    back();
+
+});
+var title= getQueryString('commentTitle');
+$('#title').text(title)
+var msg =JSON.parse(localStorage.getItem('menu2'));
+var menuid=getQueryString('parentId');
+
+var data=msg[menuid];
+console.log(data)
+function fourmenu(){
+    fourmenuHtml=''
+    for(var i=0; i < data.length;i++){
+        fourmenuHtml+='<ul><li data-externalLink="'+data[i].externalLink+'" data-name="'+data[i].name+'" data-id="'+data[i].id+'" data-link="'+data[i].link+'" style="background:url('+url()+ data[i].iconValue +') 10px center no-repeat #fff;background-size:0.825rem 0.825rem  "><a  class="fileTab">' + data[i].name + '</a></li></ul>'
+    }
+    $('#tab_content').append(fourmenuHtml);
+    $('#tab_content li').click(function(){
+         var link= $(this).attr('data-link');
+         var id=$(this).attr('data-id');
+         var name=$(this).attr('data-name');
+        
+         if(name == '决算草案分析报告解读'){
+             var  externalLink = $(this).attr('data-externalLink');
+             var likUrl = externalLink+'?commentTitle='+name;
+             loadPage(likUrl,name);
+             return;
+         }
+         if(link.indexOf('?')>-1){
+            var likUrl=link+'&commentTitle='+name+'&parentId='+id;
+        }else{
+            var likUrl=link+'?commentTitle='+name+'&parentId='+id;
+        }
+        console.log(likUrl)
+        forward(htmlUrl(likUrl))
+    })
+}
+fourmenu();
+</script>
+</html>

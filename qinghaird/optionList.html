@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+ <!--   <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0"> -->
+    <meta name="format-detection" content="telephone=no">
+	<title>人大预算联网监督系统</title>
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="./layer/mobile/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="./css/mescroll.min.css">
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <script type="text/javascript" src="./js/mescroll.m.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script src="./layer/layer.js"></script>
+    <script src="./js/slide.js"> </script>
+    <script type="text/javascript">$(function(){FastClick.attach(document.body)})</script>
+    <style type="text/css">
+        #trialContent {
+            top: 1rem;
+            height: 93%
+        }
+        .Select {
+            background: none !important
+        }
+    </style>
+</head>
+<body class="is-loading" style="background: #f7f9fb">
+    <div class="curtain">
+        <div class="loader">
+            loading...
+        </div>
+    </div>
+    <div id="header">
+        <span class="back"><img src="images/back.png" alt="" /></span>
+		<span id="title"></span> 
+		<span class="yearSelect Select"></span>
+    </div>
+    <a class="opinion"></a>
+    <div id="trialContent">
+        <div id="mescroll2" class="mescroll1" style="width:100%;height:90%;margin-top:0.2rem;">
+            <ul id="newsList1" class="news-list option_L commentList"></ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $('.opinion').unbind("click").click(function (e) {
+            option('option');   //提交意见
+            e.preventDefault()
+        })
+        $('#title').text(getQueryString('commentTitle'));
+         //返回上一页
+        $('.back').click(function () { back() });
+        $('.curtain').remove();//删除动画
+		
+		setListData();//提交的意见列表
+        function setListData() { //提交的意见列表
+			if(getQueryString('categoryid')){
+				var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}`;
+			}else if(localStorage.getItem('specialTeam')){
+				var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}&team=${localStorage.getItem('specialTeam')}`;
+			}else if(getQueryString('userName')){
+				var linkUrl= url() + `api/exam/online-advice?page=0&size=100&name${getQueryString('userName')}`;
+			}else{
+				var linkUrl= url() + `api/exam/online-advice?page=0&size=100`;
+			}
+			$.ajax({
+				type: 'GET',
+				url: linkUrl,
+				accept: 'application/json;charset=UTF-8',
+				async: false,
+				data: {},   //请求的数据
+				headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+				dataType: 'JSON',
+				timeout: 3000,
+				success: function (data) {
+					if(data.data && data.data.length){
+						var data = data.data;
+						console.log(data,'--提交的意见列表数据--');
+						var result = '';
+						for (var i = 0; i < data.length; i++) {
+						  result +=`<li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
+									  <div class="optionuser clearfix">
+										 <img src="images/optionico1.png">
+										 <span class="publisher">${data[i].name ? data[i].name : data[i].category.name}</span>
+										 <span>|</span>
+										 <span class="datatime">${data[i].createdTime}</span>
+									  </div>
+									  <div class="ophead">${data[i].title}</div>
+									  <div class="opconment">${data[i].content}</div>
+									  <div class="oplabel clearfix">
+										 <ul><li>${data[i].category.name ? data[i].category.name : data[i].name}</li></ul></div>
+									</li>`
+						}
+						$('#newsList1').append(result);
+						//点击跳转页面(报表)
+						$('#mescroll2 li').click(function () {
+							var optionId = $(this).attr('data-id');
+							var optionName = $(this).attr('data-name');
+							var link = `optionDatile.html?opinionid=${optionId}&name=${optionName}`
+							forward(htmlUrl(link));
+						});
+					};
+					
+				},
+				error: function (status) {
+				   
+				},
+			   
+			});
+			
+			var slideEle = $("#newsList").slideEle({ //绑定插件所需要的作用域
+				parentBox: $("ul"),//被编辑标签的直接父元素标签
+				slideBars: $(".optionBtn"),//需要滑动删除、编辑的标签组
+				alterTag: $(".t"),//需要修改内容的标签，必须单独用一个标签包裹
+				tagWidth: 80,//右侧按钮宽度,默认80
+				editsBtn: false,//是否需要编辑按钮 true/false
+			});
+			
+		}
+
+	})
+</script>
+</html>

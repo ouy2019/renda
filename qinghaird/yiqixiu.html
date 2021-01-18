@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="./layer/need/layer.css">
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <style type="text/css">
+    html {
+        width: 100%;
+        height: 100%;
+        background: #fff;
+
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+ 
+        background: #fff;
+
+    }
+
+    #fileDatil {
+
+        background: #fff;
+        width: 100%;
+        /* margin-top: 1.3rem;*/
+        width: 100%;
+        margin: 0%;
+        padding: 20px;
+        box-sizing: border-box;
+
+
+
+        box-sizing: border-box;
+    }
+
+    .fileDatil_tile {
+        font-size: 0.35rem;
+        text-align: center;
+        margin: 10px 0;
+        line-height: 0.5rem
+    }
+
+    .fileDatil_text p {
+        font-size: 0.3rem;
+        height: 80%;
+        width: 100%;
+        line-height: 0.5rem;
+        text-indent: 0.6rem;
+        margin: 0.2rem 0
+    }
+    .enclosure{
+        display: none
+    }
+    .enclosure_title {
+        width: 20%;
+        display: inline-block;
+        float: left;
+        font-size: 0.3rem;
+        margin: 4% 2%
+    }
+
+    .enclosure_txt {
+        width: 70%;
+        display: inline-block;
+        float: left;
+        font-size: 0.3rem;
+        margin: 4% 2%
+    }
+
+    .enclosure_txt a {
+        margin-bottom: 0.1rem
+    }
+
+    a.pdf {
+        background: url(images/pdf.gif) no-repeat left center;
+        background-size: contain;
+        padding-left: 0.6rem;
+        width: 100%;
+        height: 0.4rem;
+        line-height: 0.5rem;
+        display: block;
+        margin-bottom: 15px
+    }
+
+    a.doc {
+        background: url(images/doc.png) no-repeat left center;
+        background-size: contain;
+        padding-left: 0.6rem;
+        width: 100%;
+        height: 0.4rem;
+        line-height: 0.5rem;
+        display: block;
+    }
+
+    #fileDatil_text span{
+        font-size: 0.3rem!important;
+    /*    line-height: 0.5rem;*/
+        text-indent: 0.5rem;
+        text-align: justify;
+        color: #616161
+    }
+    #fileDatil_text{
+        line-height: 24px;
+        top: 20px;
+        padding-top: 0px
+    }  
+    #fileDatil_text img {
+        width: 100%
+    }
+
+    #fileDatil_text p {
+        margin-bottom: 10px
+    }
+    #title {
+    width: 50%;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.yusuanjiedu img{
+   width: 100%;
+}
+
+    </style>
+</head>
+
+<body class="yusuanjiedu">
+        <!-- 头部 -->
+ <div id="header">
+    <span class="back">
+            <img src="images/back.png" alt="">
+    </span> <b id="title">决算草案解读</b>
+    </div>
+    <img src="./images/yusuanjiedu/1.jpg" alt="">
+    <img src="./images/yusuanjiedu/3.jpg" alt="">
+    <div class="imgArray"></div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var title=getQueryString('commentTitle')
+        $('#title').text(title);
+            setTimeout(function(){
+            let imgArr=''
+            for(let i=4;i<40;i++){
+                imgArr+='<img src="./images/yusuanjiedu/'+i+'.jpg">'
+                } 
+                $('.imgArray').append(imgArr)
+            },1000)
+        
+            setTimeout(function(){
+            let imgArr=''
+            for(let i=40;i<80;i++){
+                imgArr+='<img src="./images/yusuanjiedu/'+i+'.jpg">'
+                } 
+                $('.imgArray').append(imgArr)
+            },2000)
+
+            setTimeout(function(){
+            let imgArr=''
+            for(let i=80;i<169;i++){
+                imgArr+='<img src="./images/yusuanjiedu/'+i+'.jpg">'
+                }
+                $('.imgArray').append(imgArr) 
+            },3000)
+        
+            //返回上一页
+        function toback(){
+            $('.back').click(function(){
+                back()
+            })
+        }
+        toback()
+    })
+    
+</script>
+
+</html>

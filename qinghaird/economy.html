@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="layer/mobile/need/layer.css">
+    <script src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/jq.js"></script>
+    <script type="text/javascript" src="js/common.js?a=21"></script>
+    <script type="text/javascript" src="js/jsBridge.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <style type="text/css">
+    html {
+        width: 100%;
+        height: 100%;
+        background: #fff;
+
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+ 
+        background: #f7f9fb;
+
+    }
+    #fileDatil{
+        overflow: hidden;
+        overflow-y: scroll;
+        background: #f7f9fb;
+        width: 100%;
+        margin: 0%;
+        position: absolute;
+        top: 1rem;
+        bottom: 0;
+        box-sizing: border-box;
+    }
+    #menutab{
+        height: 2.1rem;
+        padding:0.2rem 0.2rem;box-sizing: border-box;
+    }
+    #menutab ul li{height: 1.55rem;width: 50%;float: left;}
+    #menutab ul .countab1{background:url(images/countryico01.png) no-repeat  center;background-size: 100% 100%}
+    #menutab ul .countab2{background:url(images/countryico02.png) no-repeat center;background-size: 100% 100%;}
+    #menutab ul .countab1.active{background:url(images/countryico1.png) no-repeat center;background-size: 100% 100%;}
+    #menutab ul .countab2.active{background:url(images/countryico2.png) no-repeat center;background-size: 100% 100%;}
+    #counment{padding:0 0.2rem;box-sizing: border-box;}
+    .fiveplan li{height: 3rem;padding:0.3rem 0.2rem 0 0.3rem;box-sizing: border-box;background-color: #fff;margin-bottom: 0.2rem;}
+    .counhead{height: 0.3rem;line-height: 0.3rem;color:#5d5d5d;font-size: 0.3rem;}
+    .counhead img{width: 0.3rem;height:0.3rem;vertical-align: middle;margin-right: 4px;}
+    .counbtn{padding: 0 0.67rem 0 0.75rem;box-sizing: border-box;margin-top: 0.45rem;}
+    .counbtn span{display: block;background-color: #edf2f7;text-align: center;color:#687b8e;height: 0.6rem;line-height: 0.6rem;font-size: 0.3rem;border-radius: 0.3rem;margin-bottom: 0.3rem;}
+    .counbtn span.active{color: #fff;background-color: #5995f2;}
+    .counlist .yearplan{padding:0.3rem 0.46rem 0.3rem 0.46rem;box-sizing: border-box;background-color: #fff;}
+    .yearplan li{height: 1rem;background: url(images/contenline.png) no-repeat 0px center /10px;line-height: 1rem;font-size: 0.28rem;color: #5d5d5d;vertical-align: middle;}
+    .yearplan li .yeartime{display: inline-block;padding:0 0.3rem;background-color: #3d7cee;color: #fff;font-size: 0.26rem;margin-left: 0.3rem;height: 0.4rem;line-height: 0.4rem;border-radius: 0.2rem;margin-right: 0.26rem;}
+    .yearplan li img{float: right;width: 0.14rem;height: 0.28rem;vertical-align: middle;margin-top: 0.36rem;}
+    </style>
+</head>
+
+<body class="is-loading">
+    <div class="curtain">
+        <div class="loader">
+            loading...
+        </div>
+    </div>
+    <!-- 头部 -->
+    <div id="header">
+        <span class="back" onclick="history.go('-1')">
+                <img src="images/back.png" alt="">
+            </span> <span id="title" style="width: 70%;">国民经济与社会发展计划</span>
+    </div>
+    <div id="fileDatil">
+        <div id="menutab">
+            <ul class="clearfix"><li class="countab1 active"></li><li class="countab2"></li></ul>
+        </div>
+        <div id="counment">
+            <div class="counlist">
+                <ul class="fiveplan">
+                   
+                </ul>
+            </div>
+            <div class="counlist" style="display: none">
+                <ul class="yearplan">
+           
+                   
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $("#menutab ul li").on('click',function(){
+        var indexnub=$("#menutab ul li").index(this)
+        $(this).addClass('active')
+        $(this).siblings('li').removeClass('active')
+        $(".counlist").eq(indexnub).show();
+        $(".counlist").eq(indexnub).siblings('.counlist').hide()
+
+    })
+
+
+   
+window.onload = function() {
+  
+
+   
+    timeIntervalStr = timrstamp();
+    token = getQueryString('token');
+    var id=getQueryString('menuChildId')
+    userId = localStorage.getItem('userId');
+
+    if(localStorage.getItem('ndjhPage')=='1'){
+        $('#menutab li').removeClass('active')
+        $('#menutab li').eq('1').addClass('active')
+        $('.counlist').css('display','none')
+        $('.counlist').eq('1').css('display','block')
+    }
+
+    document.body.className = '';
+    $('.curtain').remove();
+     
+    $.ajax({
+        url: url()+'/user/appSubMenu?userId=' + userId + '&menuId=500000601'+'&title='+encode('国民经济与社会发展计划')+'&typeContent=1'+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber(),
+        dataType: 'json',
+        type: 'get',
+        timeout: 3000,
+        success: function(data) {
+
+            if (data.code == 15) {
+                layer.msg({
+                    content: '登录超过有效期，请重新登录',
+                    btn: ['重新登录'],
+                    yes: function(index) {
+
+                        window.location='login.html'
+                    }
+                });
+
+            } else {
+                    
+                    //渲染五年规划
+                   
+                    for(var i=0;i<data.result[0].childMenus.length;i++){
+                         var fiveplan=''
+                         var fiveItem=''
+                 
+                      
+                       
+                          for(var b=0;b<data.result[0].childMenus[i].childMenus.length;b++){
+                             fiveItem+='<span data-id="'+data.result[0].childMenus[i].childMenus[b].menuId+'">'+data.result[0].childMenus[i].childMenus[b].menuName+'</span>'
+                             
+                    
+                        } 
+                         fiveplan+='<li><div class="counhead clearfix"><img src="images/countryico3.png">'+data.result[0].childMenus[i].menuName+'</div><div class="counbtn">'+fiveItem+'</div></li>'
+                      
+                         $('.fiveplan').append(fiveplan)
+                    
+                        
+                     }
+                     
+                   $('.counbtn span').eq('0').addClass('active')
+                   $('.counbtn span').click(function(){
+                      $('.counbtn span').removeClass('active')
+                      $(this).addClass('active')
+                   })
+                   $('.counbtn span').on('click',function(){
+
+                        var openurl=$(this).attr('data-link')
+                        window.location='fiveplan.html?'+'menuId='+$(this).attr('data-id')+'&name='+$(this).text()
+                        localStorage.setItem('ndjhPage','')
+                    })
+
+                    //渲染年度计划
+                    var ndjh=''
+                    // var year=[2018,2017,2016,2015]
+                    for(var a=0;a<data.result[1].childMenus.length;a++){
+                        var year=Number(data.result[1].childMenus[a].menuName.substring(0,4))+1
+                  
+                        ndjh+='<li class="clearfix ndjh" data-link="" data-id="'+data.result[1].childMenus[a].uuid+'"  data-name="'+data.result[1].childMenus[a].menuName+'"><span class="yeartime">'+year+'</span>'+data.result[1].childMenus[a].menuName+'<img src="images/next.png"></li>'
+                    } 
+
+                    $('.yearplan').prepend(ndjh)
+                    $(".ndjh").on('click',function(){
+                          var menuId=$(this).attr('data-id')
+                          localStorage.setItem('ndjhPage','1')
+                          window.location='./ndjhlist.html?menuId='+menuId
+                     })
+                
+                
+             
+
+            }
+
+            
+        },
+        error: function(status) {
+
+         
+        },
+        complete: function(XMLHttpRequest, status) { //请求完成后最终执行参数
+            　　　　
+            if (status == 'timeout') { //超时,status还有success,error等值的情况
+                　　　　　
+                　　
+            }　　
+        }
+
+    })
+}
+</script>
+<script type="text/javascript">
+</script>
+
+</html>

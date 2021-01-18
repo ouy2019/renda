@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes" />
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+    <meta HTTP-EQUIV="expires" CONTENT="0" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=2dsa" />
+    <link rel="stylesheet" type="text/css" href="./css/mescroll.css">
+    <link rel="stylesheet" type="text/css" href="./css/trial.css">
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/mescroll.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <style>
+        .loding_{ position: fixed;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;z-index: 9999;background:rgba(0, 0, 0, 0.3);  }
+        .loding_ img{display: block; margin: 0 auto;padding-top: 50%;}
+    </style>
+</head>
+
+<body class="is-loading" style="background: #f7f9fb;" >
+    <!-- <div class="curtain" style="z-index:9999">
+        <div class="loader">
+            loading...
+        </div>
+    </div> -->
+    <div class="loding_">
+        <img src="./layer/theme/default/loading-0.gif" alt="">
+    </div>
+    <div id="header">
+        <span class="back" ><img src="images/back.png" alt=""/></span><span id="title"></span>
+        <ul class="Select" style="top:0"></ul>
+    </div>
+    <div class="timeTip">
+            <ul class="parenUl"></ul>
+    </div>
+    <div id="trialContent">
+        <div class="tabMenu">
+            <ul id="tabUl">
+            </ul>
+        </div>
+        <div id="pu_content">
+    
+        </div>
+        <div id="mescroll" class="mescroll">
+             <div class="slistinfor">为您找到相关结果约<span class="total_num"></span></div>
+             <ul id="newsList" class="news-list">
+         
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="./js/lateralMenus.js"></script>
+<script>
+     //返回上一页的操作
+     $('.back').click(function () {
+        localStorage.setItem('trial', '0')
+        back()
+    })
+ 
+</script>
+</html>

@@ -1,0 +1,85 @@
+/*
+* @Author: liangzhiguo
+* @Date:   2018-08-22 14:12:28
+* @Last Modified by:   liangzhiguo
+* @Last Modified time: 2018-08-22 14:15:51
+*/
+   .tip {
+        font-size: 0.3rem;
+        width: 100%;
+        text-align: center;
+        margin-top: 50%;
+    }
+    #trialMun{position: static;}
+
+    
+    #trialsearch{padding:0 0.1rem 0 0.16rem;box-sizing: border-box;}
+    #trialsearch input{width: 5.3rem;height: 0.6rem;line-height: 0.6rem;float: left;
+    background: #fff;
+    font-size: 0.3rem;
+    color: #636363;
+    border: 0;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    padding: 0 0.3rem;
+    outline: none;
+    -webkit-appearance:none;
+    box-shadow: 4px 4px 6px #eaf0fa;}
+    #trialsearch div{float: right;
+    width: 1.2rem;
+    height: 0.6rem;
+    font-size: 0.3rem;
+    line-height: 0.6rem;
+    color: #fff;
+    font-size: 0.32rem;
+    text-align: center;
+    border-radius: 0.3rem;
+    background: linear-gradient(#5f9af3, #4f8cf1,#3d7cee);}
+    #trialsearch input::-webkit-search-cancel-button {display: none;}
+    #trialsearch input::-webkit-input-placeholder { /* WebKit browsers */  
+                color:    #aab3bd;  
+            } 
+    #trialMun li{width: 100%;} 
+    /*编写说明样式*/
+    #trialMun{
+            width: 100%;
+        }
+    #trialMun .trialMunP{
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 16px;
+            text-indent: 2em;
+            text-align: justify;
+            font-family: '宋体';
+            padding:0 0.2rem;
+            background-color: #fff; 
+            line-height: 30px;
+        }
+     #trialMun  .tmhead{
+            text-indent: 0em !important;
+            text-align: center;
+            width: 100%;
+            font-size:20px;
+            font-weight: bold;
+            padding: 0.2rem 0;
+            line-height:30px;
+        }
+      #trialMun .trialMunP .fonbold{
+            font-weight: bold;
+        }
+      #trialContent{height: 93%}
+
+      #trialContent{height: 89%}
+      .tritabUl li span{border-bottom: 2px solid #fff;padding-bottom: 7px;}
+
+      #trialMun li a{
+          padding:0.2rem 0;}
+      .fileTab {
+            background: url('images/rightnext.png') no-repeat ;
+            background-position: right 0px center;
+            background-size: 0.14rem 0.28rem;
+        }
+      .mescroll{font-size: 0.3rem;display:none;position: absolute;top: 3rem;height: 70%}
+      .mescroll li{    width: 100%;margin: 0.3rem auto;-webkit-box-sizing: border-box;box-sizing: border-box;border-radius: 0.15rem;background-color: #fff;color: #333;font-size: 0.3rem}
+      #pu_content{width: 96%;height: 80%;overflow: hidden;overflow-y: scroll;}
+      .mescroll{height: 90%}

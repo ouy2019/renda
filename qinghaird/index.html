@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <meta name="HandheldFriendly" content="True"> <!-- 用来 标示移动站点 -->
+  <meta name="x5-fullscreen" content="true" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-orientation" content="portrait" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-page-mode" content="app" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="full-screen" content="yes"> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <title>人大预算联网监督系统</title>
+  <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+  <meta HTTP-EQUIV="expires" CONTENT="0">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./css/commom.css?a=sa1dasdsa1f">
+  <link rel="stylesheet" type="text/css" href="./css/index.css?a=26s1">
+  <link rel="stylesheet" type="text/css" href="./css/swiper-3.4.2.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/zTreeStyle.css">
+  <link rel="stylesheet" type="text/css" href="./css/mescroll.css">
+  <script type="text/javascript" src="./js/jq.js"></script>
+  <script src="./layer/layer.js"></script>
+  <script type="text/javascript" src="./js/common.js?a=21"></script>
+  <script type="text/javascript" src="./route.js"></script>
+  <script type="text/javascript" src="./js/swiper-3.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/MD5.js"></script>
+  <script type="text/javascript" src="./js/mescroll.js"></script>
+  <script type="text/javascript" src="./js/jquery.ztree.core.min.js"></script>
+  <script type="text/javascript" src="./js/jsBridge.js"></script>
+
+
+  <style>
+    .line {
+      height: auto !important
+    }
+
+    #trialContent {
+      height: 90%
+    }
+    /* .is-loading{
+      width: 100%;
+      height: 100%;
+      background: url("../image/indebg.png") no-repeat !important;
+      background-size: cover !important;
+    } */
+  </style>
+</head>
+
+<body class="is-loading" style="touch-action: none;">
+  <div id="mainHtml"
+    style="height:100%;box-sizing:border-box;padding-bottom:1.2rem;overflow: hidden;overflow-y: scroll;">
+
+  </div>
+  
+  <!-- <div id="footer">
+    <ul id="menu" style="font-size: 14px">
+      <li class="active"><a href="#/index" class="icon1">专栏</a></li>
+      <li><a href="#/list?list=1" class="icon3">代表服务</a></li>
+      <li><a href="#/office?office=0" class="icon4">资料库</a></li>
+      <li><a href="#/wepage?wepage=1" class="icon5">我的</a></li>
+    </ul>
+  </div> -->
+
+
+</body>
+<script type="text/javascript">
+  
+
+  spaRouters.map('/index', function (transition){
+
+    $('.icon1').css({ 'background': 'url(images/index01.png) no-repeat center top', 'background-size': '35px', 'color': '#e53935' }),
+      $('.icon2').css({ 'background': 'url(images/hotspot02.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      $('.icon3').css({ 'background': 'url(images/option01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon4').css({ 'background': 'url(images/office01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon5').css({ 'background': 'url(images/we01.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      spaRouters.asyncFun('temp/index.js', transition)
+    localStorage.setItem('officeClick', '0')
+  })
+  spaRouters.map('/hotspot', function (transition) {
+
+    $('.icon1').css({ 'background': 'url(images/index02.png) no-repeat center top', 'background-size': '30px', 'color': '#556b80' }),
+      $('.icon2').css({ 'background': 'url(images/hotspot01.png) no-repeat center top', 'background-size': '28px', 'color': '#e53935' }),
+      $('.icon3').css({ 'background': 'url(images/option02.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon4').css({ 'background': 'url(images/office02.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon5').css({ 'background': 'url(images/we02.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+
+
+      spaRouters.asyncFun('temp/hotspot.js?a=1', transition)
+    localStorage.setItem('officeClick', '1')
+  })
+  spaRouters.map('/list', function (transition) {
+    $('.icon1').css({ 'background': 'url(images/index02.png) no-repeat center top', 'background-size': '30px', 'color': '#556b80' }),
+      $('.icon2').css({ 'background': 'url(images/hotspot02.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      $('.icon3').css({ 'background': 'url(images/option02.png) no-repeat center top', 'background-size': '32px', 'color': '#e53935' }),
+      $('.icon4').css({ 'background': 'url(images/office01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon5').css({ 'background': 'url(images/we01.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      spaRouters.asyncFun('temp/list.js', transition)
+    localStorage.setItem('officeClick', '1')
+  })
+  spaRouters.map('/office', function (transition) {
+    $('.icon1').css({ 'background': 'url(images/index02.png) no-repeat center top', 'background-size': '30px', 'color': '#556b80' }),
+      $('.icon2').css({ 'background': 'url(images/hotspot02.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      $('.icon3').css({ 'background': 'url(images/option01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon4').css({ 'background': 'url(images/office02.png) no-repeat center top', 'background-size': '32px', 'color': '#e53935' }),
+      $('.icon5').css({ 'background': 'url(images/we01.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      spaRouters.asyncFun('temp/office.js', transition)
+      localStorage.setItem('officeClick', '0')
+  })
+  spaRouters.map('/wepage', function (transition) {
+
+    $('.icon1').css({ 'background': 'url(images/index02.png) no-repeat center top', 'background-size': '30px', 'color': '#556b80' }),
+      $('.icon2').css({ 'background': 'url(images/hotspot02.png) no-repeat center top', 'background-size': '28px', 'color': '#556b80' }),
+      $('.icon3').css({ 'background': 'url(images/option01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon4').css({ 'background': 'url(images/office01.png) no-repeat center top', 'background-size': '25px', 'color': '#556b80' }),
+      $('.icon5').css({ 'background': 'url(images/we02.png) no-repeat center top', 'background-size': '35px', 'color': '#e53935' }),
+      spaRouters.asyncFun('temp/wepage.js', transition)
+      localStorage.setItem('officeClick','1')
+  })
+
+  spaRouters.init()
+
+</script>
+</html>

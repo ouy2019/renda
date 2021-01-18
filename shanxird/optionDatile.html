@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./layer/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=1">
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript">$(function(){FastClick.attach(document.body)})</script>
+    <style type="text/css">
+        html {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            overflow: hidden;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+            position: absolute;
+        }
+        #fileDatil {
+            height: 85%;
+            overflow: hidden;
+            overflow-y: scroll;
+            /* background: #f7f9fb; */
+            width: 100%;
+            margin: 0%;
+            position: absolute;
+            top: 1rem;
+            box-sizing: border-box;
+        }
+        .filecontent {
+            width: 100%;
+            padding: 0.2rem 0.2rem 0.1rem 0.3rem;
+            box-sizing: border-box;
+            /* background-color: #fff; */
+            background-color: rgba(253, 253, 253, 0.3);
+        }
+        .filecontent .filetilte {
+            height: 0.65rem;
+            line-height: 0.65rem;
+            font-size: 0.31rem;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .filecontent .filelabel {
+            height: 0.4rem;
+            padding: 0.2rem 0;
+            border-bottom: 1px solid #d7e2ee;
+        }
+        .filelabel ul li {
+            float: left;
+            display: inline-block;
+            font-size: 0.22rem;
+            padding: 0 0.2rem;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            border-radius: 0.2rem;
+            margin-right: 6px;
+        }
+        .filelabel ul li:nth-child(1) {
+            background: #e5f1fd;
+            color: #4b88f0;
+        }
+
+        .filelabel ul li:nth-child(2) {
+            background: #fdf3ed;
+            color: #f0854b;
+        }
+
+        .filelabel ul li:nth-child(3) {
+            background: #f1f9f0;
+            color: #80ca7b;
+        }
+
+        .filecontent .filecont {
+            line-height: 0.4rem;
+            font-size: 0.24rem;
+            color: #333;
+            margin-top: 0.2rem;
+        }
+
+        .filecontent .fileuser {
+            height: 0.7rem;
+            line-height: 0.7rem;
+            font-size: 0.25rem;
+            color: #333;
+            padding: 0.2rem 0;
+            vertical-align: middle;
+        }
+
+        .fileuser img {
+            width: 0.7rem;
+            height: 0.7rem;
+            vertical-align: middle
+        }
+
+        .fileuser span {
+            margin-left: 10px;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            display: inline-block;
+        }
+
+        .filenew {
+            width: 100%;
+            height: 0.6rem;
+            background-color: #f7f9fb;
+            line-height: 0.6rem;
+            font-size: 0.3rem;
+            color: #c1cad9;
+            padding: 0 0.3rem;
+            box-sizing: border-box;
+        }
+
+        .filenew img {
+            width: 0.3rem;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .filecom {}
+
+        .filecom .filecomul li {
+            background-color: #fff;
+            margin-bottom: 0.1rem;
+            padding: 0 0.2rem 0 0.3rem;
+            box-sizing: border-box;
+        }
+
+        .filecomul li .comcont {
+            color: #504f4f;
+            font-size: 0.25rem;
+            padding-left: 0.8rem;
+            line-height: 0.4rem;
+            padding-bottom: 0.36rem;
+        }
+
+        #filefloter {
+            height: 1rem;
+            width: 100%;
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-shadow: 0 -1px 1px 1px #f7f9fe;
+            padding: 0.25rem 0.3rem;
+            box-sizing: border-box;
+            z-index: 100
+        }
+
+        #filefloter input {
+            height: 0.5rem;
+            width: 5.4rem;
+            display: inline-block;
+            border: 0;
+            float: left;
+            color: #333;
+            background: #ebf3ff;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+            padding: 0 0.25rem 0 30px;
+            background: url(images/wricon.png) left center no-repeat #edf3f8;
+            background-position: left 10px center;
+            background-size: 5%;
+            outline: none;
+        }
+        #filefloter .filbtn {
+            padding-right: 0.3rem;
+            height: 0.5rem;
+            float: right;
+            font-size: 0.3rem;
+            color: #3F7FEF;
+            line-height: 0.5rem;
+        }
+
+        .layui-layer {
+            width: 80%;
+            left: 10%;
+        }
+    </style>
+</head>
+
+<body class="is-loading">
+    <div class="curtain">
+        <div class="loader">loading...</div>
+    </div>
+    <!-- 头部 -->
+    <div id="header">
+        <span class="back">
+            <img src="images/back.png" alt="">
+        </span> <span id="title"></span><img src="./images/update.png" class="updateIcon" />
+    </div>
+    <div id="fileDatil">
+        <div class="filecontent">
+            <div class="filetilte"></div>
+            <div class="filelabel">
+                <ul class="filelabelUl">
+                    <li class="typeLable"></li>
+                </ul>
+            </div>
+            <div class="filecont"></div>
+            <!-- <a class="lookfile">查看文件</a> -->
+            <div class="fileuser clearfix">
+                <img src="images/optionico1.png">
+                <span class="publisher"></span><span>|</span><span class="datatime"></span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+    window.onload = function () {
+        //是否返回上一页刷新
+        $('.back').click(function (){
+			back();
+        })
+        document.body.className = '';
+        $('#title').text(getQueryString('name'))
+        $('.curtain').remove();
+        //$('body').css({'background':'url(images/indebg.png) no-repeat','background-size':'100% 100%'})
+        //获取在线意见详细内容
+        $.ajax({
+            type: 'GET',
+            url: url()+'api/exam/app/online-advice/'+getQueryString('opinionid'),
+            accept: 'application/json;charset=UTF-8',
+            async: false,
+            data: {},   //请求的数据
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+            dataType: 'JSON',
+            success: function (data) {
+                $('.filecont').text(data.content)
+                $('.typeLable').text('在线意见')
+                $('.publisher').text(data.category.name)
+                var title = data.title
+                $('.filetilte').text(title)
+                $('.datatime').text(data.createdTime)
+                var content =data.content
+                $('.updateIcon').click(function () {
+                    //修改在线意见内容
+                    layer.open({
+                        content: '<div><div><input value="' + title + '" style="width:100%;margin-bottom:10px;border:1px solid #f5f5f5;outline:none"/ class="opTitle"></div><div><textarea style="width:100%;height:100px;border:1px solid #f5f5f5;outline:none" class="opContent">' + content + '</textarea></div></div>'
+                        , btn: ['确定', '取消'],
+                        title: '更改在线意见内容'
+                        , yes: function (index) {
+                            var opTitleVal = $('.opTitle').val();
+                            var contentVal = $('.opContent').val()
+                            $.ajax({
+                                type: 'PUT',
+                                //api/exam/app/online-advice/193401699401076736
+                                url: url() + 'api/exam/app/online-advice/'+ getQueryString('opinionid'),
+                                contentType: "application/json;charset=UTF-8",
+                                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+                                data: "{\"categoryId\": \"cateid\", \"title\": \""+opTitleVal+"\", \"content\": \""+contentVal+"\"}",  
+                                dataType: 'JSON',
+                                async: false,
+                                success: function (res) {
+                                   var  data = res;
+                                   //console.log(data)
+                                    if (data !== '') {
+                                        location.reload()
+                                        layer.msg('提交成功', {
+                                            time: '1000'
+                                        })
+                                        layer.close(index)
+                                    } else {
+                                        layer.close();
+                                        layer.msg(data, {
+                                            time: '1000'
+                                        })
+                                    }
+                                }
+                            })
+                            //  location.reload();
+                            layer.close(index);
+                        }
+                    });
+                })
+            }
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>铭太人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="layer/mobile/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/mescroll.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css?a=1">
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/jq.js"></script>
+    <script src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/common.js?a=21"></script>
+     <script type="text/javascript" src="js/mescroll.js"></script>
+     <script type="text/javascript" src="js/jsBridge.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <style type="text/css">
+    html {
+        width: 100%;
+        height: 100%;
+        background: #f7f9fb;
+        overflow: hidden;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f7f9fb;;
+    }
+     #headred{
+        width: 0.1rem;
+        height: 0.1rem;
+        background-color: red;
+        border-radius:0.05rem;
+        display: inline-block;
+        margin-bottom: 0.25rem;
+        margin-left: 4px;
+     }
+    #fileDatil {
+        overflow: hidden;
+        overflow-y: scroll;
+        width: 100%;
+        margin: 0%;
+        position: absolute;
+        top: 1rem;
+        bottom: 0;
+        box-sizing: border-box;
+    }
+    .filecomul{background-color: #fff;}
+    .filecomul li{padding-left: 0.8rem;box-sizing: border-box;height: 1rem;line-height: 1rem; background:url(images/fileIcon.png) no-repeat 0.3rem center/18px;overflow: hidden;}
+    .filecomul li div{height: 1rem; line-height: 1rem;font-size: 0.3rem;color: #333;border-bottom: 1px solid #e9eef3;padding-right: 0.4rem;box-sizing: border-box;}
+    .filecomul li img{float: right;width: 0.14rem;height: 0.28rem;vertical-align: middle;margin-top: 0.36rem;}
+    .filecomul li:nth-last-child(1) div{border-bottom:0;}
+    #searchcom{margin-top: 0.2rem;}
+    .clearfix div{width: 90%;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;}
+
+    #serchconten{top: 1.2rem}
+    </style>
+</head>
+
+<body class="is-loading">
+    <div class="curtain">
+        <div class="loader">
+            loading...
+        </div>
+    </div>
+    <!-- 头部 -->
+    <div id="header">
+        <span class="back" onclick="history.go('-1')">
+                <img src="images/back.png" alt="">
+            </span> <span id="title"></span>
+    </div>
+    <div id="fileDatil">
+        <div id="buttab">
+            <ul id="butgettab"><li class="countab1 active">规划编制<p></p></li><li class="countab2">中期评估<p></p></li></ul>
+        </div>
+         <div id="serchconten">
+
+        <div id="mescroll0" class="mescroll">
+                 
+               <ul id="dataList0" class="data-list dataList filecomul">
+   
+              </ul>
+        </div>
+        
+  
+        <div id="mescroll1" class="mescroll hide">
+                
+                   <ul id="dataList1" class="dataList data-list filecomul">
+                   </ul>
+        </div>
+
+    </div>
+           
+       </div>
+    </div>
+
+</body>
+<script>
+    
+window.onload = function() {
+
+
+    var curNavIndex=0;//首页0; 奶粉1; 面膜2; 图书3;
+    var mescrollArr=new Array(2);//4个菜单所对应的4个mescroll对象
+  
+    trialId = getQueryString('menuId');
+    timeIntervalStr = timrstamp();
+    token = getQueryString('token');
+    userId = localStorage.getItem('userId');
+    name=getQueryString('name')
+
+    $('#title').text(name)
+
+    document.body.className = '';
+    $("#buttab ul li").on('click',function(){
+        var indexnub=$(".menubtn ul li").index(this)
+        $(this).addClass('active')
+        $(this).siblings('li').removeClass('active')
+        
+    })
+    $('.curtain').remove();
+     curNavIndex=0
+     mescrollArr[0]=initMescroll("mescroll0", "dataList0");
+
+  /*初始化菜单*/
+    $("#buttab ul li").click(function(){
+        
+                var i=$("#buttab ul li").index(this)
+         
+                if(curNavIndex!=i) {
+                    //更改列表条件
+                    $(".menubtn ul li").removeClass("active");
+                    $(this).addClass("active");
+                    //隐藏当前列表和回到顶部按钮
+                    $("#mescroll"+curNavIndex).hide();
+                  //  mescrollArr[curNavIndex].hideTopBtn();
+                    //显示对应的列表
+                    $("#mescroll"+i).show();
+                   //  mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
+                    //取出菜单所对应的mescroll对象,如果未初始化则初始化
+                      
+                    if(mescrollArr[i]==null){
+                      
+                        mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
+                    }else{
+                        // //检查是否需要显示回到到顶按钮
+                        // var curMescroll=mescrollArr[i];
+                        // var curScrollTop=curMescroll.getScrollTop();
+                        // if(curScrollTop>=curMescroll.optUp.toTop.offset){
+                        //     curMescroll.showTopBtn();
+                        // }else{
+                        //     curMescroll.hideTopBtn();
+                        // }
+                    }
+                    //更新标记
+                    curNavIndex=i;
+                }
+     })  
+    
+
+
+            /*创建MeScroll对象*/
+            function initMescroll(mescrollId,clearEmptyId){
+                //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,刷新列表数据;
+                var mescroll = new MeScroll(mescrollId, {
+                    //上拉加载的配置项
+                    up: {
+                        callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+                        isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                        noMoreSize: 4, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
+                        empty: {
+                            
+                        },
+                        clearEmptyId: clearEmptyId, //相当于同时设置了clearId和empty.warpId; 简化写法;默认null
+                        toTop:{ //配置回到顶部按钮
+                            src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                            //offset : 1000
+                        }
+                    }
+                });
+                return mescroll;
+            }
+            var size=10;
+            /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+            function getListData(page){
+                //联网加载数据
+                var dataIndex=curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
+                getListDataFromNet(dataIndex, page.num, page.size, function(data){
+                  
+                    mescrollArr[dataIndex].endSuccess(data.length);
+                    
+                    //设置列表数据
+                    setListData(data,dataIndex);
+                }, function(){
+                    //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                    mescrollArr[dataIndex].endErr();
+                });
+            }
+            
+            /*设置列表数据
+             * pageData 当前页的数据
+             * dataIndex 数据属于哪个nav */
+            function setListData(data,dataIndex){
+                var listDom=document.getElementById("dataList"+dataIndex);
+                var result = '';
+                var arrLen = data.length;
+                for(var i=0;i<arrLen;i++){
+                     result+='<li  class="clearfix" data-id="'+data[i].id+'" data-name='+data[i].name+'><div>'+data[i].name+'<img src="images/next.png"></div></li>'
+                }       
+                
+                                    
+                              
+                                    $('#dataList'+dataIndex).append(result);
+                               // 点击跳转页面(规划编制)
+                                $('#mescroll0 li').click(function(){
+                                    localStorage.setItem('seartype','报表查询')
+                                    window.location.href='./fileDatile.html?id='+$(this).attr('data-id')+'&name='+$(this).attr('data-name')+'&type=document'
+                               
+                                })
+        
+            }
+            
+          
+            function getListDataFromNet(curNavIndex,pageNum,pageSize,successCallback,errorCallback) {
+                //延时一秒,模拟联网
+                 if(curNavIndex==1){   //搜索报表
+                                //首页 (模拟分页数据)
+                             
+                  var  searchtxt= encodeURI(encodeURI(localStorage.getItem('searchtxt'))) 
+                  var typename=  encodeURI(encodeURI('微信文档')) 
+                  console.log(searchtxt)
+                                var page=pageNum;
+                                setTimeout(function () {
+                                    $.ajax({
+                                    type: 'GET',
+                                    // url: 'http://ons.me/tools/drpload/json.php?page='+paged+'&size=10',
+                                    url:url()+'/section/getMenuId?keywords='+searchtxt+'&typeName='+typename+'&typeContent=1'+'&timeIntervalStr='+timrstamp()+'&appSign='+appSignNumber()+'&title='+encode('中期评估')+'&userId='+localStorage.getItem('userId'),
+                                    dataType: 'json',
+                                        success: function(data){
+                                            var listData=[];
+                                          
+                                           
+                                                 
+                                            var data=data.result.content
+                                          
+
+
+                                           successCallback(data);
+                                            
+            
+                                        },
+                                        error: errorCallback
+                                    });
+                                },500)
+                }else if(curNavIndex==0){   //搜索报表
+                    var page=pageNum;
+                    var id=''
+                     if(trialId=='f0855c16-f1ff-4ebf-8528-6d7c2ab652e6'){
+                                         id='1';
+                       }else{
+                                        id='b42aa574-b97c-45be-a40c-9d1906743625'
+                        }                  
+                             setTimeout(function () {
+                                    $.ajax({
+                                    type: 'GET',
+                                    // url: 'http://ons.me/tools/drpload/json.php?page='+paged+'&size=10',
+                                     // url:'http://112.74.96.24:8082/mt-gzrd/fulltextindex/wordandlawQuery?keyWord='+searchtxt+'&page='+page+'&size=20'+'&userId='+userId,
+                                    url:url()+'/document/getList?userId='+localStorage.getItem('userId')+'&id='+id+'&year=2018&pageNo='+page+'&type=document'+'&timeIntervalStr='+timrstamp()+'&appSign='+appSignNumber()+'&typeContent=1'+'&title=规划编制',
+                                    dataType: 'json',
+                                        success: function(data){
+                                            var listData=[];
+                                            // console.log(data.result.total)
+                                          
+                                                // $('.office_num').text(data.result.totalCount+'条')
+                                                 var data=data.result.content
+                                                   console.log(data)
+                                            // var data=data.result.ls
+                                            
+                              
+                                            // $('.office_num').text()
+                                          
+                                            
+                                            //回调
+                                            successCallback(data);
+                                            
+                                            // console.log('data')
+                                        },
+                                        error: errorCallback
+                                    });
+                                },500)
+
+                                }
+                
+            }
+
+
+}
+</script>
+
+</html>

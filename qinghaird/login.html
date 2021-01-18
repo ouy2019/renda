@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <!-- 用来标示移动站点 -->
+    <meta name="x5-fullscreen" content="true" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="x5-orientation" content="portrait" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="x5-page-mode" content="app" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="full-screen" content="yes">
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <title>人大预算联网监督系统</title>
+    <meta charset="utf-8">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/MD5.js"></script>
+    <script src="./layer/layer.js"></script>
+    <style type="text/css">
+         .bodybg{
+            width: 100%;
+            height: auto;
+            background-color: #ffffff; 
+            overflow: hidden;
+         }
+         .logincontent{
+            padding: 0 0.5rem;
+            margin-top: 100px;
+         }
+         .logtitle img{
+            width: 5.5rem;
+            height: auto;
+         }
+         /* .loginbg{display: none;} */
+         .loginbg img{
+             width: 100%;
+             height: auto;
+         }
+         /* .body{
+            position: relative;
+            top: -1.7rem;
+            display: none;
+         } */
+        .bejing{
+            width: 100%;
+            /* height: auto; */
+            height: 100vh;
+            background: url(images/qidong.png)no-repeat;
+            background-size:  100% 100%;
+            z-index: 9999;
+            position: relative;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body id="" class="bodybg">
+    <!-- <div class="loginbg"><img src="./images/loginbg.png" alt=""></div> -->
+    <div class="body">
+        <!-- <div class="logtitle">
+           <img src="./images/logintext.png" alt="">
+        </div> -->
+        <div style="clear: both;"></div>
+        <div class="logincontent">
+            <div class="login">
+                <div class="loginbox1 clearfix">
+                    <div class="userBox"><img src="./images/user.png" alt=""></div>
+                    <input type="text" placeholder="请输入用户名" class="user"> 
+                </div>
+                <!-- <div style="height: 1px;background: #2d5071;float: left;margin: .2rem 0 .5rem;width: 100%"></div> -->
+                <div class="loginbox2 clearfix">
+                    <div class="userBox"><img src="./images/password.png" alt=""></div>
+                   <input type="password" placeholder="请输入密码" class="loginPassword">
+                </div>
+                <!-- <div style="height: 1px;background: #2d5071;float: left;margin: 1.4vh 0%;width: 100%"></div> -->
+            </div>
+            <div class="anniu">
+                <div class="loginBtn">登录</div>
+                <!-- <div class="btn">重置</div> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+   window.onload=function(){
+        // var Password= localStorage.getItem('password');
+        // var userName= localStorage.getItem('userName');
+        // if(userName != null && Password != null){
+        //     var userId = localStorage.getItem('userId');
+        //     var token = localStorage.getItem('token');
+        //     window.location.href = htmlUrl('index.html#/index?userId=' + userId + '&token=' + token);
+        // }
+        // function bg(){
+        //     $(' .bodybg').removeClass('bejing');
+        //     $('.loginbg').css('display','block');
+        $('.body').css('display','block');
+        // }
+        // setInterval(bg,2000)
+		$('.loginBtn').click(function () {
+		    login();
+		});
+        $('.btn').click(function(){
+            $('.user').val('');
+            $('.loginPassword').val('');
+        })
+        function login() {
+            var userName = $('.user').val();
+            var Password = $('.loginPassword').val()
+            //var passwordText = md5(Password); //密码被md5加密后
+            if (userName == '' || Password == '') {
+                layer.open({
+                    content: '账号密码不能为空',
+                    skin: 'msg',
+                    time: 1000 //2秒后自动关闭
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: url() + "api/token",
+                    data: JSON.stringify({
+                        account: userName,
+                        password: Password,
+                        organizationType: 'UNIT'
+                    }),
+                    // accept:'application/json;charset=UTF-8',
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (res) {
+                        // console.log(res)
+                        if (res.token) {
+                            localStorage.setItem('password',Password)
+                            localStorage.setItem('userId', res.userId)
+                            localStorage.setItem('userName', res.userName)
+                            localStorage.setItem('issued', res.issued)
+                            localStorage.setItem('expires', res.expires)
+                            localStorage.setItem('workingOrganization', res.workingOrganization)
+                            localStorage.setItem('token', res.token)  
+                             window.location.href = 'index.html#/index?userId=' + res.userId + '&token=' + res.token;
+						    //console.log('ok');
+                        } 
+                    },
+					error: function (err){
+					 // console.log(err)
+					  //if(err.status == 401){
+						layer.open({
+							content:err.responseJSON.message,
+							skin: 'msg',
+							time: 2000 //2秒后自动关闭
+						});
+					  //}
+					}
+                   
+                    
+                });
+				
+               
+            }
+			 
+        };
+       
+        $(document).keydown(function (event) {
+            if (event.keyCode == 13) {
+                login()
+            }
+
+        });
+
+    }
+</script>
+
+</html>

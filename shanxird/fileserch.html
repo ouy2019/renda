@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>铭太人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="layer/mobile/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/mescroll.css">
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/mescroll.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/jq.js"></script>
+    <script type="text/javascript" src="js/common.js?a=21"></script>
+    <script type="text/javascript" src="js/jsBridge.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <style type="text/css">
+    html {
+        width: 100%;
+        height: 100%;
+        background: #fff;
+
+    }
+    body {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        background: #fff;
+
+    }
+ 
+    </style>
+</head>
+
+<body class="is-loading">
+    <div class="curtain">
+        <div class="loader">
+            loading...
+        </div>
+    </div>
+    <!-- 头部 -->
+    <div id="headsearch">
+        <div class="serchbt clearfix">
+            <span class="back" onclick="history.go('-1')">
+                    <img src="images/back1.png" alt="">
+            </span>
+            <input id="searchinput" type="search"><div id="searchbtn">搜索</div>
+        </div>
+        <div class="menubtn">
+            <ul>
+           
+                <li>
+                    <span class="active">政策法规</span>
+                </li>
+                <li>
+                    <span>监督指南</span>
+                </li>
+                <li>
+                    <span>文档资料</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <div id="hotpolit" style="display: none">
+        <div class="hotnew">
+            <p>热门搜索</p>
+            <ul class="hotlistul clearfix hotLi">
+                
+            </ul>
+        </div>
+        <div class="historch">
+            <p class="clearfix">历史搜索</p>
+            <ul class="hislistul clearfix historyLi">
+               
+            </ul>
+        </div>
+    </div> -->
+    <div id="serchconten">
+
+        <div id="mescroll0" class="mescroll">
+                   <div class="slistinfor">为您找到相关结果约<span class="office_num"></span>
+
+       </div>
+            <ul id="dataList0" class="data-list dataList">
+   
+            </ul>
+        </div>
+        
+  
+        <div id="mescroll1" class="mescroll hide">
+                   <div class="slistinfor">为您找到相关结果约<span class="total_num"></span>
+
+       </div>
+            <ul id="dataList1" class="dataList data-list">
+            </ul>
+        </div>
+        <div id="mescroll2" class="mescroll hide">
+                   <div class="slistinfor">为您找到相关结果约<span class="wd_num"></span>
+
+       </div>
+            <ul id="dataList2" class="dataList data-list">
+            </ul>
+        </div>
+
+    </div>
+    
+</body>
+<script>
+    
+    $(document).ready(function(){
+     
+        $("#searchinput").val(getQueryString('searchtxt'));
+         $("#searchinput").focus(function(){
+        $("#hotpolit").show();
+        $("#serchconten").css('display','none');
+
+    })
+    $("#searchbtn").on('click',function(){
+        $("#hotpolit").hide();
+        $("#serchconten").show();
+
+    })
+    $(".menubtn ul li").on('click',function(){
+        var indexnub=$(".menubtn ul li").index(this)
+        $(this).addClass('active')
+        $(this).siblings('li').removeClass('active')
+        $(".searchlist").eq(indexnub).show();
+        $(".searchlist").eq(indexnub).siblings('.searchlist').hide()
+    })
+
+
+
+    //热门搜索
+    function hot(){
+        $.ajax({
+            url:url()+'/searchhistory/searchhot?type=all&userId='+localStorage.getItem('userId')+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber()+'&typeContent=1&title='+encode('热门搜索'),
+            async: false,
+            timeout: 3000,
+            success:function(data){
+                data=JSON.parse(data)
+                var hotLi=''
+                for(var i=0;i<data.result.length;i++){
+                    hotLi+='<li>'+data.result[i].s_keyword+'</li>'
+                }
+
+                $('.hotLi').append(hotLi)
+            }
+        })
+    }
+    // hot()
+
+    //历史搜索记录
+
+    function history(){
+         $.ajax({
+            url:url()+'/searchhistory/searchByUser?userid='+localStorage.getItem('userId')+'&searchType=isCurrent'+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber()+'&typeContent=1&title='+encode('历史搜索记录'),
+            async: false,
+   
+            success:function(data){
+                data=JSON.parse(data)
+                var historyLi=''
+                for(var i=0;i<data.result.length;i++){
+                    historyLi+='<li>'+data.result[i].s_keyword+'</li>'
+                }
+
+                $('.historyLi').append(historyLi)
+            }
+        })
+    }
+
+    // history()
+
+    });
+    window.onload = function() {
+
+        trialId = getQueryString('menuId');
+        timeIntervalStr = timrstamp();
+        token = getQueryString('token');
+        userId = localStorage.getItem('userId');
+
+        var uuid = localStorage.getItem('uuid')
+
+        document.body.className = '';
+        $('.curtain').remove();
+
+
+   }
+</script>
+<script type="text/javascript">
+    $(function(){
+            link=link()
+          
+            var curNavIndex=0;//首页0; 奶粉1; 面膜2; 图书3;
+            var mescrollArr=new Array(3);//4个菜单所对应的4个mescroll对象
+            //初始化首页
+            // var searchtxt=getQueryString('searchtxt')
+            var  searchtxt=  localStorage.getItem('searchtxt')
+            var  seartype=  localStorage.getItem('seartype')
+            $('#searchinput').val(searchtxt)
+            if(searchtxt!='' && seartype=='文档查询'){
+                    
+                     curNavIndex=1
+                     mescrollArr[1]=initMescroll("mescroll1", "dataList1");
+                     $('#hotpolit').css('display','none')
+           
+                     $('#mescroll0').addClass('hide')
+                     $('#mescroll1').removeClass('hide')
+                     $('.menubtn li').removeClass('active')
+                     $('.menubtn li').eq('1').addClass('active')
+ 
+
+              }else if (searchtxt!='' && seartype=='报表查询') {
+      
+              
+                   
+                     curNavIndex=0
+                     mescrollArr[0]=initMescroll("mescroll0", "dataList0");
+                     $('#hotpolit').css('display','none')
+           
+                     $('#mescroll0').removeClass('hide')
+                     $('#mescroll1').addClass('hide')
+                     $('.menubtn li').removeClass('active')
+                     $('.menubtn li').eq('0').addClass('active')
+              }else{
+                curNavIndex=0
+                 $('#hotpolit').css('display','block')
+                   $("#serchconten").css('display','none');
+              
+              }
+            
+            //搜索框搜索
+            $('#searchbtn').click(function(){
+                $("#serchconten").css('display','block');
+                $('#mescroll0').css('display','block')
+                mescrollArr[1]=null
+                $('.mescroll-upwarp').remove()
+                $('.mescroll-downwarp').remove()
+                localStorage.setItem('searchtxt',$('#searchinput').val())
+                // $('#hotpolit').css('display','block')
+                     curNavIndex=0
+                    
+                     $('#hotpolit').css('display','none')
+           
+                     $('#mescroll0').removeClass('hide')
+                     $('#mescroll1').addClass('hide')
+                     $('.menubtn li').removeClass('active')
+                     $('.menubtn li').eq('0').addClass('active')
+                      mescrollArr[0]=initMescroll("mescroll0", "dataList0");
+            })
+
+            //热门搜索以及历史搜索
+            $('#hotpolit li').click(function(){
+
+          
+                   $("#serchconten").css('display','block');
+                    mescrollArr[1]=null
+                    mescrollArr[0]=null
+                    $('.mescroll-upwarp').remove()
+                    $('#searchinput').val($(this).text())
+                    localStorage.setItem('searchtxt',$(this).text())
+                    // $('#hotpolit').css('display','block')
+                     curNavIndex=0
+                     mescrollArr[0]=initMescroll("mescroll0", "dataList0");
+                     $('#hotpolit').css('display','none')
+           
+                     $('#mescroll0').removeClass('hide')
+                     $('#mescroll1').addClass('hide')
+                     $('.menubtn li').removeClass('active')
+                     $('.menubtn li').eq('0').addClass('active')
+                $("#serchconten").css('display','block');
+            })
+            
+            /*初始化菜单*/
+            $(".menubtn ul li").click(function(){
+        
+                var i=$(".menubtn ul li").index(this)
+                if(curNavIndex!=i) {
+                    //更改列表条件
+                    $(".menubtn ul li").removeClass("active");
+                    $(this).addClass("active");
+                    //隐藏当前列表和回到顶部按钮
+                    $("#mescroll"+curNavIndex).hide();
+                    mescrollArr[curNavIndex].hideTopBtn();
+                    //显示对应的列表
+                    $("#mescroll"+i).show();
+                    //取出菜单所对应的mescroll对象,如果未初始化则初始化
+                      
+                    if(mescrollArr[i]==null){
+                      
+                        mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
+                    }else{
+                        //检查是否需要显示回到到顶按钮
+                        var curMescroll=mescrollArr[i];
+                        var curScrollTop=curMescroll.getScrollTop();
+                        if(curScrollTop>=curMescroll.optUp.toTop.offset){
+                            curMescroll.showTopBtn();
+                        }else{
+                            curMescroll.hideTopBtn();
+                        }
+                    }
+                    //更新标记
+                    curNavIndex=i;
+                }
+            })
+            
+            /*创建MeScroll对象*/
+            function initMescroll(mescrollId,clearEmptyId){
+                //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,刷新列表数据;
+                var mescroll = new MeScroll(mescrollId, {
+                    //上拉加载的配置项
+                    up: {
+                        callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+                        isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                        noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
+                        empty: {
+                            empty:{
+                               warpId:'mescroll',
+                               tip: "暂无相关数据"
+                            } 
+                        },
+                        offset:100,
+                        clearEmptyId: clearEmptyId, //相当于同时设置了clearId和empty.warpId; 简化写法;默认null
+                        toTop:{ //配置回到顶部按钮
+                            src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                            //offset : 1000
+                        }
+                    }
+                });
+                return mescroll;
+            }
+            var size=20;
+            /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+            function getListData(page){
+                //联网加载数据
+                var dataIndex=curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
+                getListDataFromNet(dataIndex, page.num, page.size, function(data){
+                  
+                    mescrollArr[dataIndex].endSuccess(data.length);
+                    
+                    //设置列表数据
+                    setListData(data,dataIndex);
+                }, function(){
+                    //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                    mescrollArr[dataIndex].endErr();
+                });
+            }
+            
+            /*设置列表数据
+             * pageData 当前页的数据
+             * dataIndex 数据属于哪个nav */
+            function setListData(data,dataIndex){
+                var listDom=document.getElementById("dataList"+dataIndex);
+                var result = '';
+                                var arrLen = data.length;
+                               console.log(data)
+                               console.log(arrLen)
+                                for(var i=0; i<arrLen; i++){
+                              
+                                        result+= '<li data-sectionId='+data[i].uuid+' data-sectionName='+data[i].title+'>'+'<div class="slisttxt">'+data[i].title+'</div><div class="slistinfor clearfix">该文件来源于<span>'+data[i].menu_name+'</span><div class="serchyear">'+data[i].year+'</div></div></li>'
+                                    }
+                              
+                                    $('#dataList'+dataIndex).append(result);
+                               //点击跳转页面(报表)
+                                // $('#mescroll0 li').click(function(){
+                                //     localStorage.setItem('seartype','报表查询')
+                                //     window.location.href='./table.html?menuChildId='+$(this).attr('data-sectionid')+'&menuChildName='+$(this).attr('data-sectionName')
+                               
+                                // })
+                                $('#serchconten li').click(function(){
+                                    localStorage.setItem('seartype','文档查询')
+                                    var type=''
+                                    if(curNavIndex=='0'){
+                                        type='law'
+                                    }else if (curNavIndex=='1') {
+                                        type='supervisionguide'
+                                    }else if(curNavIndex=='2'){
+                                        type='document'
+                                    } 
+                            
+                                    window.location.href='./fileDatile.html?type='+type+'&id='+$(this).attr('data-sectionid')+'&name='+$(this).attr('data-sectionName')
+                                   
+                               
+                                })
+            }
+            
+          
+            function getListDataFromNet(curNavIndex,pageNum,pageSize,successCallback,errorCallback) {
+                //延时一秒,模拟联网
+                 if(curNavIndex==1){   //搜索报表
+                                //首页 (模拟分页数据)
+                             
+                  var  searchtxt= encodeURI(encodeURI(localStorage.getItem('searchtxt'))) 
+                  var typename=  encodeURI(encodeURI('监督指南')) 
+                  console.log(searchtxt)
+                                var page=pageNum;
+                                setTimeout(function () {
+                                    $.ajax({
+                                    type: 'POST',
+                                    // url: 'http://ons.me/tools/drpload/json.php?page='+paged+'&size=10',
+                                    url:url()+'/section/getMenuId?keywords='+searchtxt+'&size=10&typeName='+typename+'&title='+typename+'&typeContent=1'+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber()+'&userId='+localStorage.getItem('userId')+'&page='+page,
+                                    dataType: 'json',
+                                        success: function(data){
+                                            var listData=[];
+                                 
+                                           
+                                                 $('.total_num').text(data.result.totalCount+'条')
+                                                var data=data.result.data
+                                          
+                                           
+
+                                           successCallback(data);
+                                            
+                                            //回调
+                                         
+                                            
+                                            // console.log('data')
+                                        },
+                                        error: errorCallback
+                                    });
+                                },500)
+                }else if(curNavIndex==0){   //搜索报表
+                    var page=pageNum;
+                    var  searchtxt= encodeURI(encodeURI(localStorage.getItem('searchtxt'))) 
+                    var typename=  encodeURI(encodeURI('政策法规')) 
+                             setTimeout(function () {
+                                    $.ajax({
+                                    type: 'POST',
+                                    url:url()+'/section/getMenuId?keywords='+searchtxt+'&size=10&typeName='+typename+'&title='+typename+'&typeContent=1'+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber()+'&userId='+localStorage.getItem('userId')+'&page='+page,
+                                    dataType: 'json',
+                                        success: function(data){
+                                            var listData=[];
+                                            // console.log(data.result.total)
+                                                
+                                                $('.office_num').text(data.result.totalCount+'条')
+                                                 var data=data.result.data
+                                             
+                                        
+                                            
+                              
+                                          
+                                            
+                                        
+                                            successCallback(data);
+                                            
+                                           
+                                        },
+                                        error: errorCallback
+                                    });
+                                },500)
+
+                }else if(curNavIndex==2){
+                    var page=pageNum;
+                    var  searchtxt= encodeURI(encodeURI(localStorage.getItem('searchtxt'))) 
+                    var typename=  encodeURI(encodeURI('文档资料')) 
+                             setTimeout(function () {
+                                    $.ajax({
+                                    type: 'POST',
+                                    url:url()+'/section/getMenuId?keywords='+searchtxt+'&size=10&typeName='+typename+'&title='+typename+'&typeContent=1'+ '&timeIntervalStr=' + timrstamp() + '&appSign=' +appSignNumber()+'&userId='+localStorage.getItem('userId')+'&page='+page,
+                                    dataType: 'json',
+                                        success: function(data){
+                                            var listData=[];
+                                            // console.log(data.result.total)
+                                                
+                                                $('.wd_num').text(data.result.totalCount+'条')
+                                                 var data=data.result.data
+                                             
+                                        
+                                            
+                              
+                                          
+                                            
+                                        
+                                            successCallback(data);
+                                            
+                                           
+                                        },
+                                        error: errorCallback
+                                    });
+                                },500)
+
+                }
+                
+            }
+            
+        });
+</script>
+
+</html>

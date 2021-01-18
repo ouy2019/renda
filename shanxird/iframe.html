@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12a">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=dsadads">
+    <link rel="stylesheet" type="text/css" href="./layer/mobile/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="./css/charts.css">
+    <link rel="stylesheet" type="text/css" href="./css/trial.css">
+    <script src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=12"></script>
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+   
+</head>
+<style>
+    #iframe{
+       width: 100%;
+       height: 100%;
+       -webkit-overflow-scrolling: touch;
+        overflow: scroll;
+    }
+    iframe{
+        width: 100%;
+        height:100%;
+        overflow:scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    .bg{background-color: #3333;}
+    .ios{
+        width: 1px;
+        min-width: 100%;
+       height:100%;
+       *width:100%;
+    }
+   
+</style>
+<body>
+    <div id="header" class="bg">
+        <span class="back" ><img src="images/back.png" alt=""/></span><span id="title"></span>
+        <span class="yearSelect Select"></span>
+    </div>
+    <div id="iframe">
+       <iframe class="ifm" id="iframe_id"  src="" frameborder="0" ></iframe>
+    </div>
+</body>
+<script>
+//   var urlLink = htmlUrl()+"http://192.168.1.104:8003/exam/";
+  var name = getQueryString('documentname');
+  var link = url()+ "doc-html/" + name + ".html";
+  console.log(link)
+  var iframe = '';
+//   iframe+='<iframe id="iframe_id" src=" '+link+'" frameborder="0"></iframe>'
+  $('#iframe_id').attr('src', link);
+   var u = navigator.userAgent; 
+   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+   if(isiOS){
+      $('#iframe_id').attr('scrolling','no');
+       $('.ifm').addClass('ios');
+   }
+  
+  //返回上一页的操作
+$('.back').click(function(){
+    back();
+})
+
+</script>
+</html>

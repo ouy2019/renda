@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <!-- 用来标示移动站点 -->
+    <meta name="x5-fullscreen" content="true" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="x5-orientation" content="portrait" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="x5-page-mode" content="app" />
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <meta name="full-screen" content="yes">
+    <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="./css/mescroll.min.css">
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/mescroll.m.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-text-size-adjust: none;
+        }
+
+        html {
+            font-size: 10px;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+
+        .outer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            touch-action: none;
+            /* background: url(images/indebg.png) 0% 0% / 100% 100% no-repeat; */
+        }
+
+        .header {
+            position: relative;
+            height: 44px;
+            line-height: 44px;
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+        }
+
+        .header h1 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: normal;
+        }
+
+        .header .btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 4em;
+            height: 100%;
+            text-align: center;
+            color: #06c;
+            font-size: 1.4rem;
+            background-color: #ccc;
+        }
+
+        .header .btn:active {
+            background-color: #aaa;
+            color: #fff;
+        }
+
+        .inner {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            /* background-color: #fff; */
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .inner .item {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            -webkit-box-align: center;
+            box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 3.125%;
+            border-bottom: 1px solid #ebebeb;
+            color: #333;
+            text-decoration: none;
+
+        }
+
+        .item {
+
+            border-radius: 0.15rem;
+            /* padding-left: 0.6rem!important; */
+            margin: 0.3rem auto;
+            width: 95%;
+        }
+
+        .inner .item img {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+        }
+
+        .inner .item h3 {
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .inner .item .date {
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+
+        .opacity {
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+
+        @-webkit-keyframes opacity {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes opacity {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .lists {
+            margin-top: 1rem
+        }
+
+        .dropload-noData {
+            text-align: center;
+        }
+
+        .dropload-load {
+            text-align: center;
+        }
+
+        .dropload-down {
+            margin-top: 40px
+        }
+
+        .dropload-up {
+            display: none;
+
+        }
+
+        .dropload-up:nth-child(1) {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="outer">
+    <div id="header">
+        <span class="back"><img src="images/back.png" alt="" /></span><span id="title"></span><span
+            class="yearSelect Select"></span>
+    </div>
+    <div class="timeTip">
+        <ul>
+            <li class="tipList">全部</li>
+        </ul>
+    </div>
+    <div class="inner"></div>
+    <div id="pu_content" style="padding:0;margin-top: 0.2rem;height: 90%;overflow: scroll;">
+        <div class="page" style="height: 99%">
+            <div style="height: 100%">
+                <div id="mescroll" class="mescroll">
+                    <ul id="newsList" class="news-list option_L commentList">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="iosHeight"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" defer="defer">
+$(document).ready(function () {
+    $('.back').click(function () {
+        back();
+    });
+    $('#title').text(getQueryString('name'));
+   
+    var mescroll = new MeScroll("mescroll",{
+          up:{
+            callback: upCallback, //上拉加载的回调
+            empty: {
+						tip: "暂无相关数据~" //提示
+            },
+			noMoreSize: 5, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;			
+            
+          }
+    })
+    let dataList = []
+   
+    /*政策法规*/
+    function upCallback(page) {
+        var pageNum = page.num-1; // 页码, 默认从1开始 如何修改从0开始 ?
+        var pageSize = page.size; // 页长, 默认每页10条
+
+        if (localStorage.getItem('type') == "POLICY_CATEGORY") {
+        
+            //政策法规  
+            $.ajax({
+                url: url() +'api/policy?categoryId='+getQueryString('id')+'&page='+pageNum+'&size='+pageSize,
+               // url: 'http://183.6.115.160:8104/exam/api/policy?categoryId=224920428030857216&page='+pageNum+'&size='+pageSize,
+                type: 'GET',
+                accept: 'application/json;charset=UTF-8',
+                async: false,
+                data: {},
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+                dataType: 'JSON',
+                timeout: 3000,
+                success: function (msg) {
+                    var data = msg.data;
+                    var selection = "";
+                    var totalPage=data.totalRecords;
+                    if(page.num == 1) {dataList = [];} //如果是第一页需手动置空列表
+                    dataList = dataList.concat(data); //追加新数据
+                    
+                        for (var i = 0; i < dataList.length; i++) {
+                            selection += '<li style="padding:0.3rem;height:auto" class="item opacity" data-name="' + dataList[i].files[0].name + '" data-title="' + dataList[i].title + '">' + dataList[i].title+ '</li>';
+                        }
+                        //设置列表数据
+                        $('#newsList').html(selection);
+                        $('#mescroll li').click(function () {
+                            var fileid = $(this).attr("data-name")
+                            var filetitle = $(this).attr("data-title");
+                            var link = url()+ "doc-html/" + fileid + ".html";
+                            loadPage(link,filetitle)
+                        });
+
+                    mescroll.endByPage(data.length, totalPage);
+                },
+                error: function(e){
+                    mescroll.endErr();
+                }
+            });
+        
+            
+        } else if (localStorage.getItem('type') == "GUIDE_CATEGORY") {
+            
+            $.ajax({
+            url: url()+'api/guide?categoryId='+getQueryString('id')+'&page='+pageNum+ '&size='+pageSize,
+            type: 'GET',
+            accept: 'application/json;charset=UTF-8',
+            async: false,
+            data: {},
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+            dataType: 'JSON',
+            timeout: 3000,
+            success: function (msg) {
+                var data = msg.data;// 接口返回的当前页数据列表
+                console.log(data);//接口返回的总页数
+                var  selection = "";
+                var totalPage=data.totalRecords;
+                if(page.num == 1) {dataList = [];} //如果是第一页需手动置空列表
+                dataList = dataList.concat(data); //追加新数据
+
+                for (var i = 0; i < dataList.length; i++) {
+                    selection += '<li style="padding:0.3rem;height:auto" class="item opacity" data-name="' + dataList[i].files[0].name + '" data-title="' + dataList[i].title + '">' + dataList[i].title+ '</li>';
+                }
+                  //设置列表数据
+                $('#newsList').html(selection);
+                $('#mescroll li').click(function () {
+                    var fileid = $(this).attr("data-name")
+                    var filetitle = $(this).attr("data-title");
+                    var link = url()+ "doc-html/" + fileid + ".html";
+                        loadPage(link,filetitle)
+                });
+                mescroll.endByPage(data.length, totalPage);
+
+            },
+            error: function(e){
+                mescroll.endErr();
+            }
+           
+
+        })
+
+            
+        } else {  //"DOCUMENT_CATEGORY"
+            
+            
+            $.ajax({
+            url:url()+'api/documentation?categoryId='+getQueryString('id')+'&page='+pageNum+'&size='+pageSize,
+            type: 'GET',
+            accept: 'application/json;charset=UTF-8',
+            async: false,
+            data: {},   //请求的数据
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+            dataType: 'JSON',
+            timeout: 3000,
+            success: function (msg) {
+                var data = msg.data;
+                console.log(data);
+                var  selection = "";
+                var totalPage=data.totalRecords;
+                if(page.num == 1) {dataList = [];} //如果是第一页需手动置空列表
+                dataList = dataList.concat(data); //追加新数据
+
+                for (var i = 0; i < dataList.length; i++) {
+                    if (dataList[i].files.length && dataList[i].files[0].name) {
+                        selection = '<li style="padding:0.3rem;height:auto" class="item opacity" data-name="' + dataList[i].files[0].name + '" data-title="' + dataList[i].title + '">' + dataList[i].title + '</li>';
+                    }
+                }
+                  //设置列表数据
+                $('#newsList').html(selection);
+                $('#mescroll li').click(function () {
+                    var fileid = $(this).attr("data-name")
+                    var filetitle = $(this).attr("data-title");
+                    var link = url()+ "doc-html/" + fileid + ".html";
+                        loadPage(link,filetitle)
+                });
+                mescroll.endByPage(data.length, totalPage);
+
+            },
+            error: function(e){
+                mescroll.endErr();
+            }
+
+        })
+
+            
+        }
+
+       
+    }    
+
+
+});
+
+</script>
+</html>

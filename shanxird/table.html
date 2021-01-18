@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>铭太人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12a">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=dsadads">
+    <!-- <link rel="stylesheet" type="text/css" href="./layer/mobile/need/layer.css"> -->
+    <link rel="stylesheet" href="./layui/dist/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="./css/charts.css">
+    <script src="./layer/layer.js"></script>
+    <script src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/echarts.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=12"></script>
+    <!-- <script src="./layer/layer.js"></script> -->
+    <script src="./layui/dist/layui.all.js"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript" src="./js/table.js"></script>
+    <style>
+    .hide{display: none;}
+    .show{ display: block !important;}
+    .pk-option_1{font-size: 0.26rem !important;padding-left: 0.6rem !important;}
+    .pk-option{font-size: 0.26rem !important;padding-left: 0.6rem !important;}
+    .layui-table-cell, .layui-table-tool-panel li {
+        overflow: auto;
+        text-overflow: unset;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+    .layui-border-box{
+            margin: 0 0.2rem;
+    }
+    #unit{
+        text-align: right;
+        margin: 0 0.2rem 0.2rem 0;
+        color:#939393;
+    }
+    </style>
+</head>
+<body class="is-loading" style="position: relative;">
+    <div class="curtain" style="z-index:9999">
+        <div class="loader">loading...</div>
+    </div>
+    <div id="header" style="position:relative;">
+        <span class="back" style="width: 25px;height: 30px"><img src="images/back.png" alt=""></span>
+        <span id="title"></span><span class="yearSelect Select"></span>
+    </div>
+    <div class="tabMenu" id="tab" style="position:relative;top: 0px">
+        <ul id="tabUl">
+            <li class="active"><span>图形分析</span></li>
+            <li ><span>数据报表</span></li>
+            <!-- <li><span>关联文档</span></li> -->
+        </ul>
+    </div>
+    <!-- 年份 -->
+    <div class="timeTip"><ul></ul></div>
+    <div class="curtain" style="z-index: 9999">
+        <div class="loader">loading...</div>
+        <div style="text-align: center;margin-top: 52%;width: 100%;font-size: 20px">正在加载...</div>
+    </div>
+    <div class="timeZZ"></div>
+    <a class="opinion"></a>
+    <div class="month_show"></div>
+     <!-- 内容区域  page-->
+    <div id="Public_container" style="position:relative;">
+        <div id="pu_content" style="padding: 0px">
+            <div class="page">
+                <!--图形分析 下拉选框 -->
+                <div id="table_title2" style="position: relative;">
+                    <div id="table_title4" style="position: relative;">
+                        <div class="draft_title_1 chartselet_1">
+                            <div class="month_1" style="display: none;">
+                                <span class="month_dq_1 month_cur_1"></span>
+                            </div>
+                            <div id="excelHead_1" class="btn_1 table_title_1 month_dq_1">暂时无数据</div>
+                        </div>
+                        <ul class="month_M_1"></ul>
+                    </div>
+                </div>
+            </div>
+             <!-- 下拉选框 数据表格 -->
+                <div id="table_title" class="hide" style="position: relative;">
+                    <div id="table_title" style="position: relative;">
+                    <div class="draft_title chartselet">
+                        <div class="month" style="display: none;"><span class="month_dq month_cur"></span></div>
+                        <div id="excelHead" class="btn table_title month_dq">暂时无数据</div>
+                    </div>
+                    <ul class="month_M"></ul>
+                </div>
+                <div id="unit"></div>
+            </div>
+            <!-- 文档资料 -->
+            <!-- <div class="page">
+                <div id="draft_analysis"></div>
+            </div> -->
+            <!-- <div class="page" class="bxsm"><ul id="nav" class="dyn"></ul></div> -->
+        </div>
+        <div id="layuiTable" class="layui-hide jqGrid_wrapper" lay-filter="layuiTableFilter"></div>
+        <div id="iosHeight"></div>
+    </div>
+
+    <div class="pk-overlay"></div>
+    <div class="pk-overlay_1"></div>
+      <!-- 图形分析下拉选框 -->
+    <div class="pk-modal_1 -clean_1 excel_1">
+        <div class="head_1">选择一份图形</div>
+        <span class="close_1">×</span>
+        <ul class="main_1 mainExcel_1"></ul>
+    </div>
+    <!--选择一份报表   -->
+    <div class="pk-modal -clean excel">
+        <div class="head">选择一份报表</div>
+        <span class="close">×</span>
+        <ul class="main mainExcel"></ul>
+    </div>
+</body>
+</html>

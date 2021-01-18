@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-page-mode" content="app" />
+    <meta name="full-screen" content="yes">
+    <title>人大预算联网监督系统</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/commom.css?a=12a">
+    <link rel="stylesheet" type="text/css" href="css/index.css?a=dsadads">
+    <link rel="stylesheet" type="text/css" href="layer/need/layer.css">
+    <link rel="stylesheet" type="text/css" href="css/theme/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/theme/jquery-ui.theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/theme/ui.jqgrid-bootstrap-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/theme/ui.jqgrid.css">
+    <script src="layer/layer.js"></script>
+    <script src="js/jq.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <script type="text/javascript" src="js/common.js?a=12"></script>
+    <script type="text/javascript" src="js/jsBridge.js"></script>
+    <script type="text/javascript" src="js/common.js?a=12"></script>
+    <script type="text/javascript" src="js/table.js?a=1"></script>
+    <script src="layer/layer.js"></script>
+    <script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ui.jqgrid-bootstrap.css">
+    <script src="https://cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-cn.js"></script>
+    <script type="text/javascript" src="js/jsBridge.js"></script>
+    <style type="text/css">
+    .line {
+        padding: 0rem 0.3rem
+    }
+
+
+    .budget {
+        border: none;
+    }
+
+    .table_h {
+        background: #3f7eee;
+        color: #fff;
+    }
+
+    .tip {
+        font-size: 0.3rem;
+        width: 100%;
+        text-align: center;
+        margin-top: 30%;
+    }
+
+    #btn {
+        width: 96%;
+        height: 0.6rem;
+        float: left;
+        font-size: 0.3rem;
+        text-align: center;
+        background: #3f7eee;
+        margin-left: 2%;
+        line-height: 0.6rem;
+        margin-bottom: 0.3rem;
+        color: #fff
+    }
+
+    .Select {
+        position: absolute;
+        right: 20px;
+        z-index: 2000;
+        background: url(images/time_jt.png) no-repeat right;
+        padding-right: 20px;
+        background-size: 22%
+    }
+
+
+    .timeTip {
+        width: 120px;
+        /* height: 300px; */
+        background: #ffffff;
+        position: absolute;
+        right: 0px;
+        display: none;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+        color: #333;
+        font-size: 0.3rem;
+        top: 48px;
+        z-index: 9999;
+    }
+
+    .timeZZ {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: #666;
+        background: rgba(0, 0, 0, 0.4);
+        top: 0;
+        left: 0;
+        opacity: 1;
+        visibility: hidden;
+        z-index: 1110;
+        transition: opacity .3s;
+        z-index: 2000
+    }
+
+    #title {
+        width: 50%;
+        overflow: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .optStyle {
+        width: 70%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid #eee;
+        outline: none;
+    }
+
+    #selectOp {
+        color: #959595
+    }
+
+  
+
+    .tabMenu span {
+        line-height: .3rem;
+        display: inline-block;
+        padding-top: 0.76rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0rem;
+        font-size: 0.2rem;
+    }
+
+    #table_select {
+        border: 1px solid #cdddf8;
+        margin: 0 9px;
+        width: 94%;
+        margin-left: 3%;
+        margin-bottom: 15px;
+        background: url(images/select_jt.png) no-repeat;
+        background-size: 2%;
+        background-position: right 10px center;
+        border-radius: 0.3rem;
+    }
+
+    #table_select div {
+        color: #3e7eef;
+        background: none;
+        padding-left: 5px;
+        width: 90%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .tableConten table {
+        background: url(images/watermark.png) left center/180px;
+    }
+
+    body .layui-m-layer-winning-class .layui-m-layercont {
+        padding: 0
+    }
+
+  .jqGrid_wrapper{    width: 96%;
+    margin: 0 auto;
+    box-shadow: 0px 0px 10px rgba(125,125,125,0.2);min-height: 400px
+    }
+    </style>
+</head>
+</script>
+
+<body class="is-loading" style="position: relative;">
+    <div id="header" style="position:relative;">
+        <span class="back" style="width: 25px;height: 30px" onclick="history.go('-1')">
+              <img src="images/back.png" alt="">
+          </span><span id="title"></span><span class="yearSelect Select">
+           
+          </span>
+    </div>
+     <div class="timeTip">
+        <ul></ul>
+    </div>
+    
+
+<!--     <div class="curtain">
+        <div class="loader">
+            loading...
+        </div>
+        <div style="text-align: center;margin-top: 52%;width: 100%;font-size: 20px">正在加载...</div>
+    </div> -->
+
+    <a class="opinion"></a>
+
+    <div id="Public_container" style="position:relative;">
+        <!-- 内容区域 -->
+        <div id="pu_content" style="padding: 0px">
+            <!-- 报表审查 -->
+            <div class="page">
+                <!--   <div id="btn">查询</div> -->
+                <div id="draft_analysis">
+                    <div class="search_table">
+                        <input type="search" placeholder="请输入关键字" id="search">
+                        <div class="key_search">搜索</div>
+                    </div>
+                    <div class="sectionText"></div>
+
+                    <div class="jqGrid_wrapper" style="overflow-x: scroll;width: 96%;margin: 0 auto; border: 1px solid #eee;min-height: 500px">  
+                        <table id="dg"></table>  
+                        <div id="pager2" style="width: 100%"></div>
+                    </div> 
+                </div>
+               
+            </div>
+
+        </div>
+        
+   
+ 
+</body>
+<script>
+
+
+
+</script>
+
+<script type="text/javascript">
+    $(function(){
+         watermark({ watermark_txt: "广州人大预算联网监督系统" })
+    })
+    $('.opinion').unbind("click").click(function() {
+    option()
+})
+</script>
+
+</html>
