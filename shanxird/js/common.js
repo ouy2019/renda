@@ -4,8 +4,8 @@ var h5_Address = origin+"/shanxird/";
 // var api_Address = origin+"/exam/"; 
 
 //h5内网API地址// h5地址
-var api_Address = "http://183.6.115.160:8301/exam/";
-// var api_Address = "http://120.79.58.103:8301/exam/";
+// var api_Address = "http://183.6.115.160:8301/exam/";
+var api_Address = "http://120.79.58.103:8301/exam/";
 
 
  // 判断设备类型
@@ -652,8 +652,8 @@ function timrstamp() {
 function layTip(txt) {
   layer.open({
     content: txt
-    , style: 'background-color:#fff; color:#333; border:none;' //自定风格
-    , time: 3
+    ,style: 'background-color:#fff; color:#333; border:none;' //自定风格
+    ,time: 3000
 
   });
 }

@@ -801,9 +801,14 @@ div.newsList {
     #buttab ul  p{width: 0.8rem;background-color: #fff;height: 2px;margin:0 auto;} 
     #buttab ul .active p{background-color: #3f7dee}
 
-.tabMenu{width: 100%;position: relative;height:1.6rem;
+.tabMenu{
+    width: 100%;
+    position: relative;
+    height:1.85rem;
+
     /* border-bottom: 0.1rem solid #f1f4fa; */
-    font-size: 0.375rem;}
+    font-size: 0.375rem;
+}
 .bugtab{background-color: #fff;margin-top:0.2rem;}
 .bugtab .buttabcont{padding: 0 0.3rem 0.3rem 0.3rem;box-sizing: border-box;margin-bottom: 0.2rem;}
 .buttabcont p{width: 100%;font-size: 0.3rem;color: #4381ef;line-height: 0.7rem;text-align: center;font-weight: bold}
@@ -855,29 +860,32 @@ div.newsList {
     background: url(../images/officeico03.png) center top / 30px no-repeat;
     /* border-bottom: 2px solid #fff;  */
     padding-bottom: 7px;}
+
 #tabUl li.active:nth-child(1) span{
-    background: url(../images/tab_officeico1.png) center top / 36px no-repeat;
-    /* border-bottom: 2px solid #fff; */
-    padding-bottom: 7px;}
+    background: url(../images/tab_officeico1.png) center top / 44px no-repeat;
+    padding-bottom: 15px;}
 #tabUl li:nth-child(1) span{
-    background: url(../images/officeico1.png) center top / 36px no-repeat;
-    /* border-bottom: 2px solid #fff; */
-    padding-bottom: 7px;}
+    background: url(../images/tab_officeico1.png) center top / 36px no-repeat;
+    padding-bottom: 7px;
+}
+
 #tabUl li.active:nth-child(2) span{
-    background: url(../images/tab_officeico2.png) center top / 33px no-repeat;
-    /* border-bottom: 2px solid #fff; */
-    padding-bottom: 7px;}
+    background: url(../images/officeico2.png) center top / 44px no-repeat;
+    padding-bottom: 15px;
+}
 #tabUl li:nth-child(2) span{
-    background: url(../images/officeico2.png) center top / 33px no-repeat;
-    /* border-bottom: 2px solid #fff; */
-    padding-bottom: 7px;}
-#tabUl li:nth-child(3) span{
-    background: url(../images/officeico3.png) center top / 30px no-repeat;
-    /* border-bottom: 2px solid #fff; */
+    background: url(../images/officeico2.png) center top / 36px no-repeat;
     padding-bottom: 7px;}
 
-#tabUl li.active:nth-child(3) span{background: url(../images/tab_officeico3.png) center top / 34px no-repeat;border-bottom: 2px solid #fff;
-    padding-bottom: 10px;}
+#tabUl li:nth-child(3) span{
+    background: url(../images/officeico3.png) center top / 36px no-repeat;
+    padding-bottom: 7px;
+}
+#tabUl li.active:nth-child(3) span{
+    background: url(../images/officeico3.png) center top / 44px no-repeat;
+    padding-bottom: 15px;
+}
+
  #tabUl li:nth-child(4) span{background: url(../images/officeico4.png) center top / 34px no-repeat;border-bottom: 2px solid #fff;
     padding-bottom: 10px;}
 #tabUl li.active:nth-child(4) span{background: url(../images/tab_officeico4.png) center top / 34px no-repeat;border-bottom: 2px solid #fff;
@@ -887,7 +895,10 @@ div.newsList {
 #tabUl li.active:nth-child(5) span{background: url(../images/tab_officeico5.png) center top / 34px no-repeat;border-bottom: 2px solid #fff;
     padding-bottom: 10px;}
 /*#pu_content >div{display: none;}*/
-#tabUl li.active span{border-bottom: 2px solid #e53935!important;}
+
+/* 文档资料选项卡线条 */
+#tabUl li.active span{border-bottom: 3px solid #e53935!important;}
+
 #pu_content h2{
     font-size:0.375rem;text-align: center;
     height: 1.2rem;line-height: 1.2rem;

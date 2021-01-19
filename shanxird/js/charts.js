@@ -1062,7 +1062,7 @@ $(document).ready(function () {
             })
             convertList.push(convertObj);
         })
-        console.log(convertList,'表格数据');
+        //console.log(convertList,'表格数据');
         return convertList;
     }
 

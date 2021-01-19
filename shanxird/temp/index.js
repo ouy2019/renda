@@ -8,13 +8,12 @@ if(GetRequest('token')){
     information()
 } 
 
-
-
-
-
     $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover' })
     htmlList='';
-    htmlList='<div class="indextxt"><img src="images/indextxt.png"></div><div><div class="zlTitle"><span></span><span>陕西省十三届人大常委会第十九次会议专栏</span><span></span></div><ul class="zlImg"></ul></div><div id="menuContent"></div>' 
+    // htmlList=`<div class="indextxt"><img src="images/indextxt.png"></div>
+    // <div><div class="zlTitle"><span></span><span>陕西省十三届人大常委会第十九次会议专栏</span><span></span></div>
+    // <ul class="zlImg"></ul></div><div id="menuContent"></div>` 
+     htmlList=`<ul class="zlImg"></ul></div><div id="menuContent"></div>`;
     $('#mainHtml').prepend(htmlList)
     $(function(){
         $('.menuLi li').click(function(){  //菜单点击事件
@@ -43,58 +42,58 @@ if(GetRequest('token')){
     });
     document.body.className='';
     $('.budget:last').css('border','none') 
-function menuChoice() {
-    $.ajax({
-        url: url()+'api/base/configurations/all',
-        type: 'GET',
-        async: false,
-        accept: 'application/json;charset=UTF-8',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-        timeout: 100000,
-        dataType: "json",
-        success: function (data) {
-            // console.log(data, '---');
-            if(data != ''){
-               var menuName='';
-               var menuValue='';
-               var menuAvailable='';
-               for(var i=0;i<data.length;i++){
-                  menuName += data[i].name;
-                  menuValue += data[i].value;
-                  menuAvailable += data[i].available;
-               }
-               menuList(menuName,menuValue,menuAvailable);
-            }else{
-                menuList();
-            }
-        },
-        error: function () {
-            localStorage.clear(); 
-            var test = setTimeout(function(){
-                layer.open({
-                    content: '没有足够的权限访问，也许是token失效，请重新登录！', 
-                    btn: ['确定'],
-                    yes: function (index) {
-                        if (equipment('iphone')) {
-                            logout();
-                        } else if (equipment("ipad")) {
-                            logout();
-                        }else{
-                           JsBridge.call('JSBridge', 'logout', {}, function (res) {})
+    function menuChoice() {
+        $.ajax({
+            url: url()+'api/base/configurations/all',
+            type: 'GET',
+            async: false,
+            accept: 'application/json;charset=UTF-8',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+            timeout: 100000,
+            dataType: "json",
+            success: function (data) {
+                // console.log(data, '---');
+                if(data != ''){
+                var menuName='';
+                var menuValue='';
+                var menuAvailable='';
+                for(var i=0;i<data.length;i++){
+                    menuName += data[i].name;
+                    menuValue += data[i].value;
+                    menuAvailable += data[i].available;
+                }
+                menuList(menuName,menuValue,menuAvailable);
+                }else{
+                    menuList();
+                }
+            },
+            error: function () {
+                localStorage.clear(); 
+                var test = setTimeout(function(){
+                    layer.open({
+                        content: '没有足够的权限访问，也许是token失效，请重新登录！', 
+                        btn: ['确定'],
+                        yes: function (index) {
+                            if (equipment('iphone')) {
+                                logout();
+                            } else if (equipment("ipad")) {
+                                logout();
+                            }else{
+                            JsBridge.call('JSBridge', 'logout', {}, function (res) {})
+                            }
                         }
-                    }
-                });
-                clearTimeout(test);
-            },3000)  
-        },
-    })
+                    });
+                    clearTimeout(test);
+                },3000)  
+            },
+        })
 
-}
-
+    }
 
 
 
-menuChoice();   
+
+    menuChoice();   
     var data=[];
     function menuList(menuName,menuValue,menuAvailable){  //APP系统菜单
         var url_link='';

@@ -292,7 +292,7 @@ div.news {
 .tabMenu ul li {
     width: 100%;
     text-align: center;
-    border-bottom: 0.04rem solid #ededed;
+    /* border-bottom: 0.04rem solid #ededed; */
 }
 
 .tabMenu span {
@@ -1252,7 +1252,7 @@ select::-ms-expand {
 
 .commentList>li {
     /* background: #fff; */
-    background: #fff;
+    /* background: #fff; */
     padding: 0.3rem 0.2rem 0 0.25rem;
     font-size: 0.3rem;
     margin-bottom: 0.15rem;
@@ -1267,7 +1267,11 @@ select::-ms-expand {
     font-size: 0.25rem;
     white-space: nowrap;
 }
-
+.commentList{
+    background: url("../images/commentList.png") no-repeat;
+    background-size: 100% 100%;
+    overflow: inherit !important;
+}
 .optionuser img {
     width: 0.7rem;
     float: left;
@@ -1389,22 +1393,58 @@ select::-ms-expand {
 }
 
 .weconment {
-    margin-top: -14vh;
-    width: 90%;
-    margin-left: 5%;
+    margin-top: -17vh;
+    width: 100%;
+    /* margin-left: 5%;
     position: relative;
-    background-color: #fff;
+    background-color: #fff; */
 }
 
 .wePage {
     /* background: rgba(253,253,253,0.3); */
-    border-radius: 5px;
-    padding: 5% 5% 0 5%;
-    box-shadow: 0px 0px 10px rgba(67, 128, 239, 0.1);
+    /* border-radius: 5px; */
+    /* padding: 5% 5% 0 5%; */
+    /* box-shadow: 0px 0px 10px rgba(67, 128, 239, 0.1); */
     /* background: url('../images/meunbg.png') no-repeat;
     background-size: 100% 100%; */
 }
-
+.wePage .weico{
+    margin-top: 0.5rem;
+    height: 1.32rem;
+    line-height: 0.5rem;
+    /* border-bottom: 1px solid #eeeeee; */
+}
+.wePage .weico::after {
+  content: " ";
+  width: 92%;
+  height: 0.01rem;
+  background: #eeeeee;
+  position: absolute;
+  border-radius: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.wePage .upade_password{
+    height: 1.32rem;
+    line-height: 0.5rem;
+    /* border-bottom: 1px solid #eeeeee; */
+}
+.wePage .upade_password::after {
+    content: " ";
+    width: 92%;
+    height: 0.01rem;
+    background: #eeeeee;
+    position: absolute;
+    border-radius: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+.wePage .exit{
+    height: 1.32rem;
+    line-height: 0.5rem;
+}
 .wePage1 {
     margin-top: 20px;
     background: #fff;
@@ -1526,8 +1566,8 @@ select::-ms-expand {
 .wePage1 li a {
     font-size: 0.3rem;
     border-bottom: 1px solid #eeeeee;
-    padding: 20px 44px;
-    background: url(../images/next.png) right 10px center no-repeat;
+    padding: 20px 50px;
+    background: url(../images/next.png) right 15px center no-repeat;
     background-size: 8px;
     color: #333;
     box-sizing: border-box;
@@ -1595,13 +1635,13 @@ select::-ms-expand {
 
 .wePage li:nth-child(4) {
     background: url(../images/weico2.png) left center no-repeat;
-    background-size: 7%;
+    background-size: 8%;
     background-position: left 10px center
 }
 
 .wePage li:nth-child(2) {
     background: url(../images/exit.png) left center no-repeat;
-    background-size: 9%;
+    background-size: 8%;
     background-position: left 10px center
 }
 
@@ -2899,13 +2939,13 @@ input::-ms-input-placeholder{
 }
 
 .ztree li a {
-    height: 30px!important;
-    line-height: 30px;
+    height: 36px!important;
+    line-height: 36px;
 }
 
 .ztree>li>a {
-    background: url(../images/nexticon.png) right center no-repeat #fff;
-    background-size: 20px;
+    background: url(../images/rightnext.png) right center no-repeat #fff;
+    background-size: 8px;
     width: 90%;
 }
 
@@ -2991,7 +3031,7 @@ input::-ms-input-placeholder{
 .pagechild{padding: 10px 0px 10px 65px}
 
 .node_name{
-    background: url(../images/pdf.gif) no-repeat left top;
+    background: url(../images/doc.png)left top / 33px no-repeat;
     padding-left: 20px;
     background-size: 11px;
     display: inline-block;
@@ -2999,7 +3039,6 @@ input::-ms-input-placeholder{
     padding: 10px;
     height: 20px;
     margin-left: -9px!important;
-    font-size: 0.25rem!important;
     color: #333;
 }
 .tabCl{
@@ -3286,15 +3325,34 @@ body .ui-jqgrid .loading{
 /* wepage 我的页面样式 */
 .userNameCode{
     float:left;
-    padding:0.7rem 0 0 0.4rem; 
+    padding:0.7rem 0 0 0.2rem; 
+    position: relative;
+    color: #fff;
 }
 .userCodeS{
-    padding:0.3rem 0 0 0.4rem;
+    padding:0.3rem 0 0 0.2rem;
 }
-.userNameCode p{
-    font-size: 0.3rem;
-}
+.userNameCode .userName{
+    font-size: 0.36rem;
+} 
 .specialCode{
-    margin: 0.2rem 0;
+    margin: 0.3rem 0;
+    font-size: 0.26rem;
 }
+.specialTeam{
+    position: absolute;
+    left: 1.7rem;
+    top: 0.32rem;
+    font-size: 0.2rem !important;
+    height: 0.2rem;
+    background-image: linear-gradient(-90deg, #e98e3d 0%, #ffca63 100%), linear-gradient( #ff0000, #ff0000);
+    background-blend-mode: normal, normal;
+    box-shadow: 0px 10px 24px 0px rgba(140, 11, 21, 0.2);
+    border-radius: 20px;
+    line-height: 0.2rem;
+    padding: 0.1rem;
+    /* width: 40%; */
+    text-align: center;
+}
+
 

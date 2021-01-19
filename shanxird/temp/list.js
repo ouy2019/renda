@@ -9,7 +9,7 @@ SPA_RESOLVE_INIT = function (transition) {
     $('#mainHtml').children().remove();
     var htmlList = '';
         htmlList = `<div id="header"><span class="back"></span><span id="title"></span> <span class="yearSelect Select"></span></div>
-        <a class="opinion"></a><div id="trialContent"><div id="mescroll2" class="mescroll1" style="width:100%;height:90%;margin-top: 0.4rem;">
+        <a class="opinion"></a><div id="trialContent" style="height:100vh;top:1rem;"><div id="mescroll2" class="mescroll1" style="height:90%;margin-top:1.6rem;padding: 0 0.36rem;">
         <ul id="newsList1" class="news-list option_L commentList"></ul></div></div>`
    $('#mainHtml').prepend(htmlList);
 
@@ -19,7 +19,7 @@ SPA_RESOLVE_INIT = function (transition) {
             e.preventDefault()
         })
         $('#title').text(localStorage.getItem('specialTeam'));
-        // $('#header').css({ 'background': 'url(images/headbg.png) no-repeat', 'background-size': '100% 100%', 'height': '1.8rem' })
+        $('#trialContent').css({ 'background': 'url(images/list_headbg.png) no-repeat', 'background-size': '100% 100%',});
         //在线意见列表
         superviseFn();
         function superviseFn() {

@@ -13,10 +13,10 @@ function we() {
   $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover' })
   $('#mainHtml').children().remove();
   var htmlList = '';
-  htmlList = `<div id="weicomtent"><div style = "height:28.2vh;">
+  htmlList = `<div id="weicomtent"><div style = "height:4.36rem;">
   <img src="images/we.png" style = "width:100%;height:28.2vh"/>
   </div><div class="weconment"><ul class="wePage"><li style = "overflow:hidden">
-  <div style="width:60px;float:left;padding-top:10px;padding-left:10px">
+  <div style="width:60px;float:left;padding-top:10px;padding-left:6%;">
   <img src="./images/optionico2.png" class="people_icon_class"></div>
   <div class="userNameCode">
   <p class="userName"></p>
@@ -31,7 +31,7 @@ function we() {
   if( localStorage.getItem('specialCode') || localStorage.getItem('specialTeam') ){
     $('.organizationName').addClass('specialCode');
     $('.userNameCode').addClass('userCodeS');
-    $('.organizationName').text(localStorage.getItem('specialCode'));//账户--代表证号
+    $('.organizationName').text('代表证号 : '+localStorage.getItem('specialCode'));//账户--代表证号
     $('.specialTeam').text(localStorage.getItem('specialTeam'));//账户--代表团
   }
 

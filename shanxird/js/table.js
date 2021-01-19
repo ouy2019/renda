@@ -183,7 +183,7 @@ $(document).ready(function () {
                     $('.month').css({ 'background': 'url(./images/index_search_icon_top.png) right center no-repeat #fff', 'background-size': '10px', 'background-position': 'right 4px center' })
                 })
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            error: function () {
                
             },
         })
@@ -388,8 +388,12 @@ $(document).ready(function () {
                     field: `a${cur.index}`.toString(),
                     event: `a${cur.index}`.toString(),
                     title: cur.text,
-                    width: parseInt(cur.width, 10),
-                    align: 'center', //字体全部居中
+                    width: parseInt(cur.width, 10) * 1.5,
+                    align: cur.textAlign || 'center',//字体对齐方向
+                    templet: function(d){
+                        let Style = `display:block;text-align:${d['a'+cur.index+'Style']}`
+                        return `<span style="${Style}">${d["a"+cur.index.toString()]}</span>`
+                    }
                 };
                 
                 if(cur.rowSpan && cur.rowSpan>1) resData.rowspan = cur.rowSpan;
@@ -401,7 +405,7 @@ $(document).ready(function () {
                 } else if (rightLock) {
                     resData.fixed = 'right';
                 }
-                if(sizeWidth && sizeWidth.size) resData.width = sizeWidth.size;
+                if(sizeWidth && sizeWidth.size) resData.width = sizeWidth.size * 1.5;
                 
                 
                 return resData;
@@ -428,6 +432,7 @@ $(document).ready(function () {
                 const key = 'a' + items.index;
                 convertObj[key] = {};
                 convertObj[key] = items.text;
+                convertObj[key+'Style'] = items.textAlign;
             })
             convertList.push(convertObj);
         })
