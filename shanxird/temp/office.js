@@ -13,18 +13,28 @@ SPA_RESOLVE_INIT = function (transition) {
 		    if(msg[0].children[j].name == "标准版本"){
 		        data=msg[0].children[j].children[2]
 		    }
-		}
-	
+        }
+        //循序安小到大排列
+        for (var j = 0; j < data.length - 1; j++) {
+            for (var i = 0; i < data.length - 1 - j; i++) {
+                if (data[i].showOrder > data[i + 1].showOrder) {
+                    var temp = data[i];
+                    data[i] = data[i + 1];
+                    data[i + 1] = temp;
+                }
+            }
+        }
+        console.log(data,'资料库')
         var htmlList = '';
-		htmlList = '<div id="header">' + data.name + '<span id="year" class="timeStyle">' +
+		htmlList = '<div id="header"><span id="title">'+data.name+'</span><span id="year" class="timeStyle">' +
 			'</span>' + '</div>' + '<div id="Public_container" style="width:100%;overflow:auto">' +
 			'<div class="tabMenu tabCl" style="margin-top: 1rem">' +
 			'<ul id="tabUl" class="officetab">' + '</ul>' + '</div>' +
 			'<div id="Public_container" class="office_page" style="width:100%;height:100%;overflow:auto;">' +
 			'<div id="pu_content" style="padding: 0px">' +
 			'<div class="page" style="display: block;">' + '<ul id="treeDemo0" class="ztree">' + '</ul>' + '</div>' +
-			'<div class="page" style="display: none;">' + '<ul id="treeDemo1" class="ztree">' + '</ul>' + '</div>' +
 			'<div class="page" style="display: none;">' + '<ul id="treeDemo2" class="ztree">' + '</ul>' + '</div>' +
+			'<div class="page" style="display: none;">' + '<ul id="treeDemo1" class="ztree">' + '</ul>' + '</div>' +
 			'</div>' + '</div>'
 		$('#mainHtml').prepend(htmlList);
 		$('#mainHtml').css('overflow', 'auto');
@@ -38,7 +48,7 @@ SPA_RESOLVE_INIT = function (transition) {
 		$('#mainHtml').removeClass('Html_list');
 		$('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover' })
 		 
-		 //添加tab栏
+		 //添加tab栏   政策法规 文档资料  使用指南
 		//  var menu = [{ name: '政策法规' }, { name: '使用指南' }, { name: '文档资料' }]
 		 for (i = 0; i < data.children.length; i++) {
 			 fileHeader += '<li>' + '<span>' + data.children[i].name + '</span>' + '</li>';
@@ -52,7 +62,8 @@ SPA_RESOLVE_INIT = function (transition) {
 			 $(this).addClass('active');
 			 $(this).siblings('li').removeClass('active');
 			 $('.page').css('display', 'none')
-			 $('.page').eq(numberIndex).css('display', 'block')
+             $('.page').eq(numberIndex).css('display', 'block');
+             console.log(numberIndex);
 		 })
 			
 	}
@@ -131,81 +142,81 @@ SPA_RESOLVE_INIT = function (transition) {
 
         })
     };
-    //监督指南
-    Guide()
-    function Guide() {
-        $.ajax({
-            url: url() + 'api/guide-categories/null/children?deepLoad=true',
-            type: 'GET',
-            accept: 'application/json;charset=UTF-8',
-            async: false,
-            data: {},   //请求的数据
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-            dataType: 'JSON',
-            timeout: 3000,
-            success: function (data) {
-                // console.log(data)
-                if (data != null && data != undefined) {
-                    for (var a = 0; a < data.length; a++) {
-                        if (data[a].children && data[a].children.length > 0) {
-                            fileContentChilren_1 = '';
-                            for (var b = 0; b < data[a].children.length; b++) {
-                                fileContentChilren_1 +=
-                                    '<li id="li_3" class="level1" data-name= "' + data[a].children[b].name + '"">' +
-                                    '<span class="button level1 switch center_docu"></span>' +
-                                    '<a id="a_3" class="level1">' +
-                                    '<span class="button ico_docu"></span>' +
-                                    '<span class="node_name topage" data-id= "' + data[a].children[b].id + '" data-resourceType="' + data[a].children[b].resourceType + '">' + data[a].children[b].name + '</span>' + '</a>' +
-                                    '</li>'
-                            }
-                            fileContent_1 +=
-                                '<li id="li_2" class="level0" data-id="' + data[a].id + '" data-name="' + data[a].name + '">' +
-                                '<span class="button level0 switch roots_close">' + '</span>' +
-                                '<a id="a_2" class="level0 curSelectedNode" target="_blank">' +
-                                '<span class="button ico_open">' + '</span>' +
-                                '<span class="node_name" data-id="' + data[a].id + '" data-resourceType="' + data[a].resourceType + '">' + data[a].name + '</span>' + '</a>' +
-
-                                '<ul id="ul_3" class="level0 line">' + fileContentChilren_1 + '</ul>' +
-                                '</li>'
-                            fileContentChilren_1 += '';
-                        } else {
-                            fileContent_1 +=
-                                '<li id="li_2" class="level0">' +
-                                '<span class="button level0 switch roots_close">' + '</span>' +
-                                '<a id="li_2" class="level0 curSelectedNode" target="_blank">' +
-                                '<span class="button ico_open">' + '</span>' +
-                                '<span class="node_name topage" data-id="' + data[a].id + '" data-resourceType="' + data[a].resourceType + '">' + data[a].name + '</span>' + '</a>' +
-                                '</li>'
-                        }
-                    }
-                } else {
-                    fileContent_1 += ''
-                }
-                $('#treeDemo1').append(fileContent_1);
-                $('#treeDemo1 li').children('ul').css('display', 'none');
-                $('#treeDemo1 li').on('click', function () {
-                    if ($(this).children('ul').hasClass('hideOffice')) {
-                        $(this).children('ul').removeClass('hideOffice');
-                       
-                    } else {
-                        $('#treeDemo1 li').children('ul').removeClass('hideOffice');
-                        $(this).children('ul').addClass('hideOffice');
+     //监督指南
+     Guide()
+     function Guide() {
+         $.ajax({
+             url: url() + 'api/guide-categories/null/children?deepLoad=true',
+             type: 'GET',
+             accept: 'application/json;charset=UTF-8',
+             async: false,
+             data: {},   //请求的数据
+             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+             dataType: 'JSON',
+             timeout: 3000,
+             success: function (data) {
+                 // console.log(data)
+                 if (data != null && data != undefined) {
+                     for (var a = 0; a < data.length; a++) {
+                         if (data[a].children && data[a].children.length > 0) {
+                             fileContentChilren_1 = '';
+                             for (var b = 0; b < data[a].children.length; b++) {
+                                 fileContentChilren_1 +=
+                                     '<li id="li_3" class="level1" data-name= "' + data[a].children[b].name + '"">' +
+                                     '<span class="button level1 switch center_docu"></span>' +
+                                     '<a id="a_3" class="level1">' +
+                                     '<span class="button ico_docu"></span>' +
+                                     '<span class="node_name topage" data-id= "' + data[a].children[b].id + '" data-resourceType="' + data[a].children[b].resourceType + '">' + data[a].children[b].name + '</span>' + '</a>' +
+                                     '</li>'
+                             }
+                             fileContent_1 +=
+                                 '<li id="li_2" class="level0" data-id="' + data[a].id + '" data-name="' + data[a].name + '">' +
+                                 '<span class="button level0 switch roots_close">' + '</span>' +
+                                 '<a id="a_2" class="level0 curSelectedNode" target="_blank">' +
+                                 '<span class="button ico_open">' + '</span>' +
+                                 '<span class="node_name" data-id="' + data[a].id + '" data-resourceType="' + data[a].resourceType + '">' + data[a].name + '</span>' + '</a>' +
+ 
+                                 '<ul id="ul_3" class="level0 line">' + fileContentChilren_1 + '</ul>' +
+                                 '</li>'
+                             fileContentChilren_1 += '';
+                         } else {
+                             fileContent_1 +=
+                                 '<li id="li_2" class="level0">' +
+                                 '<span class="button level0 switch roots_close">' + '</span>' +
+                                 '<a id="li_2" class="level0 curSelectedNode" target="_blank">' +
+                                 '<span class="button ico_open">' + '</span>' +
+                                 '<span class="node_name topage" data-id="' + data[a].id + '" data-resourceType="' + data[a].resourceType + '">' + data[a].name + '</span>' + '</a>' +
+                                 '</li>'
+                         }
+                     }
+                 } else {
+                     fileContent_1 += ''
+                 }
+                 $('#treeDemo1').append(fileContent_1);
+                 $('#treeDemo1 li').children('ul').css('display', 'none');
+                 $('#treeDemo1 li').on('click', function () {
+                     if ($(this).children('ul').hasClass('hideOffice')) {
+                         $(this).children('ul').removeClass('hideOffice');
                         
-                    };
-                    event.preventDefault()
-                });
-               
-
-            },
-            error: function (status) {
+                     } else {
+                         $('#treeDemo1 li').children('ul').removeClass('hideOffice');
+                         $(this).children('ul').addClass('hideOffice');
+                         
+                     };
+                     event.preventDefault()
+                 });
                 
-            },
-            complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
-               
-            }
-
-        })
-    }
+ 
+             },
+             error: function (status) {
+                 
+             },
+             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
+                
+             }
+ 
+         })
+     }
     //文档资料
     Documentation()
     function Documentation() {
@@ -282,6 +293,8 @@ SPA_RESOLVE_INIT = function (transition) {
 
         })
     }
+   
+    
     //子目录点击事件
      $('.topage').on('click', function(){
          console.log('子目录点击事件')

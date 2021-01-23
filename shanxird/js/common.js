@@ -4,8 +4,8 @@ var h5_Address = origin+"/shanxird/";
 // var api_Address = origin+"/exam/"; 
 
 //h5内网API地址// h5地址
-// var api_Address = "http://183.6.115.160:8301/exam/";
-var api_Address = "http://120.79.58.103:8301/exam/";
+var api_Address = "http://183.6.115.160:8301/exam/";
+// var api_Address = "http://120.79.58.103:8301/exam/";
 
 
  // 判断设备类型
@@ -167,8 +167,10 @@ function jurisdiction(){
         localStorage.setItem('authorities',JSON.stringify(res.authorities));
         localStorage.setItem('userName',res.account)//账户名
         localStorage.setItem('roleId',res.id)//账户id
-        if(res.specialCode || res.specialTeam){
+        if(res.specialCode){
           localStorage.setItem('specialCode',res.specialCode);//账户--代表证号
+        }
+        if(res.specialTeam){
           localStorage.setItem('specialTeam',res.specialTeam);//账户--代表团
         }
 
@@ -853,6 +855,7 @@ function option(type) {
               if (type === 'option') {
                 location.reload();
               }
+              ok();
               layer.close(index)
               // location.reload()
               return '成功'
@@ -868,6 +871,11 @@ function option(type) {
       }
     }
   });
+}
+function ok(){
+  if (isAndroid===true) {
+    JsBridge.call('JSBridge', 'ok', { 'isRefresh': false, 'callBack': 'isRefresh()' }, function(res) {})
+	} 
 }
 
 

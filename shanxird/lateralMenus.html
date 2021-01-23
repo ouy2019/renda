@@ -26,6 +26,33 @@
     <script type="text/javascript" src="./js/mescroll.js"></script>
     <script type="text/javascript" src="./js/jsBridge.js"></script>
     <script src="./layui/dist/layui.all.js"></script>
+    <style>
+        #trialContent {
+            /* position: absolute; */
+            width: 100%;
+            overflow: auto;
+        }
+        #trialContent {
+            margin-top: 1rem;
+            height: 90%;
+        }
+
+        #trialContent .tabMenu {
+            background: #fff;
+        }
+        .tabMenu li.lateralMenusActive span{border-bottom:none !important; }
+        .tabMenu li.lateralMenusActive span::after {
+            content: " ";
+            width: 30%;
+            height: 0.06rem;
+            background: #e53935;
+            position: absolute;
+            border-radius: 2px;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
 </head>
 
 <body class="is-loading" style="background: #f7f9fb;" >

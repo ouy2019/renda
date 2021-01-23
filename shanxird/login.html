@@ -153,31 +153,20 @@
                         } 
                     },
 					error: function (err){
-					 // console.log(err)
-					  //if(err.status == 401){
 						layer.open({
 							content:err.responseJSON.message,
 							skin: 'msg',
 							time: 2000 //2秒后自动关闭
 						});
-					  //}
 					}
-                   
-                    
                 });
-				
-               
             }
-			 
         };
-       
         $(document).keydown(function (event) {
             if (event.keyCode == 13) {
                 login()
             }
-
         });
-
     }
 </script>
 

@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   <meta name="renderer" content="webkit">
   <meta name="HandheldFriendly" content="True"> <!-- 用来 标示移动站点 -->
   <meta name="x5-fullscreen" content="true" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
@@ -30,7 +29,7 @@
   <script type="text/javascript" src="./js/mescroll.js"></script>
   <script type="text/javascript" src="./js/jsBridge.js"></script>
   <script type="text/javascript" src="./js/jquery.ztree.core.min.js"></script>
-  <style type="text/css">
+  <style type="text/css"> 
     div .layui-tab-content {
       padding: 0;
     }
@@ -214,11 +213,8 @@
                   category(id);  //分页查询文档资料
 
                 }
-
-                 
             })
           }
-
         }
        })
    }
@@ -259,7 +255,7 @@
               $('.list-tabs li').click(function(){
                var title = $(this).attr('data-title');
                var name = $(this).attr('data-name');
-               var title=title.slice(9);
+              // var title=title.slice(9);
                console.log(name)
                var link = url()+ "doc-html/" + name + ".html"+'?name='+name;
                console.log(link)

@@ -10,20 +10,38 @@
 .chartselet_1{
     /* background: #f4f7fa; */
     height: 1.2rem;z-index: 90;}
-#excelHead{width: 85%;display: inline-block; height: 30px;
+#excelHead{
+    width: 94%;display: inline-block; height: 30px;
     /* background: #fff; */
     border-radius: 27px;line-height: 30px;padding-left: 20px;box-sizing: border-box;font-size: 0.3rem;box-shadow: 0px 0px 8px 0px rgba(68, 130, 239, 0.1);
     color: #e53935;
-    background: url(../images/select_down.png) right 10px center #fff no-repeat;background-size: 10px}
+    /* background: url(../images/select_down.png) right 10px center #fff no-repeat;background-size: 10px} */
+
+    border-radius: 10px;
+    color: #eee;
+    background: url(../images/red/select-bg.png) center center / 100% 100% no-repeat;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 25px;
+} 
+    
 #excelHead_1{
     width: 97%;display: inline-block; height: 30px;
     /* background: #fff; */
     border-radius: 27px;line-height: 30px;padding-left: 20px;box-sizing: border-box;font-size: 0.3rem;box-shadow: 0px 0px 8px 0px rgba(68, 130, 239, 0.1);
     color: #e53935;
-    background: url(../images/select_down.png) right 10px center #fff no-repeat;background-size: 10px}
+    /* background: url(../images/select_down.png) right 10px center #fff no-repeat;background-size: 10px} */
+    
+    border-radius: 10px;
+    color: #eee;
+    background: url(../images/red/select-bg.png) center center / 100% 100% no-repeat;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 25px;
+}
 .tabMenu li{color: #d4dee8}
-.draft_title{margin-top: 20px}
-.draft_title_1{margin-top: 20px}
+/* .draft_title{margin-top: 20px}
+.draft_title_1{margin-top: 20px} */
 /*.page{display: none}*/
 .tabMenu{box-shadow: 0px 0px 8px 0px rgba(68, 130, 239, 0.1)}
  .line {
@@ -132,37 +150,43 @@
     }
 
     #tabUl li.active:nth-child(1) span {
-        background: url(../images/datab1.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab1.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/chart-select.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom: 0.2rem;
     }
 
     #tabUl li:nth-child(1) span {
-        background: url(../images/datab01.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab01.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/chart.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom: 0.2rem;
     }
 
     #tabUl li.active:nth-child(2) span {
-        background: url(../images/datab2.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab2.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/report-select.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom:  0.2rem;
     }
 
     #tabUl li:nth-child(2) span {
-        background: url(../images/datab02.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab02.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/report.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom: 0.2rem;
     }
 
     #tabUl li:nth-child(3) span {
-        background: url(../images/datab03.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab03.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/document.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom:  0.2rem;
     }
 
     #tabUl li.active:nth-child(3) span {
-        background: url(../images/datab3.png) center top / 0.7rem no-repeat;
+        /* background: url(../images/datab3.png) center top / 0.7rem no-repeat; */
+        background: url(../images/red/document-select.png) center top / 0.8rem no-repeat;
         border-bottom: 2px solid #fff;
         padding-bottom:  0.2rem;
     }

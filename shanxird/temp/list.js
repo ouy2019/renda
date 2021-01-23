@@ -8,9 +8,10 @@ SPA_RESOLVE_INIT = function (transition) {
     setyear()
     $('#mainHtml').children().remove();
     var htmlList = '';
-        htmlList = `<div id="header"><span class="back"></span><span id="title"></span> <span class="yearSelect Select"></span></div>
-        <a class="opinion"></a><div id="trialContent" style="height:100vh;top:1rem;"><div id="mescroll2" class="mescroll1" style="height:90%;margin-top:1.6rem;padding: 0 0.36rem;">
-        <ul id="newsList1" class="news-list option_L commentList"></ul></div></div>`
+        htmlList = `<div id="header" style="position: fixed;top: 0;height:1rem;line-height: 1rem;"><span class="back"></span><span id="title"></span> <span class="yearSelect Select"></span></div>
+        <a class="opinion"></a><div id="trialContent" style="height:100%;top:1rem;">
+        <div id="mescroll2" class="mescroll1" style="height:90%;margin-top:1.7rem;padding: 0 0.36rem;">
+        <ul id="newsList1" class="news-list option_L "></ul></div></div>`
    $('#mainHtml').prepend(htmlList);
 
     $(function () {
@@ -28,12 +29,14 @@ SPA_RESOLVE_INIT = function (transition) {
             /*设置列表数据 提交的意见列表*/
             function setListData() {
                 if(getQueryString('categoryid')){
+                    console.log(getQueryString('categoryid'))
                     var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}`;
                 }else if(localStorage.getItem('specialTeam')){
-                    var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}&team=${localStorage.getItem('specialTeam')}`;
-                }else{
-                    var linkUrl= url() + `api/exam/online-advice?page=0&size=100`;
+                    var linkUrl= url()+`api/exam/online-advice?page=0&size=100&team=${localStorage.getItem('specialTeam')}`;
                 }
+                    // }else{
+                //     var linkUrl= url()+`api/exam/online-advice?page=0&size=100`;
+                // }
                 $.ajax({
                     type: 'GET',
                     url: linkUrl,
@@ -42,24 +45,33 @@ SPA_RESOLVE_INIT = function (transition) {
                     data: {},   //请求的数据
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
                     dataType: 'JSON',
-                    timeout: 3000,
                     success: function (data) {
                         if(data.data && data.data.length){
                             var data = data.data;
+                            var dateTime = new Date;
+                            var yearTime = dateTime.getFullYear();
+                            var month = dateTime.getMonth() + 1
+                            var date = dateTime.getDate(); 
+                            var ymd = yearTime+'-0'+month+'-'+date
+                            // console.log(ymd)
                             console.log(data,'--提交的意见列表数据--');
                             var result = '';
                             for (var i = 0; i < data.length; i++) {
-                              result +=`<li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
+                              result +=`<div class="commentList"><div class="${data[i].createdTime.substring(0,10) == ymd ? "newBg" : "" }"></div>
+                                        <li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
                                           <div class="optionuser clearfix">
                                              <img src="images/optionico1.png">
                                              <span class="publisher">${data[i].name ? data[i].name : data[i].category.name}</span><span>|</span>
                                              <span class="datatime">${data[i].createdTime}</span>
                                           </div>
-                                          <div class="ophead">${data[i].title}</div>
+                                          <div class="ophead">${data[i].title ? data[i].title : ''}</div>
                                           <div class="opconment">${data[i].content}</div>
                                           <div class="oplabel clearfix">
-                                             <ul><li>${data[i].category.name ? data[i].category.name : data[i].name}</li></ul></div>
-                                        </li>`
+                                             <ul style="width:98%;"><li>${data[i].category.name ? data[i].category.name : data[i].name}</li><div class="totalRecords"><span>${data.length}</span></div></ul></div>
+                                        </li></div>`;
+                                        // console.log(data[i].createdTime.substring(0,10),'截取的时间')
+                                        // console.log(data[i].createdTime.substring(0,10) == ymd)
+                                        // console.log(ymd)
                             }
                             $('#newsList1').append(result);
                             //点击跳转页面(报表)

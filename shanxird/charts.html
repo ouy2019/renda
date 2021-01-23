@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <meta name="HandheldFriendly" content="True">
     <meta name="x5-fullscreen" content="true" />
@@ -43,21 +41,19 @@
             color:#939393
         }
         table>thead>tr{ background-color: #e53935 !important; color: #fff;}
-
     </style>
 </head>
-</script>
+<script></script>
+<body style="position: relative;">
 
-<body class="is-loading" style="position: relative;">
-   
-    <div id="header" style="position:relative;"> 
+    <div id="header" style="position: fixed;"> 
         <span class="back" style="width: 25px;height: 30px">
             <img src="images/back.png" alt="">
         </span><span id="title"></span><span class="yearSelect Select">
         </span>
     </div>
 
-    <div id="table_title" style="position: relative;display: block">
+    <div id="table_title" style="position: relative;top:1rem;display: block">
         <!-- tab切换栏目 -->
         <div class="tabMenu" id="tab" style="position:relative;top: 0px">
             <ul id="tabUl">
@@ -69,17 +65,12 @@
     </div>
 
     <div class="timeTip"><ul></ul></div>
-    <div class="curtain" style="z-index: 9999">
-        <div class="loader">
-            loading...
-        </div>
-        <div style="text-align: center;margin-top: 52%;width: 100%;font-size: 20px">正在加载...</div>
-    </div>
+  
     <div class="timeZZ"></div>
     <a class="opinion"></a>
     <div class="month_show"></div>
     <div class="month_show_1"></div>
-    <div id="Public_container" style="position:relative;">
+    <div id="Public_container" style="position:relative;top:1rem;">
 
         <!-- 内容区域 -->
         <div id="pu_content" style="padding: 0px">
@@ -113,20 +104,14 @@
                 </div>
             </div>
             <!-- 文档资料 -->
-            <div class="page" class="bxsm"><ul id="nav" class="dyn"></ul></div>
+            <div class="page" class="bxsm" style="display: none;position: relative;"><ul id="nav" class="dyn"></ul></div>
         </div>
         <div id="layuiTable" lay-filter="layuiTableFilter"></div>
         <div id="iosHeight"></div> 
     </div>
     <div class="pk-overlay"></div>
     <div class="pk-overlay_1"></div>
-    <div class="lds-css ng-scope">
-        <div style="width:100%;height:100%;display: block!important;" class="lds-ripple">
-            <div></div>
-            <div></div>
-        </div>
-        <div class="lds_ct">数据穿透中...</div>
-    </div>
+   
     <!-- 图形分析下拉选框 -->
     <div class="pk-modal_1 -clean_1 excel_1">
         <div class="head_1">选择一份图形</div>

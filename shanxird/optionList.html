@@ -45,8 +45,8 @@
     </div>
     <a class="opinion"></a>
     <div id="trialContent">
-        <div id="mescroll2" class="mescroll1" style="width:100%;height:90%;margin-top:0.2rem;">
-            <ul id="newsList1" class="news-list option_L commentList"></ul>
+        <div id="mescroll2" class="mescroll1" style="height:90%;margin-top:1.6rem;padding: 0 0.36rem;">
+            <ul id="newsList1" class="news-list option_L "></ul>
         </div>
     </div>
 </body>
@@ -62,6 +62,7 @@
         $('.back').click(function () {
             back();
         })
+        $('#trialContent').css({ 'background': 'url(images/list_headbg.png) no-repeat', 'background-size': '100% 100%',});
         $('.curtain').remove();//删除动画
         setListData()
         /*设置列表数据 提交的意见列表*/
@@ -69,12 +70,13 @@
             if(getQueryString('categoryid')){
                 var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}`;
             }else if(localStorage.getItem('specialTeam')){
-                var linkUrl= url() + `api/exam/online-advice?page=0&size=100&categoryId=${getQueryString('categoryid')}&team=${localStorage.getItem('specialTeam')}`;
+                var linkUrl= url() + `api/exam/online-advice?page=0&size=100&team=${localStorage.getItem('specialTeam')}`;
             }else if(getQueryString('userName')){
                 var linkUrl= url() + `api/exam/online-advice?page=0&size=100&name${getQueryString('userName')}`;
-            }else{
-                var linkUrl= url() + `api/exam/online-advice?page=0&size=100`;
             }
+            // else{
+            //     var linkUrl= url() + `api/exam/online-advice?page=0&size=100`;
+            // }
             $.ajax({
                 type: 'GET',
                 url: linkUrl,
@@ -86,22 +88,31 @@
                 timeout: 3000,
                 success: function (data) {
                     if(data.data && data.data.length){
-						var data = data.data;
+                        var data = data.data;
+                        var dateTime = new Date;
+                        var yearTime = dateTime.getFullYear();
+                        var month = dateTime.getMonth() + 1
+                        var date = dateTime.getDate(); 
+                        var ymd = yearTime+'-0'+month+'-'+date
 						console.log(data,'--提交的意见列表数据--');
 						var result = '';
-						for (var i = 0; i < data.length; i++) {
-						  result +=`<li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
-									  <div class="optionuser clearfix">
-										 <img src="images/optionico1.png">
-										 <span class="publisher">${data[i].name ? data[i].name : data[i].category.name}</span><span>|</span>
-										 <span class="datatime">${data[i].createdTime}</span>
-									  </div>
-									  <div class="ophead">${data[i].title}</div>
-									  <div class="opconment">${data[i].content}</div>
-									  <div class="oplabel clearfix">
-										 <ul><li>${data[i].category.name ? data[i].category.name : data[i].name}</li></ul></div>
-									</li>`
-						}
+                        for (var i = 0; i < data.length; i++) {
+                            result +=`<div class="commentList"><div class="${data[i].createdTime.substring(0,10) == ymd ? "newBg" : "" }"></div>
+                                    <li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
+                                        <div class="optionuser clearfix">
+                                            <img src="images/optionico1.png">
+                                            <span class="publisher">${data[i].name ? data[i].name : data[i].category.name}</span><span>|</span>
+                                            <span class="datatime">${data[i].createdTime}</span>
+                                        </div>
+                                        <div class="ophead">${data[i].title}</div>
+                                        <div class="opconment">${data[i].content}</div>
+                                        <div class="oplabel clearfix">
+                                            <ul style="width:98%;"><li>${data[i].category.name ? data[i].category.name : data[i].name}</li><div class="totalRecords"><span>${data.length}</span></div></ul></div>
+                                    </li></div>`;
+                                    // console.log(data[i].createdTime.substring(0,10),'截取的时间')
+                                    // console.log(data[i].createdTime.substring(0,10) == ymd)
+                                    // console.log(ymd)
+                        }
 						$('#newsList1').append(result);
 						//点击跳转页面(报表)
 						$('#mescroll2 li').click(function () {

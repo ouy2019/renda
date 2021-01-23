@@ -1,20 +1,16 @@
 
 
 function index(){
-if (localStorage.getItem('userId') == undefined || localStorage.getItem('userId') == '') {
-    information()
-}
-if(GetRequest('token')){
-    information()
-} 
-
-    $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover' })
+    if (localStorage.getItem('userId') == undefined || localStorage.getItem('userId') == '') {
+        information()
+    }
+    if(GetRequest('token')){ information() } 
+    
+    // $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover', })
     htmlList='';
-    // htmlList=`<div class="indextxt"><img src="images/indextxt.png"></div>
-    // <div><div class="zlTitle"><span></span><span>陕西省十三届人大常委会第十九次会议专栏</span><span></span></div>
-    // <ul class="zlImg"></ul></div><div id="menuContent"></div>` 
-     htmlList=`<ul class="zlImg"></ul></div><div id="menuContent"></div>`;
-    $('#mainHtml').prepend(htmlList)
+    htmlList=`<ul class="zlImg"></ul></div><div id="menuContent"></div>`;
+    $('#mainHtml').prepend(htmlList);
+    
     $(function(){
         $('.menuLi li').click(function(){  //菜单点击事件
             track=$(this).attr('track')
@@ -41,7 +37,8 @@ if(GetRequest('token')){
       
     });
     document.body.className='';
-    $('.budget:last').css('border','none') 
+    $('.budget:last').css('border','none');
+
     function menuChoice() {
         $.ajax({
             url: url()+'api/base/configurations/all',
@@ -84,14 +81,11 @@ if(GetRequest('token')){
                         }
                     });
                     clearTimeout(test);
-                },3000)  
+                },2000)  
             },
         })
 
     }
-
-
-
 
     menuChoice();   
     var data=[];
@@ -125,10 +119,20 @@ if(GetRequest('token')){
                 var menuObject= new Object();
                 filterArray(data);//用户权限管传值
                  //console.log(data)
-                for (a = 0; a < data.length; a++) {
+
+                 var menuObject2= new Object();
+                for(var k=0;k<4; k++){ //汶川首页上面四个菜单数据
+                    var menuId2 = data[k].id;
+                    menuObject2[menuId2] = data[k].children;
+                    menuDocument+='<li data-link="'+data[k].link+'"data-name="'+data[k].name+'"data-id="'+data[k].id+'"><img src=" '+url()+data[k].iconValue+' " />'+'<span>'+data[k].name+'</span></li>'
+                    
+                }
+                $('.zlImg').append(menuDocument);
+
+                for (a = 5; a < data.length; a++) {
+                    //console.log(data[a])
                     if(data[a].children && data[a].skipMode === "DROPDOWN"){
-                       
-                        console.log(data[a].children,'--children--');
+                      // console.log(data[a].children,'--children--');
 
                         for(var b=0;b<data[a].children.length;b++){
                             var menuId = data[a].children[b].id;
@@ -142,26 +146,16 @@ if(GetRequest('token')){
                         };
                         if(data[a].aclTrue){//判断用户权限
                             menuHtml+='<div class="menuItem" id=menu'+a+'>'+
-                            '<div class="menuCont">'+'<div class="menuTitle">'+'<div class="menuTitle_L">'+'</div>'+'<div>'+data[a].name+'</div>'+'</div>'+
+                            '<div class="menuCont">'+'<div class="menuTitle">'+'<div>'+data[a].name+'</div>'+'</div>'+
                             '<ul class="menuLi">'+menuUL+'</ul>'+'</div>'+'</div>'
-
                         }
-                        
                     }
-                   
+                
                     $('#menuContent').append(menuHtml)
                     menuHtml='';
                     menuUL='';
                 };
-                var menuObject2= new Object();
-                for(var k=0;k<4; k++){ 
-                      //汶川首页上面四个菜单数据
-                    var menuId2 = data[k].id;
-                    menuObject2[menuId2] = data[k].children;
-                    menuDocument+='<li data-link="'+data[k].link+'"data-name="'+data[k].name+'"data-id="'+data[k].id+'"><img src=" '+url()+data[k].iconValue+' " />'+'<span>'+data[k].name+'</span></li>'
-                    
-                }
-                $('.zlImg').append(menuDocument)
+                
                 setData(menuObject, 'menu')
                 setData(menuObject2, 'menu2')
                $('.zlImg li').click(function(){  //会议文件 分析报告 审查情况 发表意见点击事件
@@ -182,17 +176,17 @@ if(GetRequest('token')){
     function setData(a, menu){
         // window.location.href=data[a].link || "/";
         localStorage.setItem(menu,JSON.stringify(a));
-       
     }
     $(".menuTitle_R").on('click',function(){
         $(this).parent().next('div').find('.menuLi').css({'height':'auto','overflow':'visible'});
     })
+    // $('#mainHtml').scrollTop(localStorage.getItem('Indexheight'))
+    // $('#mainHtml').scroll(function() {  
+    //     var yheight=$('#mainHtml').scrollTop(); //滚动条距顶端的距离                   
+    //     localStorage.setItem('Indexheight',yheight)
+    // })
+    $('body').addClass('iosIndex');
 
-    $('#mainHtml').scrollTop(localStorage.getItem('Indexheight'))
-    $('#mainHtml').scroll(function() {  
-        var yheight=$('#mainHtml').scrollTop(); //滚动条距顶端的距离                   
-        localStorage.setItem('Indexheight',yheight)
-    })
 }
 SPA_RESOLVE_INIT = function(transition) { 
      $('#mainHtml').children().remove();

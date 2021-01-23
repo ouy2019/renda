@@ -1,9 +1,10 @@
 
 $(document).ready(function () {
+layer.msg('努力加载中...', {icon: 16, shade: 0.4, time:1000});
  //返回上一页的操作
  $('.back').click(function () {
     back();
-});
+ });
     //$('body').css({'background':'url(images/indebg.png) no-repeat','background-size':'100% 100%'})
     tabUl = '';
     page = '';
@@ -41,7 +42,7 @@ $(document).ready(function () {
             }
             for (a = 0; a < data.children.length; a++) {//判断用户权限
                 if(data.children[a].aclTrue){
-                    pageLi += '<li  style=" background:url(' +url()+ data.children[a].iconValue + ') 20px center #fff no-repeat ;background-size:0.625rem 0.625rem   " data-id="' + data.children[a].id + '" data-name="' + data.children[a].name + '" data-link="' + data.children[a].link + '" style ="background: url(./images/1.png) 20px center no-repeat #fff; background-size: 0.825rem 0.825rem"><a  class="fileTab">' + data.children[a].name + '</a></li>'
+                    pageLi += '<li  style=" background:url(' +url()+ data.children[a].iconValue + ') 15px center #fff no-repeat ;background-size:0.48rem 0.48rem;" data-id="' + data.children[a].id + '" data-name="' + data.children[a].name + '" data-link="' + data.children[a].link + '" style ="background: url(./images/1.png) 15px center no-repeat #fff; background-size: 0.48rem 0.48rem"><a  class="fileTab">' + data.children[a].name + '</a></li>'
                 }
             }
 
@@ -53,9 +54,9 @@ $(document).ready(function () {
             $('#trialMun').css('top', '0px');
            
             $('#trialMun li').on('click', function () {
-                var loading = layer.msg('努力加载中...', {icon: 16, shade: 0.3, time:1000});
+                layer.msg('努力加载中...', {icon: 16, shade: 0.4, time:2000});
                 localStorage.setItem('id', data.id)
-                localStorage.setItem('year', '')
+               
                 var name = $(this).attr('data-name')
                 var id = $(this).attr('data-id')
                 var link_url = $(this).attr('data-link')
@@ -130,7 +131,7 @@ if (getQueryString('nextPage')) {
                         })
                         //年份点击事件
                         $('.tipList').click(function () {
-                            var loading = layer.msg('努力加载中...', {icon: 16, shade: 0.3, time:2000});
+                            layer.msg('努力加载中...', {icon: 16, shade: 0.4, time:2000});
                             $('.tipList').removeClass('yearactive')
                             $(this).addClass('yearactive')
                             localStorage.setItem('year', $(this).text())
@@ -163,17 +164,18 @@ if (getQueryString('nextPage')) {
             timeout: 100000,
             dataType: "json",
             success: function (sec) {
-                //console.log(sec, '部门信息列表---');
+                
                 //循序安小到大排列
-                // for (var j = 0; j < sec.length - 1; j++) {
-                //     for (var i = 0; i < sec.length - 1 - j; i++) {
-                //         if (sec[i].showOrder > sec[i + 1].showOrder) {
-                //             var temp = sec[i];
-                //             sec[i] = sec[i + 1];
-                //             sec[i + 1] = temp;
-                //         }
-                //     }
-                // }
+                for (var j = 0; j < sec.length - 1; j++) {
+                    for (var i = 0; i < sec.length - 1 - j; i++) {
+                        if (sec[i].showOrder > sec[i + 1].showOrder) {
+                            var temp = sec[i];
+                            sec[i] = sec[i + 1];
+                            sec[i + 1] = temp;
+                        }
+                    }
+                }
+                console.log(sec, '部门信息列表---');
                 pageLi= '';
                 if (sec.length != null && sec.length != 0) {
                     for (var i = 0; i < sec.length; i++) {
@@ -189,7 +191,7 @@ if (getQueryString('nextPage')) {
                     $('#mescroll').css('display', 'none');
                     $('#searchbtn').css('background', '#e53935');
                     $('#trialMun li').on('click', function () {
-                        var loading = layer.msg('努力加载中...', {icon: 16, shade: 0.3, time:1000});
+                        layer.msg('努力加载中...', {icon: 16, shade: 0.4, time:2000});
                         localStorage.setItem('trialid',sec.id)
                         var name = $(this).attr('sec-name')
                         var id = $(this).attr('sec-id')
@@ -200,8 +202,8 @@ if (getQueryString('nextPage')) {
                             forward(htmlUrl(link))
                         } else if(getQueryString('nextPage')){
                             var link = linkPage+'?childrenname='+name+'&childrenid='+$(this).attr('sec-id')+'&id='+menuid+'&deptId='+id
-                            forward(htmlUrl(link))
-                          // console.log(link  );
+                           forward(htmlUrl(link))
+                          console.log(link  );
                         }else{
                            
                             var link = linkPage+'?childrenname='+name+'&childrenid='+$(this).attr('sec-id')+'&id='+menuid;

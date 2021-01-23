@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <meta name="HandheldFriendly" content="True"> <!-- 用来 标示移动站点 -->
+  <meta name="x5-fullscreen" content="true" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-orientation" content="portrait" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="x5-page-mode" content="app" /> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <meta name="full-screen" content="yes"> <!-- 手机端全屏，去掉浏览器底部以及顶部 -->
+  <title>人大系统</title>
+  <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+  <meta HTTP-EQUIV="expires" CONTENT="0">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./css/commom.css?a=12">
+    <link rel="stylesheet" type="text/css" href="./css/index.css?a=1">
+    <link rel="stylesheet" type="text/css" href="./layer/need/layer.css">
+    <script src="./layer/layer.js"></script>
+    <script type="text/javascript" src="./js/fastclick.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+    <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <script type="text/javascript" src="./js/jsBridge.js"></script>
+    <script type="text/javascript">
+    $(function() { 
+        FastClick.attach(document.body);
+    });
+  </script>
+    <style type="text/css">
+      body {
+          width: 100%;
+          height: 100%;
+          background: #fff;
+      }
+      #header{position: fixed;}
+      .dataList{
+          margin-top: 1rem;
+      }
+      .dataList .foreword{
+        
+      
+      }
+      
+      .dataList .foreword .dataBox{
+          padding: 0 0.2rem 0 0.4rem;
+      }
+      .dataList .foreword .Title{
+          font-size: 0.34rem;
+          line-height: 1.1rem;
+          padding-left: 0.45rem;
+          width: 95%;
+          background: url("./images/knot.png") left center no-repeat;
+          background-size: 0.35rem;
+      }
+      .dataList .foreword::after{
+          content: "";
+          width: 85%;
+          height: 1px;
+          background: #dcdcdc;
+          position: absolute;
+          border-radius: 2px;
+          bottom: 0;
+          left: 55%;
+          transform: translateX(-50%);
+      }
+      .dataList .foreword .icon{
+          width: 0.14rem;
+          height: 0.26rem;
+          position: absolute;
+          bottom: 0.45rem;
+          right: 0.15rem;
+      }
+      .dataList .foreword .text{
+          padding: 0 0.4rem 0.2rem 0.4rem;
+          font-size: 0.28rem;
+          color: #7c7c7c;
+          /* margin: 0.2rem 0; */
+          line-height: 0.45rem;
+  
+      } 
+      
+     /* background: url(../images/rightnext.png) right center no-repeat #fff;
+      background-size: 8px; */
+     /* background: url() 15px 12px #fff no-repeat;
+      background-size: 0.48rem; */
+      </style>
+  </head>
+  <body>
+      <div id="app">
+          <div id="header">
+              <!-- 十四五规划纲要草案 -->
+            <span class="back"><img src="images/back.png" alt="" /></span>
+            <span id="title"></span>
+            <span id="year" class="timeStyle"></span>
+          </div>
+          <div class="dataList">
+              
+              <div class="foreword" data-id="0" data-name="前言">
+                  <div class="dataBox">
+                      <div class="Title">前言</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                  </div>
+              </div>
+              <div class="foreword" data-id="1" data-name="第一篇">
+                  <div class="dataBox">
+                      <div class="Title">第一篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">认真贯彻习近平书记来陕考察重要讲话奋力谱写陕西新时代追赶超越新篇章</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="2" data-name="第二篇">
+                  <div class="dataBox">
+                      <div class="Title">第二篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">深入实施创新驱动发展战略打造西部创新高地第二篇深入实施创新驱动发展战略打造西部创新高地</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="3" data-name="第三篇">
+                  <div class="dataBox">
+                      <div class="Title">第三篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">做实做强做优实体经济构建具有陕西特色的现代产业体系</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="4" data-name="第四篇">
+                  <div class="dataBox">
+                      <div class="Title">第四篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">坚定实施扩大内需战略积极融人新发展格局</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="5" data-name="第五篇">
+                  <div class="dataBox">
+                      <div class="Title">第五篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">完善区域发展战略推动形成优势互补高质量发展的区域经济布局</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="6" data-name="第六篇">
+                  <div class="dataBox">
+                      <div class="Title">第六篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">以城市群和都市圈建设为重点提升新型城镇化质量和水平</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="7" data-name="第七篇">
+                  <div class="dataBox">
+                      <div class="Title">第七篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">巩固脱贫攻坚成果全面推进乡村振兴</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="8" data-name="第八篇">
+                  <div class="dataBox">
+                      <div class="Title">第八篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">深度融人共建“一带一路”大格局打造内陆改革开放高地</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="9" data-name="第九篇">
+                  <div class="dataBox">
+                      <div class="Title">第九篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">统筹山水林田湖草沙系统治理推动生态环境质量持续好转</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="10" data-name="第十篇">
+                  <div class="dataBox">
+                      <div class="Title">第十篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">坚持以人民为中心加强民生保障和社会建设</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="11" data-name="第十一篇">
+                  <div class="dataBox">
+                      <div class="Title">第十一篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">繁荣发展文化事业和文化产业建设文化强省</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="12" data-name="第十二篇">
+                  <div class="dataBox">
+                      <div class="Title">第十二篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">统筹发展和安全建设更高水平的平安陕西</div>
+                  </div>
+              </div>
+              <div class="foreword" data-id="13" data-name="第十三篇">
+                  <div class="dataBox">
+                      <div class="Title">第十三篇</div>
+                      <img src="./images/nextRight.png" class="icon" alt="">
+                      <div class="text">加强规划实施保障确保完成各项目标任务</div>
+                  </div>
+              </div>
+          </div>
+  
+      </div>
+  </body>
+  <script type="text/javascript">
+  $(document).ready(function(){
+      //返回上一页
+      $('.back').click(function () {
+         back(); 
+      });
+      var Title=getQueryString('childrenname')
+      $('#title').text(Title);
+  
+  
+      var origin = window.location.origin;
+      var linkUrl = origin+"/shanxird/assets/caoan/";
+      $('.foreword').click(function(){
+          var id = $(this).attr('data-id');
+          var title = $(this).attr('data-name');
+          // console.log(id)
+          var link = linkUrl+`${id}.html`
+          console.log(link);
+           loadPage(link, title); //调用原生跳转方法
+  
+      });
+  
+  })
+  </script>
+  </html>

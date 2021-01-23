@@ -50,7 +50,6 @@ if(id != null && name != null){
             if(data.children[i].aclTrue){//判断用户权限
                 tabUl = ' <li id="read" data-id=' + tabMenuId + '><span style=" background:url(' + url()+data.children[i].iconValue + ') center top / 45px #fff no-repeat  " >' + data.children[i].name + '</span></li>';
                 $('#tabUl').append(tabUl);
-
             }
             
             if (data.children[i].children) {
@@ -68,12 +67,12 @@ if(id != null && name != null){
                             }
                             //console.log(data.children[i].children[a].children[b].aclTrue,'chidren--数据');
                             if(data.children[i].children[a].children[b].aclTrue){
-                              pagechild += '<ul class="pagechildUl"><li class="clickTab" style=" background:url(' + url()+data.children[i].children[a].children[b].iconValue + ') 20px center #fff no-repeat ;background-size:38px" data-id="' + mid + '"data-name="' +data.children[i].children[a].children[b].name + '" data-link="' + data.children[i].children[a].children[b].link + '"><a href="javascript:;" class="fileTab">' +data.children[i].children[a].children[b].name + '</a></li></ul>'
+                              pagechild += '<ul class="pagechildUl"><li class="clickTab" style=" background:url(' + url()+data.children[i].children[a].children[b].iconValue + ') 15px 12px #fff no-repeat ;background-size:0.48rem" data-id="' + mid + '"data-name="' +data.children[i].children[a].children[b].name + '" data-link="' + data.children[i].children[a].children[b].link + '"><a href="javascript:;" class="fileTab">' +data.children[i].children[a].children[b].name + '</a></li></ul>'
                             }
                         }
                         //console.log(data.children[i].children[a].aclTrue,'chidren--数据');
                         
-                        pageLi += '<ul><li class="openChild" style=" background:url(' + url()+data.children[i].children[a].iconValue + ') 10px 8px #fff no-repeat;background-size:38px" data-id="' + data.children[i].children[a].id + '"data-name="' + data.children[i].children[a].name + '"><div class="pagechild">' + data.children[i].children[a].name + '</div>' + pagechild + '</li></ul>'
+                        pageLi += '<ul><li class="openChild" style=" background:url(' + url()+data.children[i].children[a].iconValue + ') 15px 12px #fff no-repeat;background-size:0.48rem" data-id="' + data.children[i].children[a].id + '"data-name="' + data.children[i].children[a].name + '"><div class="pagechild">' + data.children[i].children[a].name + '</div>' + pagechild + '</li></ul>'
                         pagechild = ''
                     } else {
                         var menuId = data.children[i].children[a].id;
@@ -86,7 +85,7 @@ if(id != null && name != null){
                         }
                         //console.log(data.children[i].children[a].aclTrue,'chidren--数据')
                         if(data.children[i].children[a].aclTrue){
-                            pageLi += '<ul><li class="clickTab" style=" background:url(' + url()+ data.children[i].children[a].iconValue + ') 10px 8px #fff no-repeat ;background-size:38px" data-id="' + mid + '" data-name="' + data.children[i].children[a].name + '"data-link="' + data.children[i].children[a].link + '"   "><a href="javascript:;" class="fileTab">' + data.children[i].children[a].name + '</a></li></ul>'
+                            pageLi += '<ul><li class="clickTab" style=" background:url(' + url()+ data.children[i].children[a].iconValue + ') 15px 12px #fff no-repeat ;background-size:0.48rem" data-id="' + mid + '" data-name="' + data.children[i].children[a].name + '"data-link="' + data.children[i].children[a].link + '"   "><a href="javascript:;" class="fileTab">' + data.children[i].children[a].name + '</a></li></ul>'
                             litem = ''
 
                         }
@@ -109,12 +108,11 @@ if(id != null && name != null){
         $('#tabUl li').css('width', (100 / data.length) + '%');
         $('#title').text(name);
         var trial = localStorage.getItem('trial');
-        $('#tabUl li').eq(trial).addClass('active');
-        $('#tabUl li').eq(trial).siblings('li').removeClass('active')
+        $('#tabUl li').eq(trial).addClass('lateralMenusActive');
+        $('#tabUl li').eq(trial).siblings('li').removeClass('lateralMenusActive')
         $('#pu_content').find('.page').eq(trial).css('display', 'block').siblings().css('display', 'none');
         document.body.className = '';
         $('#tabUl li').on('click', function () {
-           
             var index = $(this).index();
             localStorage.setItem('trial', index);
             $('#searchinput').val('')
@@ -123,19 +121,19 @@ if(id != null && name != null){
             $('#newsList').empty()
             $('.mescroll-upwarp').remove()
             $('.total_num').text('')
-            $(this).addClass('active');
-            $(this).siblings('li').removeClass('active')
+            $(this).addClass('lateralMenusActive');
+            $(this).siblings('li').removeClass('lateralMenusActive')
             $('.parenUl ul').eq(index).css('display', 'block').siblings('ul').css('display', 'none')
             $('.Select li').eq(index).css('display', 'block').siblings('li').css('display', 'none')
             $('#pu_content').find('.page').eq(index).css('display', 'block').siblings().css('display', 'none');
             $('#pu_content').find('.page').eq(index).find('li').css('display', 'block')
         })
         $('.clickTab').click(function (event) {
-            var loading = layer.msg('努力加载中...', {icon: 16, shade: 0.3, time:1000});
+            layer.msg('努力加载中...', {icon: 16, shade: 0.4, time:2000});
             var name = $(this).attr('data-name')
             var id = $(this).attr('data-id')
             for (var a = 0; a < $('#tabUl li').length; a++) {
-                if ($('#tabUl li').eq(a).hasClass('active')) {
+                if ($('#tabUl li').eq(a).hasClass('lateralMenusActive')) {
                     localStorage.setItem('menuYear', $('.Select li').eq(a).text())
                 }
             }

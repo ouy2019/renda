@@ -32,84 +32,110 @@
     <script type="text/javascript" src="./js/jsBridge.js"></script>
     <script type="text/javascript" src="./js/table.js"></script>
     <style>
-    .hide{display: none;}
-    .show{ display: block !important;}
-    .pk-option_1{font-size: 0.26rem !important;padding-left: 0.6rem !important;}
-    .pk-option{font-size: 0.26rem !important;padding-left: 0.6rem !important;}
-    .layui-table-cell, .layui-table-tool-panel li {
-        overflow: auto;
-        text-overflow: unset;
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-    .layui-border-box{
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block !important;
+        }
+
+        .pk-option_1 {
+            font-size: 0.26rem !important;
+            padding-left: 0.6rem !important;
+        }
+
+        .pk-option {
+            font-size: 0.26rem !important;
+            padding-left: 0.6rem !important;
+        }
+
+        .layui-table-cell,
+        .layui-table-tool-panel li {
+            overflow: auto;
+            text-overflow: unset;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .layui-border-box {
             margin: 0 0.2rem;
-    }
-    #unit{
-        text-align: right;
-        margin: 0 0.2rem 0.2rem 0;
-        color:#939393;
-    }
-    table>thead>tr{ background-color: #e53935 !important; color: #fff;}
+        }
+
+        #unit {
+            text-align: right;
+            margin: 0 0.2rem 0.2rem 0;
+            color: #939393;
+        }
+
+        table>thead>tr {
+            background-color: #e53935 !important;
+            color: #fff;
+        }
+        /* .layui-table-body{
+           height: 500px !important;
+        } */
+        /* .layui-table-cell{
+   display:table-cell;
+   vertical-align: middle;
+ } */
     </style>
 </head>
-<body class="is-loading" style="position: relative;">
-    <div class="curtain" style="z-index:9999">
-        <div class="loader">loading...</div>
-    </div>
-    <div id="header" style="position:relative;">
+<script>
+    layer.msg('努力加载中...', { icon: 16, shade: 0.4, time: 2000 });
+ </script>
+<body style="position: relative;height: 100%;">
+    
+    <div id="header" style="position:fixed;">
         <span class="back" style="width: 25px;height: 30px"><img src="images/back.png" alt=""></span>
         <span id="title"></span><span class="yearSelect Select"></span>
     </div>
-    <div class="tabMenu" id="tab" style="position:relative;top: 0px">
+    <div class="tabMenu" id="tab" style="position:relative;top: 1rem">
         <ul id="tabUl">
             <li class="active"><span>图形分析</span></li>
-            <li ><span>数据报表</span></li>
-            <!-- <li><span>关联文档</span></li> -->
+            <li><span>数据报表</span></li>
         </ul>
     </div>
     <!-- 年份 -->
-    <div class="timeTip"><ul></ul></div>
-    <div class="curtain" style="z-index: 9999">
-        <div class="loader">loading...</div>
-        <div style="text-align: center;margin-top: 52%;width: 100%;font-size: 20px">正在加载...</div>
+    <div class="timeTip">
+        <ul></ul>
     </div>
+    
     <div class="timeZZ"></div>
     <a class="opinion"></a>
     <div class="month_show"></div>
-     <!-- 内容区域  page-->
-    <div id="Public_container" style="position:relative;">
+    <!-- 内容区域  page-->
+    <div id="Public_container" style="position:relative;top:1rem;">
         <div id="pu_content" style="padding: 0px">
+            <!--图形分析 下拉选框 -->
             <div class="page">
-                <!--图形分析 下拉选框 -->
                 <div id="table_title2" style="position: relative;">
                     <div id="table_title4" style="position: relative;">
                         <div class="draft_title_1 chartselet_1">
                             <div class="month_1" style="display: none;">
                                 <span class="month_dq_1 month_cur_1"></span>
                             </div>
-                            <div id="excelHead_1" class="btn_1 table_title_1 month_dq_1">暂时无数据</div>
+                            <div id="excelHead_1" class="btn_1 table_title_1 month_dq_1">正在加载...</div>
                         </div>
                         <ul class="month_M_1"></ul>
                     </div>
                 </div>
             </div>
-             <!-- 下拉选框 数据表格 -->
-                <div id="table_title" class="hide" style="position: relative;">
+
+            <!-- 下拉选框 数据表格 -->
+            <div class="page hide">
+                <div id="table_title"  style="position: relative;">
                     <div id="table_title" style="position: relative;">
-                    <div class="draft_title chartselet">
-                        <div class="month" style="display: none;"><span class="month_dq month_cur"></span></div>
-                        <div id="excelHead" class="btn table_title month_dq">暂时无数据</div>
+                        <div class="draft_title chartselet">
+                            <div class="month" style="display: none;"><span class="month_dq month_cur"></span></div>
+                            <div id="excelHead" class="btn table_title month_dq">正在加载...</div>
+                        </div>
+                        <ul class="month_M"></ul>
                     </div>
-                    <ul class="month_M"></ul>
+                    <div id="unit"></div>
                 </div>
-                <div id="unit"></div>
             </div>
-            <!-- 文档资料 -->
-            <!-- <div class="page">
-                <div id="draft_analysis"></div>
-            </div> -->
-            <!-- <div class="page" class="bxsm"><ul id="nav" class="dyn"></ul></div> -->
+          
         </div>
         <div id="layuiTable" class="layui-hide jqGrid_wrapper" lay-filter="layuiTableFilter"></div>
         <div id="iosHeight"></div>
@@ -117,17 +143,19 @@
 
     <div class="pk-overlay"></div>
     <div class="pk-overlay_1"></div>
-      <!-- 图形分析下拉选框 -->
+    <!-- 图形分析下拉选框 -->
     <div class="pk-modal_1 -clean_1 excel_1">
         <div class="head_1">选择一份图形</div>
         <span class="close_1">×</span>
-        <ul class="main_1 mainExcel_1"></ul>
+        <ul class="main_1 mainExcel_1" style="height: 8rem;overflow: auto;"></ul>
     </div>
     <!--选择一份报表   -->
     <div class="pk-modal -clean excel">
         <div class="head">选择一份报表</div>
         <span class="close">×</span>
-        <ul class="main mainExcel"></ul>
+        <ul class="main mainExcel" style="height: 8rem;overflow: auto;"></ul>
     </div>
+    
 </body>
+
 </html>
