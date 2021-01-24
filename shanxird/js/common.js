@@ -153,52 +153,7 @@ function appSignNumber() {
 }
 
 
-//用户权限管理
-function jurisdiction(){
-  $.ajax({
-    // url:url()+`api/authority/users/${localStorage.getItem('userId')}`,
-    url:url()+`api/analysis/app/user/${localStorage.getItem('userId')}`,
-    contentType: "application/json;charset=UTF-8",
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-    dataType: "JSON",
-    success: function (res){
-      //console.log(res,'用户权限管理')
-      if(res && res.authorities.length){
-        localStorage.setItem('authorities',JSON.stringify(res.authorities));
-        localStorage.setItem('userName',res.account)//账户名
-        localStorage.setItem('roleId',res.id)//账户id
-        if(res.specialCode){
-          localStorage.setItem('specialCode',res.specialCode);//账户--代表证号
-        }
-        if(res.specialTeam){
-          localStorage.setItem('specialTeam',res.specialTeam);//账户--代表团
-        }
 
-      }
-      
-    },
-    error:function(){
-      localStorage.setItem('userName','')//账户名
-    }
-
-  })
-}
-jurisdiction();
-
-function filterArray(item){ //用户权限管理判断封装
-  // console.log(item,'item---用户权限管理判断封装')
-  
-  var authorities = JSON.parse(localStorage.getItem('authorities'));
-  for(let i = 0; i< item.length; i++){
-    //如果acl没有 或者有为真的时候赋值给它
-    item[i].aclTrue = !item[i].acl ? true : authorities.indexOf(item[i].acl) > -1     
-   
-    if(item[i].children && item[i].children.length){
-      filterArray(item[i].children);
-    }
-  }
-
-}
 
 
 
@@ -805,7 +760,7 @@ function option(type) {
   layer.open({
     type: '1',
     title: '写意见',
-    content: "<div style = 'margin-bottom:10px;display:flex;flex-direction:row'><span style='float:left;color:#959595;font-size:14px;padding:10px'>意见主题:</span><input type='text' class='optStyle' val='123' id='put'/></div><div><p style='text-align:left;color:#959595;font-size:14px;padding:10px'>意见内容</p><textarea rows='5' cols='20' style='width:98%;border:1px solid #eee;outline:none;margin-bottom: 10px;' id='content'></textarea></div>",
+    content: "<div style = 'margin-bottom:10px;display:flex;flex-direction:row'><span style='float:left;color:#959595;font-size:18px;padding:10px'>意见主题:</span><input type='text' class='optStyle' val='123' id='put'/></div><div><p style='text-align:left;color:#959595;font-size:18px;padding:10px'>意见内容</p><textarea rows='20' cols='20' style='width:98%;border:1px solid #eee;outline:none;margin-bottom: 10px;' id='content'></textarea></div>",
     btn: ['确定', '取消'],
     yes: function (index) {
       // console.log($('#put').val())
@@ -852,12 +807,14 @@ function option(type) {
               layer.msg('提交成功', {
                 time: '1000'
               })
-              if (type === 'option') {
-                location.reload();
-              }
               ok();
-              layer.close(index)
-              // location.reload()
+              if (type === 'option') {
+                // window.location.reload();
+                window.location.href = location.href+'?time='+((new Date()).getTime());
+              }
+              layer.close(index);
+              
+              //window.location.reload()
               return '成功'
             } else {
               layer.close();

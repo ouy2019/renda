@@ -255,18 +255,16 @@ $(document).ready(function () {
                         $('.yearD').removeClass('-show')
                     })
                     $('.close_1').click(function (e) {
-                        layer.msg('努力加载中...', { icon: 16, shade: 0.4, time: 1000 });
                         e.preventDefault();
                         e.stopPropagation();
                         $('.excel_1').removeClass('-show_1')
                         $('.pk-overlay_1').removeClass('-show_1')
                         $('.yearD').removeClass('-show')
                     })
-                } else {
-                    $('#excelHead_1').text('暂时无数据');
-                }
+                } 
             },
             error: function () {
+                $('#excelHead_1').text('暂时无数据');
                 localStorage.removeItem('echartsid');
             },
         })
@@ -386,14 +384,12 @@ $(document).ready(function () {
     charts_page() // 图形分析   多维分析管理接口
     function charts_page() {
         layer.msg('努力加载中...', { icon: 16, shade: 0.4, time: 1000 });
-        // if(getQueryString('year')){
-        //     var year = localStorage.getItem('year')-1;
-        // }else{
-        //     var year = localStorage.getItem('year');
-        // }
-        var year = localStorage.getItem('year');
-        //getQueryString('Maxyear')
-        //         ($(this).text(),'年份点击事件console.log(year,'99999')
+        if(getQueryString('lastYear')){
+            var year = localStorage.getItem('year')-1;
+        }else{
+            var year = localStorage.getItem('year');
+        }
+        //($(this).text(),'年份点击事件console.log(year,'99999')
         $('.page').eq('0').css('display', 'block');
         $('.layui-border-box').remove();
         $.ajax({
@@ -414,7 +410,7 @@ $(document).ready(function () {
                 // //         ($(this).text(),'年份点击事件console.log(data, '多维分析管理接口----');
                 if (data && data.length) {
                     function tmpl(iclass, barID, title) {
-                        html = '<div class="budgetcss">' + '<div class="draft_title">' + '<h3><p>' + title + '</p><small style="font-size:10px;color:#939393">&nbsp&nbsp(单位:万元)</small>' + '</h3>' + '</div>' +
+                        html = '<div class="budgetcss">' + '<div class="draft_title">' + '<h3><p>' + title + '</p><small style="font-size:10px;color:#333;">&nbsp&nbsp(单位:万元)</small>' + '</h3>' + '</div>' +
                             '<div id="' + barID + '" class="' + iclass + ' line charts" style="width:100%"></div>' +'</div>';
                         $('.page').eq('0').append(html)
                     }
@@ -677,11 +673,10 @@ $(document).ready(function () {
                             pageDiv(i)
                         }
                     }
-                }else{
-                    $('.tip').text('暂时无数据');
                 }
             },
             error: function () {
+                $('.tip').text('暂时无数据');
 
             },
         });
@@ -778,20 +773,16 @@ $(document).ready(function () {
                         $('.yearD').removeClass('-show')
                     })
                     $('.close').click(function (e) {
-                        layer.msg('努力加载中...', { icon: 16, shade: 0.4, time: 1000 });
                         e.preventDefault();
                         e.stopPropagation();
                         $('.excel').removeClass('-show')
                         $('.pk-overlay').removeClass('-show')
                         $('.yearD').removeClass('-show')
                     })
-                } else {
-                    $('#excelHead').text('暂时无数据');
-                }
+                } 
             },
             error: function () {
-
-
+                $('#excelHead').text('暂时无数据');
             },
         })
     }

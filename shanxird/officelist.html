@@ -129,7 +129,8 @@
             border-radius: 0.15rem;
             /* padding-left: 0.6rem!important; */
             margin: 0.3rem auto;
-            width: 95%;
+            width: 85%;
+            background-color: #fff;
         }
 
         .inner .item img {
@@ -227,7 +228,7 @@
         <div class="page" style="height: 99%">
             <div style="height: 100%">
                 <div id="mescroll" class="mescroll">
-                    <ul id="newsList" class="news-list option_L commentList">
+                    <ul id="newsList" class="news-list option_L">
 
                     </ul>
                 </div>
@@ -245,14 +246,13 @@ $(document).ready(function () {
     $('#title').text(getQueryString('name'));
    
     var mescroll = new MeScroll("mescroll",{
-          up:{
+        up:{
             callback: upCallback, //上拉加载的回调
             empty: {
-						tip: "暂无相关数据~" //提示
+				tip: "暂无相关数据~" //提示
             },
 			noMoreSize: 5, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;			
-            
-          }
+        }
     })
     let dataList = []
    

@@ -4,7 +4,53 @@ function index(){
     if (localStorage.getItem('userId') == undefined || localStorage.getItem('userId') == '') {
         information()
     }
-    if(GetRequest('token')){ information() } 
+    if(GetRequest('token')){ information() };
+    //用户权限管理
+    function jurisdiction(){
+        $.ajax({
+        // url:url()+`api/authority/users/${localStorage.getItem('userId')}`,
+        url:url()+`api/analysis/app/user/${localStorage.getItem('userId')}`,
+        contentType: "application/json;charset=UTF-8",
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+        dataType: "JSON",
+        success: function (res){
+            //console.log(res,'用户权限管理')
+            if(res && res.authorities.length){
+            localStorage.setItem('authorities',JSON.stringify(res.authorities));
+            localStorage.setItem('userName',res.account)//账户名
+            localStorage.setItem('roleId',res.id)//账户id
+            if(res.specialCode){
+                localStorage.setItem('specialCode',res.specialCode);//账户--代表证号
+            }
+            if(res.specialTeam){
+                localStorage.setItem('specialTeam',res.specialTeam);//账户--代表团
+            }
+    
+            }
+            
+        },
+        error:function(){
+            localStorage.setItem('userName','')//账户名
+        }
+    
+        })
+    }
+    jurisdiction();
+    
+    function filterArray(item){ //用户权限管理判断封装
+    // console.log(item,'item---用户权限管理判断封装')
+    var authorities = JSON.parse(localStorage.getItem('authorities'));
+    for(let i = 0; i< item.length; i++){
+        //如果acl没有 或者有为真的时候赋值给它
+        item[i].aclTrue = !item[i].acl ? true : authorities.indexOf(item[i].acl) > -1     
+        
+        if(item[i].children && item[i].children.length){
+        filterArray(item[i].children);
+        }
+    }
+
+    }
+
     
     // $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover', })
     htmlList='';
@@ -65,23 +111,8 @@ function index(){
                 }
             },
             error: function () {
-                localStorage.clear(); 
-                var test = setTimeout(function(){
-                    layer.open({
-                        content: '没有足够的权限访问，也许是token失效，请重新登录！', 
-                        btn: ['确定'],
-                        yes: function (index) {
-                            if (equipment('iphone')) {
-                                logout();
-                            } else if (equipment("ipad")) {
-                                logout();
-                            }else{
-                            JsBridge.call('JSBridge', 'logout', {}, function (res) {})
-                            }
-                        }
-                    });
-                    clearTimeout(test);
-                },2000)  
+                
+                
             },
         })
 
@@ -170,6 +201,25 @@ function index(){
                // console.log(htmlUrl(likUrl))
                 forward(htmlUrl(likUrl))
                })
+           },
+           error:function(){
+            var test = setTimeout(function(){
+                layer.open({
+                    content: '登录已超时，请重新登录！', 
+                    btn: ['确定'],
+                    yes: function (index) {
+                        if (equipment('iphone')) {
+                            logout();
+                        } else if (equipment("ipad")) {
+                            logout();
+                        }else{
+                        JsBridge.call('JSBridge', 'logout', {}, function (res) {})
+                        }
+                    }
+                });
+                clearTimeout(test);
+            },2000);
+            localStorage.clear();   
            }
        })
     }
@@ -191,4 +241,4 @@ function index(){
 SPA_RESOLVE_INIT = function(transition) { 
      $('#mainHtml').children().remove();
      index()
- }
+}

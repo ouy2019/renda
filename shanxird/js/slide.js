@@ -41,8 +41,9 @@
                 var $this = $(this);
                 $this.find(".spnDel").on("click", function (e) {
                     //删除
-                    id = $(this).parent().attr('data-id')
-                    var $thisChild = $(this)
+                    var id = $(this).parent().attr('data-id')
+                    var $thisChild = $(this);
+                    var isTrue = true;
                     layer.open({
                         content: '是否删除'
                         , btn: ['确定', '取消'],
@@ -53,23 +54,34 @@
                                 //api/exam/app/online-advice/193645111970762752
                                 type: 'DELETE',
                                 url: url() + "api/exam/app/online-advice/"+ id,
-                                accept: 'application/json;charset=UTF-8',
+                                // accept: 'application/json;charset=UTF-8',
                                 async: false,
                                 data: {},   //请求的数据
                                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-                                dataType: 'JSON',
+                                // dataType: 'JSON',
                                 // data: {
                                 //     id: id
                                 // },
                                 // timeout: 3000,
                                 success: function (data) {
-                                    //console.log(data)
-                                }
+                                  
+                                },
+                                error:function (err){
+                                    
+                                   isTrue = false;
+                                },
+                                
                             })
+                            if(isTrue){
+                                layer.msg('删除成功', { time: 1000 });
+                            }else{
+                                layer.msg('非自己提交意见，暂无权限删除！', { time: 2000 });
+                            }
                             layer.close();
-                            layer.msg('删除成功', {
-                                time: '1000'
-                            })
+                            
+                            setTimeout(function (){
+                                window.location.reload();
+                            }, 2000);
                         }
                         , end: function (index) {
                             $thisChild.parent().css('left', '0')

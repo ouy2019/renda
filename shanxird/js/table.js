@@ -299,14 +299,11 @@ function echarts_title(id, name) {
                     $('.pk-overlay_1').removeClass('-show_1')
                     $('.yearD').removeClass('-show')
                 })
-            } else {
-
-                $('#excelHead_1').text('暂时无数据');
-
             }
         },
         error: function () {
             localStorage.removeItem('echartsid');
+            $('#excelHead_1').text('暂时无数据');
         },
 
     })
@@ -459,7 +456,7 @@ function charts_page(id, name) {
             if (data && data.length){
                 //console.log(data, '多维分析管理接口----');
                 function tmpl(iclass, barID, title) {
-                    html = '<div class="budgetcss">' + '<div class="draft_title">' + '<h3>' + title + '<small style="font-size:10px;color:#939393">&nbsp&nbsp(单位:万元)</small>' + '</h3>' + '</div>' +
+                    html = '<div class="budgetcss">' + '<div class="draft_title">' + '<h3>' + title + '<small style="font-size:10px;color:#333;">&nbsp&nbsp(单位:万元)</small>' + '</h3>' + '</div>' +
                         '<div id="' + barID + '" class="' + iclass + ' line charts" style="width:100%"></div>' +
                         '</div>';
                     $('.page').eq('0').append(html)
@@ -826,12 +823,10 @@ function table_title(id, name) {
                     $('.pk-overlay').removeClass('-show')
                     $('.yearD').removeClass('-show')
                 });
-            } else {
-                $('#excelHead').text('暂时无数据');
-            }
+            } 
         },
         error: function () {
-
+            $('#excelHead').text('暂时无数据');
         },
 
     })
@@ -869,7 +864,7 @@ function tablePage(init) {
 
                 table.render({
                     elem: '#layuiTable',
-                    height: convertD.length > 10 ? 10 * 60 : convertD.length * 80,
+                    height: convertD.length > 10 ? 10 * 70 : convertD.length * 90,
                     // height: '500px',
                     data: convertD,
                     page: true,
@@ -912,6 +907,9 @@ function tablePage(init) {
 
             });
             $('#unit').text(`单位:(${unitText + unitName})`);//单位
+            if(localStorage.getItem('tableid') == '305783353431429120' || localStorage.getItem('tableid') == '305780927571824640' || localStorage.getItem('tableid') == '305781128420265984' || localStorage.getItem('tableid') == '305780757174030336' || localStorage.getItem('tableid') == '305783658457993216' || localStorage.getItem('tableid') == '305783228827045888' || localStorage.getItem('tableid') == '305783624907755520' || localStorage.getItem('tableid') == '305778812489175040' || localStorage.getItem('tableid') == '305780477879521280' || localStorage.getItem('tableid') == '305783624907755520' || localStorage.getItem('tableid') == '305780268806049792' || localStorage.getItem('tableid') == '305780582313496576' || localStorage.getItem('tableid') == '305778778280431616' || localStorage.getItem('tableid') == '305778953874968576' || localStorage.getItem('tableid') == '305783388399341568' || localStorage.getItem('tableid') == '305780648667385856' || localStorage.getItem('tableid') == '305780687468892160' || localStorage.getItem('tableid') == '305783819875782656' || localStorage.getItem('tableid') == '305781723831078912' || localStorage.getItem('tableid') == '305780443188432896' || localStorage.getItem('tableid') == '305781623742402560' || localStorage.getItem('tableid') == '305780790690713600' || localStorage.getItem('tableid') == '305779340728209408' || localStorage.getItem('tableid') == '305779052776656896' || localStorage.getItem('tableid') == '305780048332460032' || localStorage.getItem('tableid') == '305780827688669184' || localStorage.getItem('tableid') == '305779727489175552' || localStorage.getItem('tableid') == '305781062485807104' || localStorage.getItem('tableid') == '305781374596550656' || localStorage.getItem('tableid') == '305780896156487680' || localStorage.getItem('tableid') == '305783322183864320' || localStorage.getItem('tableid') == '305783523724365824' || localStorage.getItem('tableid') == '305779270960156672' || localStorage.getItem('tableid') == '305781269726367744' || localStorage.getItem('tableid') == '305781194983870464' || localStorage.getItem('tableid') == '305780090921422848' || localStorage.getItem('tableid') == '305779653656842240' || localStorage.getItem('tableid') == '305779304267124736' || localStorage.getItem('tableid') == '305781509829300224' || localStorage.getItem('tableid') == '305779124667027456' || localStorage.getItem('tableid') == '305783915153592320' || localStorage.getItem('tableid') == '305778707551883264' || localStorage.getItem('tableid') == '305780303035764736' || localStorage.getItem('tableid') == '305779193541693440' || localStorage.getItem('tableid') == '305783591160385536' || localStorage.getItem('tableid') == '305779948080205824' || localStorage.getItem('tableid') == '305780961105285120' || localStorage.getItem('tableid') == '305780861998075904' || localStorage.getItem('tableid') == '305779160066953216'){
+                $('thead').children().eq(0).find('span').eq(0).attr("style","margin-right:2.5rem;");
+            }
         },
         error: function () {
         },
@@ -987,6 +985,7 @@ function convertData(data, config, convertTou) { //解析表格数据
 
     return convertList;
 }
+
 
 });
 

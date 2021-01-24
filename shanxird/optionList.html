@@ -98,7 +98,7 @@
 						var result = '';
                         for (var i = 0; i < data.length; i++) {
                             result +=`<div class="commentList"><div class="${data[i].createdTime.substring(0,10) == ymd ? "newBg" : "" }"></div>
-                                    <li class="optionBtn" data-name="${data[i].title}" data-id="${data[i].id}">
+                                    <li class="optionBtn" data-name="${data[i].category.name ? data[i].category.name : data[i].name}" data-id="${data[i].id}">
                                         <div class="optionuser clearfix">
                                             <img src="images/optionico1.png">
                                             <span class="publisher">${data[i].name ? data[i].name : data[i].category.name}</span><span>|</span>
@@ -107,8 +107,9 @@
                                         <div class="ophead">${data[i].title}</div>
                                         <div class="opconment">${data[i].content}</div>
                                         <div class="oplabel clearfix">
-                                            <ul style="width:98%;"><li>${data[i].category.name ? data[i].category.name : data[i].name}</li><div class="totalRecords"><span>${data.length}</span></div></ul></div>
+                                            <ul style="width:98%;"><li>${data[i].category.name ? data[i].category.name : data[i].name}</li></ul></div>
                                     </li></div>`;
+                                    //<div class="totalRecords"><span>${data.length}</span></div>
                                     // console.log(data[i].createdTime.substring(0,10),'截取的时间')
                                     // console.log(data[i].createdTime.substring(0,10) == ymd)
                                     // console.log(ymd)

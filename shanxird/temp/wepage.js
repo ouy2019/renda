@@ -3,11 +3,10 @@
 function we() {
    if(localStorage.getItem('userId')==undefined || localStorage.getItem('userId')==''){
      information();
-     console.log(localStorage.getItem('userId'))
    } 
-  if (GetRequest('userId')) {
-    information()
-  }
+    if (GetRequest('userId')) {
+      information()
+    }
 
   localStorage.getItem('year');
   $('body').css({ 'background': 'url() no-repeat', 'background-size': 'cover' })

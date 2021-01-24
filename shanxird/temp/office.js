@@ -1,12 +1,24 @@
 
-SPA_RESOLVE_INIT = function (transition) {
+function office(){
     if (localStorage.getItem('userId') == undefined || localStorage.getItem('userId') == '') {
         information()
     }
-    setyear()
-    $('#mainHtml').children().remove();
-	if(localStorage.getItem('menuData')){
-
+    if(GetRequest('token')){ information() } 
+    setyear();
+        var htmlList = '';
+		htmlList = '<div id="header"><span id="title">资料库</span><span id="year" class="timeStyle">' +
+			'</span>' + '</div>' + '<div id="Public_container" style="width:100%;overflow:auto">' +
+			'<div class="tabMenu tabCl" style="margin-top: 1rem">' +
+			'<ul id="tabUl" class="officetab">' + '</ul>' + '</div>' +
+			'<div id="Public_container" class="office_page" style="width:100%;height:100%;overflow:auto;">' +
+			'<div id="pu_content" style="padding: 0px">' +
+			'<div class="page" style="display: block;">' + '<ul id="treeDemo0" class="ztree">' + '</ul>' + '</div>' +
+			'<div class="page" style="display: none;">' + '<ul id="treeDemo2" class="ztree">' + '</ul>' + '</div>' +
+			'<div class="page" style="display: none;">' + '<ul id="treeDemo1" class="ztree">' + '</ul>' + '</div>' +
+			'</div>' + '</div>'
+		$('#mainHtml').prepend(htmlList);
+        $('#mainHtml').css('overflow', 'auto');
+        
 		var msg = JSON.parse(localStorage.getItem('menuData'));
 		//var data = msg[0].children[4].children[2];
 		for(var j=0;j<msg[0].children.length;j++){
@@ -25,19 +37,6 @@ SPA_RESOLVE_INIT = function (transition) {
             }
         }
         console.log(data,'资料库')
-        var htmlList = '';
-		htmlList = '<div id="header"><span id="title">'+data.name+'</span><span id="year" class="timeStyle">' +
-			'</span>' + '</div>' + '<div id="Public_container" style="width:100%;overflow:auto">' +
-			'<div class="tabMenu tabCl" style="margin-top: 1rem">' +
-			'<ul id="tabUl" class="officetab">' + '</ul>' + '</div>' +
-			'<div id="Public_container" class="office_page" style="width:100%;height:100%;overflow:auto;">' +
-			'<div id="pu_content" style="padding: 0px">' +
-			'<div class="page" style="display: block;">' + '<ul id="treeDemo0" class="ztree">' + '</ul>' + '</div>' +
-			'<div class="page" style="display: none;">' + '<ul id="treeDemo2" class="ztree">' + '</ul>' + '</div>' +
-			'<div class="page" style="display: none;">' + '<ul id="treeDemo1" class="ztree">' + '</ul>' + '</div>' +
-			'</div>' + '</div>'
-		$('#mainHtml').prepend(htmlList);
-		$('#mainHtml').css('overflow', 'auto');
 		 var fileHeader = '';
 		 var fileContent = '';
 		 var fileContent_1 = '';
@@ -66,7 +65,7 @@ SPA_RESOLVE_INIT = function (transition) {
              console.log(numberIndex);
 		 })
 			
-	}
+	
    
     //政策法规
     policies()
@@ -318,8 +317,8 @@ SPA_RESOLVE_INIT = function (transition) {
         event.preventDefault();
     })
 
-        
-  
-	
-
+}
+SPA_RESOLVE_INIT = function (transition) {
+    $('#mainHtml').children().remove(); 
+    office();
 }

@@ -1653,7 +1653,7 @@ select::-ms-expand {
     background-size: 8%;
     background-position: left 10px center
 }
-.wePage li:nth-child(1){margin-top: 0.3rem;}
+.wePage li:nth-child(1){margin-top: 0.2rem;}
 .wePage li:nth-child(2) {
     background: url(../images/exit.png) left center no-repeat;
     background-size: 8%;
@@ -3206,7 +3206,7 @@ body .ui-jqgrid .loading{
 
 
 .optStyle {
-    width: 70%;
+    width: 60%;
     background: none;
     border: none;
     border-bottom: 1px solid #eee;
@@ -3351,6 +3351,7 @@ body .ui-jqgrid .loading{
     padding:0.7rem 0 0 0.2rem; 
     position: relative;
     color: #fff;
+    width: 70%;
 }
 .userCodeS{
     padding:0.3rem 0 0 0.2rem;
@@ -3389,4 +3390,9 @@ body .ui-jqgrid .loading{
 /* 修复报表表格冻结列, tr高度不一致 */
 .layui-table-fixed tr>th,.layui-table-fixed tr>td {
     height: initial !important;
+}
+
+
+.layui-layer-title{
+    font-size: 18px !important;
 }
