@@ -125,6 +125,11 @@ function we() {
         const userId = localStorage.getItem('userId');
         let formerpassword = $('.orign_p').val();
         let newpassword = $('.newP01').val();
+        alert(newpassword);
+        if(newpassword.length<8){
+          layer.msg('新密码个数必须在8和88之间');
+          return;
+        }
         $.ajax({
           url: url() + 'api/authority/users/' + userId + '/password',
           method: 'PUT',

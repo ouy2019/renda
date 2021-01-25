@@ -294,14 +294,30 @@
     var Title = getQueryString('commentTitle')
     $('.title').text(Title);
 
+
+   
+    
+
     function gotoDoc(data) {
+        if (equipment('iphone')) {
+          naviBack();
+        } else if (equipment("ipad")) {
+          naviBack();
+        } else {
+          JsBridge.call('JSBridge', 'finish', { 'isRefresh': false, 'callBack': 'isRefresh()' }, function(res) {})
+        }
+     
+      //JsBridge.call('JSBridge', 'finish', { 'isRefresh': false, 'callBack': 'isRefresh()' }, function(res) {})
+     
+
       var title = data.title;
       var name = data.files[0].name;
       // var title=title.slice(9);
       console.log(name)
       var link = url() + "doc-html/" + name + ".html" + '?name=' + name;
       console.log(link)
-      loadPage(link, title)
+      loadPage(link, title);
+      
     }
   </script>
 </body>

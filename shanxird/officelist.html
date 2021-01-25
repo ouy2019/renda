@@ -273,7 +273,6 @@ $(document).ready(function () {
                 data: {},
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
                 dataType: 'JSON',
-                timeout: 3000,
                 success: function (msg) {
                     var data = msg.data;
                     var selection = "";

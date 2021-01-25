@@ -41,7 +41,8 @@
                 var $this = $(this);
                 $this.find(".spnDel").on("click", function (e) {
                     //删除
-                    var id = $(this).parent().attr('data-id')
+                    var id = $(this).parent().attr('data-id');
+                    console.log(id);
                     var $thisChild = $(this);
                     var isTrue = true;
                     layer.open({

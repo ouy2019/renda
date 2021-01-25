@@ -4,8 +4,8 @@ var h5_Address = origin+"/shanxird/";
 // var api_Address = origin+"/exam/"; 
 
 //h5内网API地址// h5地址
-var api_Address = "http://183.6.115.160:8301/exam/";
-// var api_Address = "http://120.79.58.103:8301/exam/";
+// var api_Address = "http://183.6.115.160:8301/exam/";
+var api_Address = "http://120.79.58.103:8301/exam/";
 
 
  // 判断设备类型

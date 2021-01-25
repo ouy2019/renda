@@ -79,7 +79,8 @@ var msg =JSON.parse(localStorage.getItem('menu2'));
 var menuid=getQueryString('parentId');
 
 var data=msg[menuid];
-console.log(data)
+console.log(data);
+
 function fourmenu(){
     fourmenuHtml=''
     for(var i=0; i < data.length;i++){
@@ -91,21 +92,29 @@ function fourmenu(){
          var id=$(this).attr('data-id');
          var name=$(this).attr('data-name');
         
-         if(name == '决算草案分析报告解读'){
-             var  externalLink = $(this).attr('data-externalLink');
-             var likUrl = externalLink+'?commentTitle='+name;
-             loadPage(likUrl,name);
-             return;
-         }
-         if(link.indexOf('?')>-1){
+        if(name == '决算草案分析报告解读'){
+        var  externalLink = $(this).attr('data-externalLink');
+        
+        var likUrl = externalLink+'?commentTitle='+name;
+          loadPage(likUrl,name);
+          return;
+        }
+        
+        console.log(link)
+
+        if(link.indexOf('?')>-1){
             var likUrl=link+'&commentTitle='+name+'&parentId='+id;
         }else{
             var likUrl=link+'?commentTitle='+name+'&parentId='+id;
         }
+       
         console.log(likUrl)
         forward(htmlUrl(likUrl))
     })
 }
 fourmenu();
+
+
+
 </script>
 </html>

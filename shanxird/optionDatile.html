@@ -23,6 +23,8 @@
     <script type="text/javascript" src="./js/jq.js"></script>
     <script src="./layer/layer.js"></script>
     <script type="text/javascript" src="./js/common.js?a=21"></script>
+    <script type="text/javascript" src="./js/option.js"></script>
+    
     <script type="text/javascript" src="./js/jsBridge.js"></script>
     <script type="text/javascript">$(function(){FastClick.attach(document.body)})</script>
     <style type="text/css">
@@ -64,7 +66,7 @@
             background: #eeeeee;
             position: absolute;
             border-radius: 2px;
-            bottom: -0.5rem;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -118,7 +120,6 @@
         }
 
         .filecontent .fileuser {
-            height: 0.7rem;
             line-height: 0.7rem;
             font-size: 0.25rem;
             color: #333;
@@ -228,6 +229,61 @@
             position: absolute;
             bottom: -1.4rem;
         }
+        .writeBox{
+            margin-top: 50px;
+        }
+        .writeBox::after{
+            content: " ";
+            width: 92%;
+            height: 0.01rem;
+            background: #eeeeee;
+            position: absolute;
+            border-radius: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .fileuserS{
+            padding: 0 0.2rem;
+            display: flex;
+        }
+        .fileuserS img{
+            width: 0.7rem;
+            height: 0.7rem;
+            vertical-align: middle;
+        }
+        .publisherS{
+            margin-left: 10px;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            display: inline-block;
+            font-size: 0.24rem;
+            width: 50%;
+        }
+        .datatimeS{
+            line-height: 0.7rem;
+            display: inline-block;
+            font-size: 0.2rem;
+            text-align: right;
+            width: 33%;
+        }
+        .write{
+            font-size: 0.24rem;
+            line-height: 0.35rem;
+            padding: 0.2rem 0.5rem;
+        }
+        .deleteS{
+            display: inline-block;
+            font-size: 0.22rem;
+            padding: 0.04rem 0.2rem;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            margin-right: 0.5rem;
+            background: url("./images/optinList.png") no-repeat;
+            background-size: 100% 100%;
+            color: #fff;
+        }
+
     </style>
 </head>
 
@@ -257,9 +313,13 @@
                 <span>|</span>
                 <span class="datatime"></span>
             </div>
-            <div class="specialTeam_S"></div>
+            <!-- <div class="specialTeam_S"></div> -->
         </div>
-        
+
+        <a class="opinion"></a>
+        <div class="revert"></div>
+
+         
 
     </div>
 
@@ -288,7 +348,9 @@
                 $('.typeLable').text(data.content)//意见内容
                 $('.publisher').text(`${data.team ? data.team : '陕西代表团'}`)
                 $('.specialTeam_S').text(getQueryString('name'))
-                var title = data.title
+                var title = data.title;
+                
+                localStorage.setItem('writeId',data.id)
                 $('.filetilte').text(title)
                 $('.datatime').text(data.createdTime)
                 var content =data.content
@@ -334,7 +396,96 @@
                 })
             }
         })
+
+        $('.opinion').unbind("click").click(function (e) {
+            option('option');   //提交意见
+            e.preventDefault()
+        })
+
+        function writeList(){
+            ///api/exam/online-advice/reply/page
+            $.ajax({
+                type: 'GET',
+                url: url()+`api/exam/online-advice/reply/page?page=0&size=300&adviceId=${localStorage.getItem('writeId')}`,
+                accept: 'application/json;charset=UTF-8',
+                async: false,
+                data: {},  
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+                dataType: 'JSON',
+                success: function (msg) {
+                    if(msg.data && msg.data.length){
+                        var data = msg.data;
+                        console.log(msg,'---')
+                        var result = '';
+                        for (let i = 0; i < data.length; i++) {
+                          result +=`<div class="writeBox"><div class="fileuserS">
+                                <img src="images/optionico1.png">
+                                <span class="publisherS">${data[i].replyUser.name}</span>
+                                <span class="datatimeS">${data[i].replyTime}</span></div>
+                                <div class="write">${data[i].content}</div>
+                                <ul style="padding-bottom: 0.2rem;text-align:right;"><li data-id="${data[i].id}" class="deleteS">删除</li></ul></div>`;
+                        }
+                        $('.revert').append(result);
+                    
+                    };
+                    
+                },
+                error: function (status) {
+                    
+                },
+           });
+        }
+        writeList();
+        console.log(localStorage.getItem('revertId'),'revertIdrevertIdrevertId')
+
+       $('.deleteS').click(function(){
+           var id = $(this).attr("data-id");
+           var isTrue = true;
+        layer.open({
+                content: '是否删除'
+                , btn: ['确定', '取消'],
+                title: '删除意见'
+                , yes: function (index) {
+                    $(this).remove();
+                    $.ajax({
+                        //api/exam/app/online-advice/193645111970762752
+                        type: 'DELETE',
+                        url: url() + "api/exam/online-advice/reply?id="+id,
+                        accept: 'application/json;charset=UTF-8',
+                        async: false,
+                        data: {},   //请求的数据
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
+                        // dataType: 'JSON',
+                        // data: {
+                        //     id: id
+                        // },
+                        // timeout: 3000,
+                        success: function (data) {
+                            
+                        },
+                        error:function (err){
+                            isTrue = false;
+                        },
+                        
+                    })
+                    if(isTrue){
+                        layer.msg('删除成功', { time: 1000 });
+                    }else{
+                        layer.msg('非自己提交意见，暂无权限删除！', { time: 2000 });
+                    }
+                    layer.close();
+                    setTimeout(function (){
+                        window.location.reload();
+                    }, 2000);
+                }
+                , end: function (index) {
+                    $thisChild.parent().css('left', '0')
+                }
+            })
+       })
+
     }
+
 </script>
 
 </html>

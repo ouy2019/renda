@@ -838,7 +838,7 @@ function tablePage(init) {
     //         ($(this).text(),'年份点击事件console.log(localStorage.getItem('tableid'),'表格数据'); //274910628018262016
     if (!localStorage.getItem('tableid')) return;
     $.ajax({
-        url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=30&sort=index,asc`,
+        url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=500&sort=index,asc`,
         type: 'POST',
         accept: 'application/json;charset=UTF-8',
         contentType: 'application/json;charset=UTF-8',
@@ -867,7 +867,7 @@ function tablePage(init) {
                     height: convertD.length > 10 ? 10 * 70 : convertD.length * 90,
                     // height: '500px',
                     data: convertD,
-                    page: true,
+                    page: { layout: ['prev', 'page', 'next', 'limit', 'count'] },
                     cols: convertH,
                     done: function (res, curr, count) {
                         $("[data-field='lowerHairPath']").css('display', 'none');
