@@ -44,9 +44,9 @@
             class="yearSelect Select"></span>
     </div>
     <a class="opinion"></a>
-    <div id="trialContent">
+    <div id="trialContent" style="height:100%;top:1rem;background-color:#F6F7F9">
         <div id="mescroll" class="mescroll1" style="width:100%;height:100%;overflow-y:auto;">
-            <ul id="newsList" class="news-list option_L " style="overflow:auto !important;top: 1.7rem;padding: 0 0.36rem;margin-bottom: 2rem;"></ul>
+            <ul id="newsList" class="news-list option_L " style="overflow:auto !important;top: 0.5rem;padding: 0 0.36rem;margin-bottom: 2rem;"></ul>
         </div>
         <div id="iosHeight"></div>
     </div>
@@ -63,7 +63,7 @@
         $('.back').click(function () {
             back();
         })
-        $('#trialContent').css({ 'background': 'url(images/list_headbg.png) no-repeat', 'background-size': '100% 100%',});
+        // $('#trialContent').css({ 'background': 'url(images/list_headbg.png) no-repeat', 'background-size': '100% 100%',});
         $('.curtain').remove();//删除动画
         $('#newsList').children().remove();
         //在线意见列表
@@ -131,7 +131,7 @@
                                         <div class="ophead">${dataL[i].title}</div>
                                         <div class="opconment">${dataL[i].content}</div>
                                         <div class="oplabel clearfix">
-                                            <ul style="width:98%;"><li>${dataL[i].category.name ? dataL[i].category.name : dataL[i].name}</li></ul></div>
+                                            <ul style="width:98%;"><li style="display:none;">${dataL[i].category.name ? dataL[i].category.name : dataL[i].name}</li></ul></div>
                                     </li></div>`;
                                     //<div class="totalRecords"><span>${data.length}</span></div>
                                     // console.log(data[i].createdTime.substring(0,10),'截取的时间')

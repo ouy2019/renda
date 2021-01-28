@@ -81,8 +81,9 @@
                             layer.close();
                             
                             setTimeout(function (){
-                                window.location.reload();
-                            }, 2000);
+                                // window.location.reload();
+                                window.location.href = location.href+'?time='+((new Date()).getTime());
+                            }, 3000);
                         }
                         , end: function (index) {
                             $thisChild.parent().css('left', '0')

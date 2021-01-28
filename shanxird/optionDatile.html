@@ -475,7 +475,8 @@
                     }
                     layer.close();
                     setTimeout(function (){
-                        window.location.reload();
+                        // window.location.reload();
+                        window.location.href = location.href+'?time='+((new Date()).getTime());
                     }, 2000);
                 }
                 , end: function (index) {

@@ -1362,8 +1362,23 @@ div.newsList {
 }
 /* #menuContent{padding-bottom: 30px} */
 .childAren{margin-left: 0.25rem}
-
+.swiperTxt {
+    font-size: 14px;
+    position: absolute;
+    bottom: 4px;
+    width: 100%;
+    background: rgba(125,125,125,0.2);
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 100px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 10px;
+}
 .iosIndex{
-    height: 18rem !important;
+    height: 25rem !important;
     overflow: auto;
 }
