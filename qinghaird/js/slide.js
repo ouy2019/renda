@@ -32,17 +32,19 @@
             var divSpring = $('<div class="divSpring" style="position: fixed;display:none; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .8); z-index: 99999;"><div class="divSpringBox" style="position: absolute;width: 90%;height: 260px;background: #fff;left: 5%;top: 50%;margin-top: -130px;"><div class="divSpringTitle" style="width: 100%;height: 30px;background: #666;"></div><input type="text" class="iptAlter" placeholder="请输入内容" style="width: 96%;margin: 0 2%;height: 40px;margin-top: 20px;border: 0;border-bottom: 1px solid #333;outline:none;font-size: 14px;"><div class="divSpringBtnBox" style="position: absolute;bottom: 0;height: 52px;line-height: 52px;width: 100%;text-align: center;font-size: 18px;"><a href="javascript:;" class="divSpringAbtn divSpringNo" style="display: inline-block;width: 50%;background: #d81313;height: 100%;text-decoration: none;color: #fff;">取 消</a><a href="javascript:;" class="divSpringAbtn divSpringYes" style="display: inline-block;width: 50%;background: #1f80d6;height: 100%;text-decoration: none;color: #fff;">确 定</a></div></div></div>').appendTo("body");
             if (defaults.editBtn) {
                 current.twoWidth = defaults.tagWidth * 2
-                $("<a class='spnbtn spnEdit' style='position: absolute;background: #ffbe00;width:" + defaults.tagWidth + "px;height: 100%;right: -" + defaults.tagWidth + "px; z-index: 99999;'>编辑</a><a class='spnbtn spnDel' style='position: absolute;background: #e53935;width: " + defaults.tagWidth + "px;height: 100%;right: -" + current.twoWidth + "px; z-index: 99999;'>删除</a>").appendTo(defaults.slideBars);
+                $("<a class='spnbtn spnEdit' style='position: absolute;background: #ffbe00;width:" + defaults.tagWidth + "px;height: 100%;right: -" + defaults.tagWidth + "px; z-index: 99999;'>编辑</a><a class='spnbtn spnDel' style='position: absolute;background: #5b80e7;width: " + defaults.tagWidth + "px;height: 100%;right: -" + current.twoWidth + "px; z-index: 99999;'>删除</a>").appendTo(defaults.slideBars);
             } else {
                 current.twoWidth = defaults.tagWidth
-                $("<a class='spnbtn spnDel' style='position: absolute;background: #e53935;width: " + defaults.tagWidth + "px;height: 100%;right: -" + current.twoWidth + "px; z-index: 99999;color: #fff;text-align: center;display: flex;align-items: center;justify-content: center;'>删除</a>").appendTo(defaults.slideBars);
+                $("<a class='spnbtn spnDel' style='position: absolute;background: #5b80e7;width: " + defaults.tagWidth + "px;height: 100%;right: -" + current.twoWidth + "px; z-index: 99999;color: #fff;text-align: center;display: flex;align-items: center;justify-content: center;'>删除</a>").appendTo(defaults.slideBars);
             }
             defaults.slideBars.each(function (i) {
                 var $this = $(this);
                 $this.find(".spnDel").on("click", function (e) {
                     //删除
-                    id = $(this).parent().attr('data-id')
-                    var $thisChild = $(this)
+                    var id = $(this).parent().attr('data-id');
+                    console.log(id);
+                    var $thisChild = $(this);
+                    var isTrue = true;
                     layer.open({
                         content: '是否删除'
                         , btn: ['确定', '取消'],
@@ -53,23 +55,35 @@
                                 //api/exam/app/online-advice/193645111970762752
                                 type: 'DELETE',
                                 url: url() + "api/exam/app/online-advice/"+ id,
-                                accept: 'application/json;charset=UTF-8',
+                                // accept: 'application/json;charset=UTF-8',
                                 async: false,
                                 data: {},   //请求的数据
                                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-                                dataType: 'JSON',
+                                // dataType: 'JSON',
                                 // data: {
                                 //     id: id
                                 // },
                                 // timeout: 3000,
                                 success: function (data) {
-                                    //console.log(data)
-                                }
+                                  
+                                },
+                                error:function (err){
+                                    
+                                   isTrue = false;
+                                },
+                                
                             })
+                            if(isTrue){
+                                layer.msg('删除成功', { time: 1000 });
+                            }else{
+                                layer.msg('非自己提交意见，暂无权限删除！', { time: 2000 });
+                            }
                             layer.close();
-                            layer.msg('删除成功', {
-                                time: '1000'
-                            })
+                            
+                            setTimeout(function (){
+                                // window.location.reload();
+                                window.location.href = location.href+'?time='+((new Date()).getTime());
+                            }, 3000);
                         }
                         , end: function (index) {
                             $thisChild.parent().css('left', '0')

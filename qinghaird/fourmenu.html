@@ -10,7 +10,7 @@
     <meta name="x5-orientation" content="portrait" />
     <meta name="x5-page-mode" content="app" />
     <meta name="full-screen" content="yes" />
-    <title>人大预算联网监督系统</title>
+    <title>铭太人大预算联网监督系统</title>
     <meta HTTP-EQUIV="pragma" CONTENT="no-cache" />
     <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
     <meta HTTP-EQUIV="expires" CONTENT="0" />
@@ -71,16 +71,19 @@
     //返回上一页的操作
 $('.back').click(function () {
     back();
+
 });
 var title= getQueryString('commentTitle');
 $('#title').text(title)
 var msg =JSON.parse(localStorage.getItem('menu2'));
 var menuid=getQueryString('parentId');
-console.log(msg[menuid])
+
 var data=msg[menuid];
+console.log(data);
+
 function fourmenu(){
     fourmenuHtml=''
-    for(var i=0; i<data.length;i++){
+    for(var i=0; i < data.length;i++){
         fourmenuHtml+='<ul><li data-externalLink="'+data[i].externalLink+'" data-name="'+data[i].name+'" data-id="'+data[i].id+'" data-link="'+data[i].link+'" style="background:url('+url()+ data[i].iconValue +') 10px center no-repeat #fff;background-size:0.825rem 0.825rem  "><a  class="fileTab">' + data[i].name + '</a></li></ul>'
     }
     $('#tab_content').append(fourmenuHtml);
@@ -89,21 +92,29 @@ function fourmenu(){
          var id=$(this).attr('data-id');
          var name=$(this).attr('data-name');
         
-         if(name == '决算草案分析报告解读'){
-             var  externalLink= $(this).attr('data-externalLink');
-             var likUrl= externalLink+'?commentTitle='+name;
-             loadPage(likUrl,name);
-             return;
-         }
-         if(link.indexOf('?')>-1){
+        if(name == '决算草案分析报告解读'){
+        var  externalLink = $(this).attr('data-externalLink');
+        
+        var likUrl = externalLink+'?commentTitle='+name;
+          loadPage(likUrl,name);
+          return;
+        }
+        
+        console.log(link)
+
+        if(link.indexOf('?')>-1){
             var likUrl=link+'&commentTitle='+name+'&parentId='+id;
         }else{
             var likUrl=link+'?commentTitle='+name+'&parentId='+id;
         }
+       
         console.log(likUrl)
         forward(htmlUrl(likUrl))
     })
 }
 fourmenu();
+
+
+
 </script>
 </html>

@@ -85,7 +85,7 @@ SPA_RESOLVE_INIT = function (transition) {
 		}else{
 		 var test = setTimeout(function(){
 			layer.open({
-				content: '没有足够的权限访问，也许是token失效，请重新登录！', 
+				content: '登录已超时，请重新登录！', 
 				btn: ['确定'],
 				yes: function (index) {
 					if (equipment('iphone')) {
@@ -98,7 +98,7 @@ SPA_RESOLVE_INIT = function (transition) {
 				}
 			});
 			clearTimeout(test);
-		 },5000) 
+		 },2000) 
 		}
        }
     })

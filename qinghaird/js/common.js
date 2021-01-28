@@ -1,10 +1,15 @@
 
 var origin = window.location.origin;
-// var h5_Address = origin+"/qinghaird/";
+var h5_Address = origin+"/qinghaird/";
 // var api_Address = origin+"/exam/"; 
 
 //h5内网API地址
-var api_Address = "http://120.79.58.103:8301/exam/";
+var api_Address = "http://120.79.58.103:8301/exam/"
+//"http://192.168.1.105:8104/exam/"
+//"http://183.6.115.160:8301/exam/";
+//"http://192.168.1.105:8302/exam/"
+//"http://183.6.115.160:3003/exam/"
+//"http://120.79.58.103:8301/exam/";
 // http://183.6.115.160:8301/exam/
 // http://192.168.1.103:8701/exam/  
 // http://183.6.115.160:3003/exam/
@@ -14,13 +19,12 @@ var api_Address = "http://120.79.58.103:8301/exam/";
  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端  
  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
  var iswin = u.indexOf('Windows') > -1;
+
 if(isAndroid===true || isiOS===true){
 	app_opend = true
 }else {
 	app_opend = false;
 }
-
-
 
 function htmlUrl(rLink) {
   if (app_opend) {
@@ -30,7 +34,6 @@ function htmlUrl(rLink) {
   }
   // return h5_Address+rLink
 }
-
 
 function getQueryString(key) {
   var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
@@ -80,12 +83,9 @@ function information() {
   localStorage.setItem('userId', userId)
 }
 
-
-
 function url() {
   return api_Address;
 }
-
 
 //返回
 function back() {
@@ -152,53 +152,6 @@ function appSignNumber() {
   return (SHA2(Sign).toString())
 }
 
-//用户权限管理
-function jurisdiction(){
-  $.ajax({
-    // url:url()+`api/authority/users/${localStorage.getItem('userId')}`,
-    url:url()+`api/analysis/app/user/${localStorage.getItem('userId')}`,
-    contentType: "application/json;charset=UTF-8",
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
-    dataType: "JSON",
-    success: function (res){
-      //console.log(res,'用户权限管理')
-      if(res && res.authorities.length){
-        localStorage.setItem('authorities',JSON.stringify(res.authorities));
-        localStorage.setItem('userName',res.account)//账户名
-        localStorage.setItem('roleId',res.id)//账户id
-        if(res.specialCode || res.specialTeam){
-          localStorage.setItem('specialCode',res.specialCode);//账户--代表证号
-          localStorage.setItem('specialTeam',res.specialTeam);//账户--代表团
-        }
-
-      }
-      
-    },
-    error:function(){
-      localStorage.setItem('userName','')//账户名
-    }
-
-  })
-}
-jurisdiction();
-
-function filterArray(item){ //用户权限管理判断封装
-  // console.log(item,'item---用户权限管理判断封装')
-  
-  var authorities = JSON.parse(localStorage.getItem('authorities'));
-  for(let i = 0; i< item.length; i++){
-    //如果acl没有 或者有为真的时候赋值给它
-    item[i].aclTrue = !item[i].acl ? true : authorities.indexOf(item[i].acl) > -1     
-   
-    if(item[i].children && item[i].children.length){
-      filterArray(item[i].children);
-    }
-  }
-
-}
-
-
-
 
 
 (function (doc, win) {
@@ -217,7 +170,6 @@ function filterArray(item){ //用户权限管理判断封装
 })(document, window);
 
 function equipment(val) {
- 
   var res = false;
   var userAgent = navigator.userAgent.toLowerCase();
   if (userAgent.indexOf(val) > -1) {
@@ -227,15 +179,13 @@ function equipment(val) {
 
 };
 
-// 与Android和ios的交互
-// ios下增加高度   
+// ios下增加高度 // 与Android和ios的交互  
 function addHeight() {
   $('#mainHtml').append('<div id="iosHeight">' + '</div>')
   $('#iosHeight').height('30px');
 }
 
-$(function () {
-  // 判断设备类型
+$(function () {// 判断设备类型
   var u = navigator.userAgent;
   var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端  
   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -244,9 +194,6 @@ $(function () {
   }
   $('.line2:last').css('display', 'none')
 })
-
-
-
 
 // tab切换栏目
 function total() {
@@ -648,20 +595,14 @@ function timrstamp() {
   return time;
 }
 
-
 // layer弹窗组件
 function layTip(txt) {
   layer.open({
     content: txt
     , style: 'background-color:#fff; color:#333; border:none;' //自定风格
-    , time: 3
-
+    , time: 3000
   });
 }
-
-
-
-
 
 // // 获取不带参数的url
 function getDocumentUrl() {
@@ -778,7 +719,6 @@ function to404() {
   }
 }
 
-
 function ajaxLoadPageSynch(link) {
   var data
   $.ajax({
@@ -879,15 +819,6 @@ function setyear() {
   localStorage.setItem('year', yearTime);
 }
 
-
-//TAB栏切换
-function selectTab() {
-  $('#tabUl li').on('click', function () {
-    $(this).addClass('active').siblings('li').removeClass('active')
-    $('.page').eq($(this).index()).css('display', 'block').siblings('.page').css('display', 'none')
-  })
-
-}
 
 
 
