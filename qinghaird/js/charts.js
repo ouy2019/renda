@@ -809,8 +809,8 @@ $(document).ready(function () {
                 var tableData = msg.data.data;//表格数据
                 var convertH = convertHeaders(tableHead, msg.data.reportViewConfigs);
                 var convertD = convertData(tableData, msg.data.reportViewConfigs, convertH[0]);
-                var unitText = msg.data.unitInfo.unitText ? msg.data.unitInfo.unitText : "";
-                var unitName = msg.data.unitInfo.name ? msg.data.unitInfo.name : "";
+                var unitText = msg.data.unitInfo ? msg.data.unitInfo.unitText : "万";
+                var unitName = msg.data.unitInfo ? msg.data.unitInfo.name : "元";
 
 
 
@@ -819,7 +819,8 @@ $(document).ready(function () {
                     var table = layui.table;//第一个实例
                     table.render({
                         elem: '#layuiTable',
-                        height: convertD.length > 10 ? 10 * 50 : convertD.length * 60,
+                        // height: convertD.length > 10 ? 10 * 50 : convertD.length * 60,
+						height: '500px',
                         data: convertD,
                         page: { layout: ['prev', 'page', 'next', 'limit', 'count'] },
                         cols: convertH,
@@ -858,7 +859,7 @@ $(document).ready(function () {
 
                     });
                 });
-                $('#unit').text(`单位:(${unitText + unitName})`);//单位
+                $('#unit').text(`单位:(${unitText+unitName})`);//单位
             },
             error: function () {
             },
@@ -917,14 +918,14 @@ $(document).ready(function () {
                 item.cells.map((items, indexs) => {
                     if (!items.index) return;
                     const key = 'a' + items.index;
-                    convertObj[key] = {};
+                    // convertObj[key] = {};
                     convertObj[key] = items.text;
                     convertObj[key + 'Style'] = items.textAlign;
                 })
                 convertList.push(convertObj);
             }
         })
-        //console.log(convertList,'表格数据');
+        console.log(convertList,'表格数据');
         return convertList;
     }
 
