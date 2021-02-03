@@ -792,7 +792,8 @@ $(document).ready(function () {
         //         ($(this).text(),'年份点击事件console.log(localStorage.getItem('tableid'),'表格数据'); //274910628018262016
         if (!localStorage.getItem('tableid')) return;
         $.ajax({
-            url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=500&sort=index,asc`,
+            //url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=500&sort=index,asc`,
+            url: url() + `api/report-instances/content?id=${localStorage.getItem('tableid')}&type=INSTANCE&page=0&size=500&sort=index,asc`,
             type: 'POST',
             accept: 'application/json;charset=UTF-8',
             contentType: 'application/json;charset=UTF-8',
@@ -803,10 +804,7 @@ $(document).ready(function () {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`, 'Working-Organization': 1 },
             dataType: 'json',
             success: function (msg) {
-
-
-                // $("#unit").text("("+unitText+unitName+")");
-                ////         ($(this).text(),'年份点击事件console.log(msg,'---表格数据---');
+                console.log(msg,'---表格数据---');
                 var tableHead = msg.data.head;
                 var tableData = msg.data.data;//表格数据
                 var convertH = convertHeaders(tableHead, msg.data.reportViewConfigs);
@@ -914,15 +912,17 @@ $(document).ready(function () {
         var convertList = [];
         data.forEach((item, index) => {
             var convertObj = {};
-            item.map((items, indexs) => {
-                //console.log(item)
-                if (!items.index) return;
-                const key = 'a' + items.index;
-                convertObj[key] = {};
-                convertObj[key] = items.text;
-                convertObj[key + 'Style'] = items.textAlign;
-            })
-            convertList.push(convertObj);
+            //console.log(item)
+            if(item.cells && item.cells.length){
+                item.cells.map((items, indexs) => {
+                    if (!items.index) return;
+                    const key = 'a' + items.index;
+                    convertObj[key] = {};
+                    convertObj[key] = items.text;
+                    convertObj[key + 'Style'] = items.textAlign;
+                })
+                convertList.push(convertObj);
+            }
         })
         //console.log(convertList,'表格数据');
         return convertList;

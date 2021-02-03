@@ -45,7 +45,7 @@ function index() {
     jurisdiction();
     
     function filterArray(item){ //用户权限管理判断封装
-    // console.log(item,'item---用户权限管理判断封装')
+    console.log(item,'item---用户权限管理判断封装')
     var authorities = JSON.parse(localStorage.getItem('authorities'));
     for(let i = 0; i< item.length; i++){
         //如果acl没有 或者有为真的时候赋值给它

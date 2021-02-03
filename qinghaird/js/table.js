@@ -838,7 +838,8 @@ function tablePage(init) {
     //         ($(this).text(),'年份点击事件console.log(localStorage.getItem('tableid'),'表格数据'); //274910628018262016
     if (!localStorage.getItem('tableid')) return;
     $.ajax({
-        url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=500&sort=index,asc`,
+        // url: url() + `api/report-instances/${localStorage.getItem('tableid')}/content?page=0&size=500&sort=index,asc`,
+        url: url() + `api/report-instances/content?id=${localStorage.getItem('tableid')}&type=INSTANCE&page=0&size=500&sort=index,asc`,
         type: 'POST',
         accept: 'application/json;charset=UTF-8',
         contentType: 'application/json;charset=UTF-8',
@@ -971,16 +972,17 @@ function convertData(data, config, convertTou) { //解析表格数据
 
     data.forEach((item, index) => {
         var convertObj = {};
-
-        item.map((items, indexs) => {
-
-            if (!items.index) return;
-            const key = 'a' + items.index;
-            convertObj[key] = {};
-            convertObj[key] = items.text;
-            convertObj[key + 'Style'] = items.textAlign;
-        })
-        convertList.push(convertObj);
+            //console.log(item)
+        if(item.cells && item.cells.length){
+            item.cells.map((items, indexs) => {
+                if (!items.index) return;
+                const key = 'a' + items.index;
+                convertObj[key] = {};
+                convertObj[key] = items.text;
+                convertObj[key + 'Style'] = items.textAlign;
+            })
+            convertList.push(convertObj);
+        }
     })
 
     return convertList;

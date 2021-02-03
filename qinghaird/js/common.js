@@ -4,7 +4,7 @@ var h5_Address = origin+"/qinghaird/";
 // var api_Address = origin+"/exam/"; 
 
 //h5内网API地址
-var api_Address = "http://120.79.58.103:8301/exam/"
+var api_Address = "http://192.168.1.103:8701/exam/"
 //"http://192.168.1.105:8104/exam/"
 //"http://183.6.115.160:8301/exam/";
 //"http://192.168.1.105:8302/exam/"
